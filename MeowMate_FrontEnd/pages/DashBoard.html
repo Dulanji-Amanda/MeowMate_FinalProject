@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeowMate Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            height: 100vh;
+            background: linear-gradient(135deg, #FFD36E, #FF7EB3);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #2e2a85;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .logo img {
+            width: 35px;
+            margin-right: 10px;
+        }
+
+        .menu {
+            flex: 1;
+        }
+
+        .menu a {
+            display: block;
+            padding: 12px 16px;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: 0.3s;
+            font-size: 15px;
+        }
+
+        .menu a.active,
+        .menu a:hover {
+            background-color: #FFD36E;
+            color: #2e2a85;
+            font-weight: bold;
+        }
+
+        .settings {
+            margin-top: auto;
+            font-size: 15px;
+        }
+
+        .settings a {
+            text-decoration: none;
+            color: #fff;
+            display: block;
+            padding: 10px 0;
+        }
+
+        /* Main content */
+        .main {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .header {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin: 0;
+            color: #2e2a85;
+        }
+
+        .header h1 span {
+            color: #FF7EB3;
+        }
+
+        .header p {
+            margin: 10px 0 20px;
+            color: #555;
+        }
+
+        .header .btns {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .btn-primary {
+            background: #FFD36E;
+            color: #2e2a85;
+            font-weight: bold;
+        }
+
+        .btn-secondary {
+            background: #2e2a85;
+            color: #fff;
+        }
+
+        /* Featured section */
+        .section-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #2e2a85;
+        }
+
+        .cards {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            width: 260px;
+            overflow: hidden;
+            text-align: center;
+            padding-bottom: 20px;
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card h3 {
+            margin: 12px 0 6px;
+            font-size: 18px;
+            color: #2e2a85;
+        }
+
+        .card p {
+            margin: 0 0 12px;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .adopt-btn {
+            background: #FFD36E;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #2e2a85;
+        }
+    </style>
+</head>
+<body>
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="logo">
+        <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="cat icon">
+        MeowMate
+    </div>
+    <div class="menu">
+        <a href="#" class="active">Dashboard</a>
+        <a href="#">Adopt a Friend</a>
+        <a href="#">Lost & Found</a>
+        <a href="#">My Cats</a>
+        <a href="#">Listings & Requests</a>
+    </div>
+    <div class="settings">
+        <a href="#">⚙ Settings</a>
+    </div>
+</div>
+
+<!-- Main content -->
+<div class="main">
+    <div class="header">
+        <h1>Welcome to <span>MeowMate 🐱</span></h1>
+        <p>Find your purrfect friend, report lost cats, or adopt responsibly!</p>
+        <div class="btns">
+            <button class="btn btn-primary">🐾 Adopt a Cat</button>
+            <button class="btn btn-secondary">🔍 Lost & Found</button>
+        </div>
+    </div>
+
+    <div class="section-title">🐾 Featured Cats for Adoption</div>
+    <div class="cards">
+        <div class="card">
+            <img src="https://cdn.pixabay.com/photo/2017/11/09/21/41/cat-2934720_1280.png" alt="cat">
+            <h3>Milo</h3>
+            <p>Persian • 2 Years</p>
+            <button class="adopt-btn">Adopt Me!</button>
+        </div>
+        <div class="card">
+            <img src="https://cdn.pixabay.com/photo/2015/04/08/13/13/cat-712240_1280.jpg" alt="cat">
+            <h3>Luna</h3>
+            <p>Siamese • 1.5 Years</p>
+            <button class="adopt-btn">Adopt Me!</button>
+        </div>
+        <div class="card">
+            <img src="https://cdn.pixabay.com/photo/2016/02/10/16/37/cat-1192026_1280.jpg" alt="cat">
+            <h3>Oliver</h3>
+            <p>Maine Coon • 3 Years</p>
+            <button class="adopt-btn">Adopt Me!</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

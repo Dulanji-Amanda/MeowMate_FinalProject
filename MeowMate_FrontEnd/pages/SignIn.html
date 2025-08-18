@@ -1,10 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>MeowMate - Login</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #FFD36E, #FF7EB3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            overflow: hidden;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .left {
+            flex: 1;
+            background: url("/MeowMate_FrontEnd/assets/Images/signin.jpeg") no-repeat center;
+            background-size: cover;
+            min-height: 500px;
+        }
+
+        .right {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .right h2 {
+            color: #3b3b3b;
+            margin-bottom: 8px;
+            font-size: 28px;
+        }
+
+        .right p {
+            color: #777;
+            margin-bottom: 24px;
+        }
+
+        .input-box {
+            margin-bottom: 16px;
+        }
+
+        .input-box label {
+            font-size: 14px;
+            color: #444;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .input-box input:focus {
+            border-color: #FF7EB3;
+        }
+
+        .forgot {
+            text-align: right;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .forgot a {
+            color: #FF7EB3;
+            text-decoration: none;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #FF7EB3;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 16px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #ff5a9e;
+        }
+
+        .google-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .google-btn img {
+            width: 20px;
+            margin-right: 10px;
+        }
+
+        .signup {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .signup a {
+            color: #FF7EB3;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
+<div class="container">
+    <!-- Left side image -->
+    <div class="left"></div>
 
+    <!-- Right side login form -->
+    <div class="right">
+        <h2>Welcome Back!</h2>
+        <p>Login to your MeowMate account</p>
+
+        <div class="input-box">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" placeholder="name@email.com" />
+        </div>
+
+        <div class="input-box">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="••••••••" />
+        </div>
+
+        <div class="forgot">
+            <a href="#">Forgot password?</a>
+        </div>
+
+        <button class="btn">Login</button>
+
+        <div class="google-btn">
+            <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google Icon" />
+            SIGN IN WITH GOOGLE
+        </div>
+
+        <div class="signup">
+            Not registered? <a href="#">Create account</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>

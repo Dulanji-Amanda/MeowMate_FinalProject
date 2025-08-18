@@ -1,10 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>MeowMate - Sign Up</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #FFD36E, #FF7EB3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            overflow: hidden;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .left {
+            flex: 1;
+            background: url('/MeowMate_FrontEnd/assets/Images/signup.jpeg') no-repeat center;
+            background-size: cover;
+            min-height: 500px;
+        }
+
+        .right {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .right h2 {
+            color: #111;
+            margin-bottom: 8px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .right p {
+            color: #555;
+            margin-bottom: 24px;
+        }
+
+        .input-box {
+            margin-bottom: 16px;
+        }
+
+        .input-box label {
+            font-size: 14px;
+            color: #444;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .input-box input:focus {
+            border-color: #FF7EB3;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #FF7EB3;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 16px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #ff5a9e;
+        }
+
+        .google-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .google-btn img {
+            width: 20px;
+            margin-right: 10px;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #FF7EB3;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
+<div class="container">
+    <!-- Left side cat illustration -->
+    <div class="left">
 
+    </div>
+
+    <!-- Right side signup form -->
+    <div class="right">
+        <h2>Join the MeowMate Family!</h2>
+        <p>Sign up to start your cat’s purrfect journey.</p>
+
+        <div class="input-box">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" placeholder="name@meowmate.com" />
+        </div>
+
+        <div class="input-box">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="••••••••" />
+        </div>
+
+        <button class="btn">Register</button>
+
+        <div class="google-btn">
+            <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google Icon" />
+            SIGN UP WITH GOOGLE
+        </div>
+
+        <div class="login-link">
+            Already have an account? <a href="#">Log in</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>
