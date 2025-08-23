@@ -19,11 +19,11 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<APIResponse> registerUser(
-            @RequestBody UserDTO registerDTO) {
+            @RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(new APIResponse(
                 200,
                 "OK",
-                authService.user(userDTO)));
+                authService.register(userDTO)));
     }
     @PostMapping("/login")
     public ResponseEntity<APIResponse> login(

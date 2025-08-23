@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MeowMate - Sign Up</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #FFD36E, #FF7EB3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      display: flex;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      overflow: hidden;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .left {
+      flex: 1;
+      background: url('/MeowMate_FrontEnd/assets/Images/signup.jpeg') no-repeat center;
+      background-size: cover;
+      min-height: 500px;
+    }
+
+    .right {
+      flex: 1;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .right h2 {
+      color: #111;
+      margin-bottom: 8px;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .right p {
+      color: #555;
+      margin-bottom: 24px;
+    }
+
+    .input-box {
+      margin-bottom: 16px;
+    }
+
+    .input-box label {
+      font-size: 14px;
+      color: #444;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .input-box input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .input-box input:focus {
+      border-color: #FF7EB3;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #FF7EB3;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      margin-bottom: 16px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #ff5a9e;
+    }
+
+    .google-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #ddd;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .google-btn img {
+      width: 20px;
+      margin-right: 10px;
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .login-link a {
+      color: #FF7EB3;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <!-- Left side cat illustration -->
+  <div class="left">
+
+  </div>
+
+  <!-- Right side signup form -->
+  <div class="right">
+    <h2>Join the MeowMate Family!</h2>
+    <p>Sign up to start your cat’s purrfect journey.</p>
+
+    <div class="input-box">
+      <label for="email">Your Email</label>
+      <input type="email" id="email" placeholder="name@meowmate.com" />
+    </div>
+
+    <div class="input-box">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="••••••••" />
+    </div>
+
+    <button class="btn">Register</button>
+
+    <div class="google-btn">
+      <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google Icon" />
+      SIGN UP WITH GOOGLE
+    </div>
+
+    <div class="login-link">
+      Already have an account? <a href="/MeowMate_FrontEnd/pages/SignIn.html">Log in</a>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const dropdownButton = document.getElementById('roleDropdown');
+
+    // Handle dropdown show/hide events for arrow rotation
+    dropdownButton.addEventListener('show.bs.dropdown', function () {
+        this.classList.add('show');
+    });
+
+    dropdownButton.addEventListener('hide.bs.dropdown', function () {
+        this.classList.remove('show');
+    });
+
+    // Handle dropdown selection
+    document.querySelectorAll('.dropdown-item').forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            const selectedText = this.textContent;
+            const selectedValue = this.getAttribute('data-value');
+
+            // Update the button text
+            document.getElementById('selectedRole').textContent = selectedText;
+
+            // Update the hidden input value
+            document.getElementById('role').value = selectedValue;
+
+            // Close the dropdown (this will trigger the hide event and rotate arrow back)
+            const dropdown = bootstrap.Dropdown.getInstance(dropdownButton);
+            if (dropdown) {
+                dropdown.hide();
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const role = document.getElementById('role').value;
+
+            try {
+                const response = await fetch('http://localhost:8080/auth/barkbuddy/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, password, role })
+                });
+                const result = await response.json();
+                if (response.ok && result.data) {
+                    alert('Registration successful!');
+                    window.location.href = 'pages/SignIn.html';
+                } else {
+                    alert('Registration failed: ' + (result.status || 'Unknown error'));
+                }
+            } catch (err) {
+                alert('Error connecting to server.');
+            }
+        });
+    });
+
+    // Place this script after the DOM is loaded
+    document.addEventListener('DOMContentLoaded', function () {
+        const loginLink = document.querySelector('a[href="pages/login.html"]');
+        if (loginLink) {
+            loginLink.addEventListener('click', function (e) {
+                e.preventDefault();
+                window.location.href = 'pages/SignIn.html';
+            });
+        }
+    });
+
+    document.getElementById('googleSignupBtn').addEventListener('click', function () {
+        window.location.href = 'http://localhost:8080/oauth2/authorization/google';
+    });
+</script>
+</body>
+</html>

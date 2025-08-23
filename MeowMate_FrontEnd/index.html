@@ -1,160 +1,359 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>MeowMate - Sign Up</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeowMate - Find Your Purrfect Friend 🐱</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- AOS Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
     <style>
         body {
-            margin: 0;
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #FFD36E, #FF7EB3);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            background-color: #fff;
         }
 
-        .container {
-            display: flex;
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-            overflow: hidden;
-            max-width: 900px;
-            width: 100%;
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #FFD6EC, #FFE8F5);
+            padding: 100px 20px;
+            text-align: center;
         }
 
-        .left {
-            flex: 1;
-            background: url('/MeowMate_FrontEnd/assets/Images/signup.jpeg') no-repeat center;
-            background-size: cover;
-            min-height: 500px;
-        }
-
-        .right {
-            flex: 1;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .right h2 {
-            color: #111;
-            margin-bottom: 8px;
-            font-size: 28px;
+        .hero h1 {
+            font-size: 3rem;
             font-weight: 700;
+            color: #d63384;
         }
 
-        .right p {
+        .hero p {
+            font-size: 1.2rem;
             color: #555;
-            margin-bottom: 24px;
+            margin: 20px 0;
         }
 
-        .input-box {
-            margin-bottom: 16px;
+        .hero img {
+            max-width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
 
-        .input-box label {
-            font-size: 14px;
-            color: #444;
-            display: block;
-            margin-bottom: 6px;
-        }
-
-        .input-box input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            outline: none;
-            font-size: 14px;
-        }
-
-        .input-box input:focus {
-            border-color: #FF7EB3;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            background: #FF7EB3;
+        .btn-pink {
+            background: #d63384;
             color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-            margin-bottom: 16px;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 1rem;
             transition: 0.3s;
         }
 
-        .btn:hover {
-            background: #ff5a9e;
+        .btn-pink:hover {
+            background: #b42a6b;
+            transform: scale(1.05);
         }
 
-        .google-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #ddd;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 15px;
-            cursor: pointer;
-        }
-
-        .google-btn img {
-            width: 20px;
-            margin-right: 10px;
-        }
-
-        .login-link {
+        /* Features Section */
+        .features {
+            padding: 80px 20px;
+            background: #fff;
             text-align: center;
-            margin-top: 20px;
-            font-size: 14px;
         }
 
-        .login-link a {
-            color: #FF7EB3;
-            text-decoration: none;
-            font-weight: bold;
+        .features h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            color: #d63384;
+        }
+
+        .feature-box {
+            padding: 20px;
+            border-radius: 16px;
+            background: #ffe6f0;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-box img {
+            width: 80px;
+            margin-bottom: 15px;
+        }
+
+        /* Video Section */
+        .video-section {
+            padding: 80px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #fff, #ffe6f0);
+        }
+
+        .video-section video {
+            border-radius: 16px;
+            width: 100%;
+            max-width: 800px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Adoption Section */
+        .adoption {
+            padding: 80px 20px;
+            text-align: center;
+            background: #fff;
+        }
+
+        .adoption h2 {
+            color: #d63384;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+        .cat-card {
+            background: #ffe6f0;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .cat-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .cat-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .cat-card-body {
+            padding: 15px;
+        }
+
+        .footer {
+            background: #d63384;
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <!-- Left side cat illustration -->
-    <div class="left">
-
-    </div>
-
-    <!-- Right side signup form -->
-    <div class="right">
-        <h2>Join the MeowMate Family!</h2>
-        <p>Sign up to start your cat’s purrfect journey.</p>
-
-        <div class="input-box">
-            <label for="email">Your Email</label>
-            <input type="email" id="email" placeholder="name@meowmate.com" />
-        </div>
-
-        <div class="input-box">
-            <label for="password">Password</label>
-            <input type="password" id="password" placeholder="••••••••" />
-        </div>
-
-        <button class="btn">Register</button>
-
-        <div class="google-btn">
-            <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google Icon" />
-            SIGN UP WITH GOOGLE
-        </div>
-
-        <div class="login-link">
-            Already have an account? <a href="#">Log in</a>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-light" style="background: #ffe6f0;">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="#" style="color: #d63384;">MeowMate 🐾</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="btn btn-pink me-2" href="/MeowMate_FrontEnd/pages/SignIn.html">Sign In</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-pink" href="/MeowMate_FrontEnd/pages/SignUp.html">Sign Up</a>
+                </li>
+            </ul>
         </div>
     </div>
-</div>
+</nav>
+<!-- Hero Section -->
+<section class="hero d-flex flex-column align-items-center justify-content-center">
+    <h1 data-aos="fade-up">Welcome to MeowMate 🐾</h1>
+    <p data-aos="fade-up" data-aos-delay="200">Find your purrfect friend, adopt with love, and make tails wag with joy!</p>
+    <a href="#adopt" class="btn btn-pink" data-aos="zoom-in" data-aos-delay="400">Adopt a Cat</a>
+    <div class="mt-5" data-aos="zoom-in-up" data-aos-delay="600">
+        <img src="https://cdn.pixabay.com/photo/2017/11/09/21/41/cat-2934720_1280.png" alt="Cute Cat">
+    </div>
+</section>
+
+<!-- Features -->
+<section class="features">
+    <h2 data-aos="fade-down">Why Choose MeowMate?</h2>
+    <div class="row g-4 justify-content-center">
+        <div class="col-md-4" data-aos="fade-up">
+            <div class="feature-box">
+                <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Adopt">
+                <h5>Adopt with Love</h5>
+                <p>Find adorable cats waiting for their forever home.</p>
+            </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="feature-box">
+                <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Lost & Found">
+                <h5>Lost & Found</h5>
+                <p>Help reunite lost cats with their families.</p>
+            </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
+            <div class="feature-box">
+                <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Community">
+                <h5>Community</h5>
+                <p>Join a loving community of cat enthusiasts.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Video Section -->
+<section class="video-section">
+    <h2 data-aos="fade-right">Our Cats in Action 🎥</h2>
+    <video autoplay loop muted playsinline data-aos="zoom-in" class="mt-4">
+        <source src="https://cdn.pixabay.com/vimeo/383530104/cat-29677.mp4?width=640&hash=68df4b71c648f13a58e8d3e5d60f157d56c514ae" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</section>
+
+<!-- Adoption Section -->
+<section class="adoption" id="adopt">
+    <h2 data-aos="fade-up">Featured Cats for Adoption 🐱</h2>
+    <div class="row g-4 justify-content-center">
+        <div class="col-md-4" data-aos="fade-up">
+            <div class="cat-card">
+                <img src="https://cdn.pixabay.com/photo/2016/02/10/16/37/cat-1192026_1280.jpg" alt="Milo">
+                <div class="cat-card-body">
+                    <h5>Milo</h5>
+                    <p>Persian • 2 Years</p>
+                    <a href="#" class="btn btn-pink btn-sm">Adopt Me</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="cat-card">
+                <img src="https://cdn.pixabay.com/photo/2015/04/08/13/13/cat-712240_1280.jpg" alt="Luna">
+                <div class="cat-card-body">
+                    <h5>Luna</h5>
+                    <p>Siamese • 1.5 Years</p>
+                    <a href="#" class="btn btn-pink btn-sm">Adopt Me</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
+            <div class="cat-card">
+                <img src="https://cdn.pixabay.com/photo/2017/11/09/21/41/cat-2934720_1280.png" alt="Oliver">
+                <div class="cat-card-body">
+                    <h5>Oliver</h5>
+                    <p>Maine Coon • 3 Years</p>
+                    <a href="#" class="btn btn-pink btn-sm">Adopt Me</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <p>© 2025 MeowMate 🐾 | All Rights Reserved</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Scroll animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in-up').forEach(el => {
+        observer.observe(el);
+    });
+
+    // Counter animation
+    function animateCounter(el) {
+        const target = parseInt(el.getAttribute('data-target'));
+        const duration = 2000;
+        const increment = target / (duration / 16);
+        let current = 0;
+
+        const updateCounter = () => {
+            if (current < target) {
+                current += increment;
+                el.textContent = Math.floor(current).toLocaleString();
+                requestAnimationFrame(updateCounter);
+            } else {
+                el.textContent = target.toLocaleString();
+            }
+        };
+
+        updateCounter();
+    }
+
+    // Stats counter observer
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const counter = entry.target.querySelector('.stat-number');
+                if (counter && !counter.classList.contains('animated')) {
+                    counter.classList.add('animated');
+                    animateCounter(counter);
+                }
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.stat-item').forEach(el => {
+        statsObserver.observe(el);
+    });
+
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+
+
+    // Video play function
+    function playVideo() {
+        alert('Video would play here! In a real implementation, you would embed your actual video content.');
+    }
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 50) {
+            navbar.style.background = 'rgba(255, 107, 107, 0.95)';
+            navbar.style.backdropFilter = 'blur(10px)';
+        } else {
+            navbar.style.background = 'linear-gradient(135deg, var(--primary-color), var(--secondary-color))';
+            navbar.style.backdropFilter = 'none';
+        }
+    });
+
+    // Add some interactive hover effects
+    document.querySelectorAll('.feature-card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-15px) scale(1.02)';
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+</script>
 </body>
 </html>
