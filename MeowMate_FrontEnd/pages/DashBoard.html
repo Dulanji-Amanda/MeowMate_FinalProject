@@ -138,7 +138,7 @@
             color: #2e2a85;
         }
 
-        .cards {
+        /* .cards {
             display: flex;
             gap: 20px;
             flex-wrap: wrap;
@@ -148,9 +148,9 @@
             background: #fff;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            width: 260px;
+            width: 700px;
+            height: 300px;
             overflow: hidden;
-            text-align: center;
             padding-bottom: 20px;
         }
 
@@ -170,7 +170,70 @@
             margin: 0 0 12px;
             color: #555;
             font-size: 14px;
-        }
+        } */
+         #education-section {
+    padding: 50px;
+}
+
+h2 {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.highlight {
+    color: #f0b52b;
+    font-size: 30px;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.cat-card {
+    display: flex;
+    align-items: center;
+    background-color: #d7eff1;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cat-card img {
+    width: 260px;
+    height:340px;
+    object-fit: cover;
+    
+}
+.cat-card:hover{
+    transform: scale(1.02);
+
+}
+.cat-info {
+    padding: 20px;
+    width: 60%;
+}
+
+.cat-info h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.sub-text {
+    font-size: 16px;
+    color: #444;
+    margin: 5px 0;
+}
+
+.date {
+    font-size: 16px;
+    color: green;
+    font-weight: bold;
+}
+
+.status {
+    font-weight: bold;
+}
 
         .adopt-btn {
             background: #FFD36E;
@@ -181,6 +244,20 @@
             font-weight: bold;
             color: #2e2a85;
         }
+
+  @keyframes fadeSlideIn {
+    from { 
+      opacity: 0; 
+      transform: translateY(20px); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+  }
+  .animate-card {
+    animation: fadeSlideIn 1s ease-out;
+  }
     </style>
 </head>
 <body>
@@ -217,26 +294,24 @@
     </div>
 
     <div class="section-title">🐾 Featured Cats for Adoption</div>
-    <div class="cards">
-        <div class="card">
-            <img src="https://cdn.pixabay.com/photo/2016/02/10/16/37/cat-1192026_1280.jpg" alt="cat">
-            <h3>Milo</h3>
-            <p>Persian • 2 Years</p>
-            <button class="adopt-btn">Adopt Me!</button>
+    
+    <section id="cat-section">
+        <div class="cat-card">
+            <img src="/MeowMate_FrontEnd/assets/Images/adopt.jpeg" alt="IJSE - Institute of Software Engineering">
+            <div class="cat-info">
+                <h3>Why Adopt a Cat?</h3>
+                <p class="sub-text">Cats aren’t just cute companions — they bring <strong>calm, love, and emotional balance</strong> into our lives. </p>
+            <ul class="list-unstyled mt-3">
+            <li class="mb-2">✨ <strong>Mental Health Boost:</strong> Their purring reduces stress & anxiety.</li>
+            <li class="mb-2">❤️ <strong>Companionship:</strong> Cats fight loneliness with warmth & routine.</li>
+            <li class="mb-2">🌍 <strong>Save Lives:</strong> Adoption gives shelter cats a safe, loving home.</li>
+            <li class="mb-2">💰 <strong>Affordable Care:</strong> Most adopted cats are vaccinated & health-checked.</li>
+            <li class="mb-2">🤝 <strong>Lifelong Bond:</strong> Rescued cats often show deep gratitude & loyalty.</li>
+           </ul>
         </div>
-        <!-- <div class="card">
-            <img src="https://cdn.pixabay.com/photo/2016/02/10/16/37/cat-1192026_1280.jpg" alt="cat">
-            <h3>Luna</h3>
-            <p>Siamese • 1.5 Years</p>
-            <button class="adopt-btn">Adopt Me!</button>
         </div>
-        <div class="card">
-            <img src="https://cdn.pixabay.com/photo/2016/02/10/16/37/cat-1192026_1280.jpg" alt="cat">
-            <h3>Oliver</h3>
-            <p>Maine Coon • 3 Years</p>
-            <button class="adopt-btn">Adopt Me!</button>
-        </div> -->
-    </div>
+</section>
+
 </div>
 </body>
 </html>
