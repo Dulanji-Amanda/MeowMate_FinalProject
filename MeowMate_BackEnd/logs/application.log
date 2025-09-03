@@ -556,3 +556,8 @@ Identify and stop the process that's listening on port 8080 or configure this ap
 2025-09-03T21:06:22.186+05:30 DEBUG 15552 --- [MeowMate_BackEnd] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
 2025-09-03T21:15:19.813+05:30  WARN 15552 --- [MeowMate_BackEnd] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m30s563ms761µs900ns).
 2025-09-03T21:43:25.773+05:30  WARN 15552 --- [MeowMate_BackEnd] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=28m6s30ms697µs900ns).
+2025-09-03T21:46:12.533+05:30 DEBUG 15552 --- [MeowMate_BackEnd] [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/cats", parameters={}
+2025-09-03T21:46:12.544+05:30 DEBUG 15552 --- [MeowMate_BackEnd] [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to lk.ijse.gdse.meowmate_backend.controller.CatController#getMyCats(String)
+2025-09-03T21:46:12.790+05:30 DEBUG 15552 --- [MeowMate_BackEnd] [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-03T21:46:12.795+05:30 DEBUG 15552 --- [MeowMate_BackEnd] [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[CatDTO(id=1, catName=Ziggi, breed=Gray,White, age=2, status=AVAILABLE, ownerId=1, imageUrl=https:// (truncated)...]
+2025-09-03T21:46:12.812+05:30 DEBUG 15552 --- [MeowMate_BackEnd] [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK

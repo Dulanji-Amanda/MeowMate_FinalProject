@@ -5,12 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Learn More - Meow Mate</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
   <style>
+    :root {
+      --primary-color: #81adf9;   
+      --secondary-color: #b5b4c1;
+    }
     body {
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(to bottom, #0d1b2a, #1b263b, #415a77);
       color: white;
       overflow-x: hidden;
+    }
+    .navbar {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .navbar-brand {
+      font-size: 2rem;
+      font-weight: bold;
+      color: white !important;
     }
 
     /* Hero Section */
@@ -91,6 +108,31 @@
   </style>
 </head>
 <body>
+    <!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <i class="fas fa-cat"></i> MeowMate
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+        <button class="btn btn-light btn-auth me-2" onclick="window.location.href='../pages/SignIn.html'"> 
+            <i class="fas fa-sign-in-alt me-1"></i> Sign In</button>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-outline-light btn-auth" onclick="window.location.href='../pages/SignUp.html'">
+            <i class="fas fa-user-plus me-1"></i> Sign Up
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
 
   <!-- Hero -->
   <section class="hero">
@@ -124,13 +166,13 @@
     <h2>Our Furry Friends</h2>
     <div class="row gallery g-4 mt-4">
       <div class="col-md-4">
-        <img src="https://placekitten.com/400/300" class="img-fluid" alt="Adopted Cat">
+        <img src="/MeowMate_FrontEnd/assets/Images/addopt.jpeg" class="img-fluid" alt="Adopted Cat" width="300" height="200">
       </div>
       <div class="col-md-4">
-        <img src="https://placekitten.com/401/300" class="img-fluid" alt="Lost Cat">
+        <img src="/MeowMate_FrontEnd/assets/Images/lost.jpeg" class="img-fluid" alt="Lost Cat" width="300" height="200">
       </div>
       <div class="col-md-4">
-        <img src="https://placekitten.com/402/300" class="img-fluid" alt="Happy Cat">
+        <img src="/MeowMate_FrontEnd/assets/Images/happy.jpeg" class="img-fluid" alt="Happy Cat" width="300" height="200">
       </div>
     </div>
   </section>
