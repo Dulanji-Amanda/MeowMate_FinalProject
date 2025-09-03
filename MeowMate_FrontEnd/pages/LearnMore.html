@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Learn More - Meow Mate</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #0d1b2a, #1b263b, #415a77);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 100px 20px;
+      background: linear-gradient(to right, #1e3c72, #2a5298);
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      animation: slideDown 1s ease;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-top: 15px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      color: #e0e0e0;
+    }
+
+    /* Info Sections */
+    .info-section {
+      padding: 60px 20px;
+      animation: fadeInUp 1.2s ease;
+    }
+
+    .info-section h2 {
+      color: #90e0ef;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .info-section p {
+      font-size: 1rem;
+      color: #f0f0f0;
+    }
+
+    /* Image Gallery */
+    .gallery img {
+      border-radius: 15px;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.08);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    }
+
+    /* Footer */
+    footer {
+      background: #0d1b2a;
+      text-align: center;
+      padding: 20px;
+      color: #ccc;
+      font-size: 0.9rem;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Learn More About Meow Mate 🐾</h1>
+    <p>A community-driven platform for cat adoption and lost & found cats. Together, we can give every cat a safe and loving home.</p>
+  </section>
+
+  <!-- About Project -->
+  <section class="info-section container text-center">
+    <h2>About the Meow-Mate</h2>
+    <p>
+      Meow Mate is designed to connect cat lovers, adopters, and rescuers. 
+      Our platform makes it simple to adopt cats in need, report missing cats, and reunite them with their families. 
+      With user-friendly tools, every click brings hope to a furry friend.
+    </p>
+  </section>
+
+  <!-- Helping Others -->
+  <section class="info-section container text-center">
+    <h2>How We Help Others</h2>
+    <p>
+      ✨ We support pet owners in finding their lost cats quickly. <br>
+      🏡 We provide a safe adoption channel for rescued cats. <br>
+      💙 We build a supportive community where every cat matters. <br>
+      📍 With location-based listings, reuniting cats with families is easier than ever.
+    </p>
+  </section>
+
+  <!-- Gallery -->
+  <section class="info-section container text-center">
+    <h2>Our Furry Friends</h2>
+    <div class="row gallery g-4 mt-4">
+      <div class="col-md-4">
+        <img src="https://placekitten.com/400/300" class="img-fluid" alt="Adopted Cat">
+      </div>
+      <div class="col-md-4">
+        <img src="https://placekitten.com/401/300" class="img-fluid" alt="Lost Cat">
+      </div>
+      <div class="col-md-4">
+        <img src="https://placekitten.com/402/300" class="img-fluid" alt="Happy Cat">
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Meow Mate | Bringing Cats & People Together 💙</p>
+  </footer>
+
+</body>
+</html>
