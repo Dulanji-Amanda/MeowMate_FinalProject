@@ -5,23 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>MeowMate - My Cats</title>
 
-<!-- Inline tiny favicon -->
+<!-- Tiny favicon -->
 <link rel="icon" href='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><text x=%220%22 y=%2214%22 font-size=%2216%22>🐱</text></svg>'>
 
+<!-- Bootstrap & FontAwesome -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 
 <style>
+/* ----------------- Body & Layout ----------------- */
 body {
   font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #d7e4f3, #A0D8FF, #ffffff);
+  background: linear-gradient(135deg, #d7e4f3, #A0D8FF, #ffffff);
   margin: 0;
   min-height: 100vh;
   display: flex;
   color: #333;
 }
 
-/* --- Sidebar --- */
+/* Sidebar */
 .sidebar {
   width: 260px;
   background: linear-gradient(180deg, #6c5ce7, #341f97);
@@ -30,63 +32,40 @@ body {
   flex-direction: column;
   padding: 35px 20px;
   position: fixed;
-  top: 0; bottom: 0; left: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
   box-shadow: 5px 0 25px rgba(0,0,0,0.15);
   border-radius: 0 20px 20px 0;
 }
-
-
-
-
 .logo { font-size:22px; font-weight:bold; display:flex; align-items:center; margin-bottom:40px; }
 .logo img { width:40px; margin-right:12px; }
 .menu { flex:1; }
-.menu a { display:flex; align-items:center; gap:10px; padding:12px 16px;
-  color:#fff; text-decoration:none; border-radius:8px; margin-bottom:10px;
-  font-size:15px; transition:all .3s; }
-.menu a.active, .menu a:hover {
-  background:#FFD36E; color:#2e2a85; font-weight:bold; transform:translateX(5px);
-}
+.menu a { display:flex; align-items:center; gap:10px; padding:12px 16px; color:#fff; text-decoration:none; border-radius:8px; margin-bottom:10px; font-size:15px; transition:all .3s; }
+.menu a.active, .menu a:hover { background:#FFD36E; color:#2e2a85; font-weight:bold; transform:translateX(5px); }
 .settings { margin-top:auto; }
 .settings a { text-decoration:none; color:#bbb; display:flex; align-items:center; gap:8px; padding:12px 16px; border-radius:8px; transition:.3s; }
 .settings a:hover { background:rgba(255,255,255,0.1); color:#fff; }
 
-/* Main */
+/* Main content */
 .main { margin-left:250px; padding:30px; flex:1; }
-.header {
-  background:#fff; border-radius:20px; padding:25px; margin-bottom:30px;
-  text-align:center; box-shadow:0 6px 15px rgba(0,0,0,0.1);
-}
+.header { background:#fff; border-radius:20px; padding:25px; margin-bottom:30px; text-align:center; box-shadow:0 6px 15px rgba(0,0,0,0.1); }
 .header h1 { font-size:32px; margin:0; color:#2e2a85; font-weight:bold; }
 .header h1 span { color:#FF7EB3; }
-
 .btn-primary { background:#FFD36E; color:#2e2a85; border:none; font-weight:600; }
 .btn-primary:hover { background:#ffc94a; }
 .btn-secondary { background:#2e2a85; color:#fff; }
 
-/* Modern Cat Card */
-.cat-card {
-  background:#fff; border-radius:20px;
-  box-shadow:0 6px 18px rgba(0,0,0,0.12);
-  overflow:hidden; position:relative;
-  transition:transform .25s, box-shadow .25s;
-}
-.cat-card:hover {
-  transform:translateY(-6px);
-  box-shadow:0 10px 25px rgba(0,0,0,0.18);
-}
-.cat-card img {
-  width:100%; height:220px; object-fit:cover;
-}
+/* Cat Cards */
+.cat-card { background:#fff; border-radius:20px; box-shadow:0 6px 18px rgba(0,0,0,0.12); overflow:hidden; position:relative; transition:transform .25s, box-shadow .25s; }
+.cat-card:hover { transform:translateY(-6px); box-shadow:0 10px 25px rgba(0,0,0,0.18); }
+.cat-card img { width:100%; height:220px; object-fit:cover; }
 .cat-info { padding:15px; text-align:center; }
 .cat-info h5 { font-weight:700; margin:0; color:#2e2a85; }
 .cat-info small { display:block; color:#666; margin-top:4px; }
 
-/* Status pill */
-.status-badge {
-  display:inline-block; margin-top:8px; padding:6px 14px;
-  border-radius:999px; font-size:0.75rem; font-weight:600;
-}
+/* Status badge */
+.status-badge { display:inline-block; margin-top:8px; padding:6px 14px; border-radius:999px; font-size:0.75rem; font-weight:600; }
 .status-AVAILABLE { background:#e6f9f1; color:#1cc88a; }
 .status-ADOPTED { background:#fdecea; color:#e74a3b; }
 .status-PENDING { background:#fff6e0; color:#f6c23e; }
@@ -100,11 +79,17 @@ body {
 
 /* Notification */
 .notification {
-  position:fixed; top:20px; right:20px;
-  padding:12px 18px; border-radius:8px;
-  color:#fff; opacity:0; transform:translateY(-10px);
+  position:fixed;
+  top:20px;
+  right:20px;
+  padding:12px 18px;
+  border-radius:8px;
+  color:#fff;
+  opacity:0;
+  transform:translateY(-10px);
   transition:opacity .25s, transform .25s;
-  z-index:2000; font-weight:600;
+  z-index:2000;
+  font-weight:600;
   box-shadow:0 6px 18px rgba(0,0,0,0.15);
 }
 .notification.show { opacity:1; transform:translateY(0); }
@@ -112,22 +97,21 @@ body {
 .notification.error { background:#e74a3b; }
 </style>
 </head>
-<body>
 
+<body>
 <!-- Sidebar -->
 <div class="sidebar">
   <div class="logo">
-    <img src="https://static.thenounproject.com/png/cat-face-icon-703414-512.png
-" alt="cat icon">
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="cat icon">
     MeowMate
   </div>
   <div class="menu">
     <nav class="nav flex-column mt-4">
       <a class="nav-link" href="DashBoard.html">🏠 Dashboard</a>
       <a class="nav-link" href="adoptFriend.html">💛 Adopt a Friend</a>
-      <a class="nav-link" href="#" data-page="lostfound.html">📍 Lost & Found</a>
-      <a class="nav-link active" href="mycat.html" data-page="mycat.html">🐱 My Cats</a>
-      <a class="nav-link" href="#" data-page="listings.html">📄 Listings & Requests</a>
+      <a class="nav-link" href="lostfound.html">📍 Lost & Found</a>
+      <a class="nav-link active" href="mycat.html">🐱 My Cats</a>
+      <a class="nav-link" href="listings.html">📄 Listings & Requests</a>
     </nav>
   </div>
   <div class="settings">
@@ -145,13 +129,12 @@ body {
     </button>
   </div>
 
-  <!-- Cat Cards -->
   <div id="catsList" class="row g-4">
     <div class="text-center py-4">Loading cats...</div>
   </div>
 </div>
 
-<!-- Cat Modal -->
+<!-- Add/Edit Cat Modal -->
 <div class="modal fade" id="catModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content rounded-4">
@@ -163,20 +146,10 @@ body {
         <div class="modal-body">
           <input type="hidden" id="catId" value="">
           <div class="row g-3">
-            <div class="col-md-6">
-              <label class="form-label">Cat Name</label>
-              <input type="text" class="form-control" id="catName" required>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Breed</label>
-              <input type="text" class="form-control" id="breed" required>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Age</label>
-              <input type="number" class="form-control" id="age" min="0" required>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Status</label>
+            <div class="col-md-6"><label class="form-label">Cat Name</label><input type="text" class="form-control" id="catName" required></div>
+            <div class="col-md-6"><label class="form-label">Breed</label><input type="text" class="form-control" id="breed" required></div>
+            <div class="col-md-6"><label class="form-label">Age</label><input type="number" class="form-control" id="age" min="0" required></div>
+            <div class="col-md-6"><label class="form-label">Status</label>
               <select class="form-select" id="status" required>
                 <option value="">Select</option>
                 <option value="AVAILABLE">Available</option>
@@ -203,18 +176,37 @@ body {
   </div>
 </div>
 
+<!-- Report Missing Modal -->
+<div class="modal fade" id="missingModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="missingForm">
+        <div class="modal-header">
+          <h5 class="modal-title">Report Missing 🐾</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="missingCatId">
+          <label class="form-label">Last Seen Location</label>
+          <input type="text" class="form-control" id="lastSeenLocation" required>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Submit Report</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Notification -->
 <div id="notification" class="notification" role="status" aria-live="polite"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
 <script>
 const apiBase = 'http://localhost:8080/api/cats';
+const lostApi = 'http://localhost:8080/api/lostcats';
 const token = localStorage.getItem('accessToken');
-
-if (!token) {
-  alert('Please log in first');
-  window.location.href = 'SignIn.html';
-}
+if(!token){ alert('Please log in first'); window.location.href='SignIn.html'; }
 
 const catsListEl = document.getElementById('catsList');
 const catForm = document.getElementById('catForm');
@@ -225,174 +217,149 @@ const previewWrapper = document.getElementById('currentImagePreview');
 const previewImg = document.getElementById('previewImg');
 const notificationEl = document.getElementById('notification');
 const bsModal = new bootstrap.Modal(modalEl);
+const missingModal = new bootstrap.Modal(document.getElementById('missingModal'));
+const missingForm = document.getElementById('missingForm');
+const missingCatIdInput = document.getElementById('missingCatId');
+const lastSeenInput = document.getElementById('lastSeenLocation');
 
-function showNotification(text, type='success', timeout=3500) {
-  notificationEl.textContent = text;
-  notificationEl.className = `notification show ${type === 'error' ? 'error' : 'success'}`;
-  setTimeout(() => { notificationEl.className = 'notification'; }, timeout);
+function showNotification(text,type='success',timeout=3500){
+  notificationEl.textContent=text;
+  notificationEl.className=`notification show ${type==='error'?'error':'success'}`;
+  setTimeout(()=>{notificationEl.className='notification';},timeout);
 }
 
-async function parseErrorResponse(res) {
-  try {
-    const text = await res.text();
+async function parseErrorResponse(res){
+  try{
+    const text=await res.text();
     try { return JSON.parse(text).message || JSON.stringify(JSON.parse(text)); } catch { return text || `HTTP ${res.status}`; }
-  } catch (e) { return `HTTP ${res.status}`; }
+  } catch(e){ return `HTTP ${res.status}`; }
 }
 
-/* Load cats */
-async function loadCats() {
-  catsListEl.innerHTML = '<div class="text-center py-4">Loading cats...</div>';
-  try {
-    const res = await fetch(apiBase, { headers: { 'Authorization': 'Bearer ' + token }});
-    if (!res.ok) {
-      const msg = await parseErrorResponse(res);
-      catsListEl.innerHTML = `<div class="text-danger py-4">Failed to load cats: ${msg}</div>`;
-      return;
-    }
+/* ---------- Load & Render Cats ---------- */
+async function loadCats(){
+  catsListEl.innerHTML='<div class="text-center py-4">Loading cats...</div>';
+  try{
+    const res = await fetch(apiBase, { headers:{ 'Authorization':'Bearer '+token } });
+    if(!res.ok){ const msg=await parseErrorResponse(res); catsListEl.innerHTML=`<div class="text-danger py-4">Failed to load cats: ${msg}</div>`; return; }
     const cats = await res.json();
     renderCats(cats);
-  } catch (err) {
-    catsListEl.innerHTML = `<div class="text-danger py-4">Error loading cats: ${err.message}</div>`;
+  } catch(err){
+    catsListEl.innerHTML=`<div class="text-danger py-4">Error loading cats: ${err.message}</div>`;
   }
 }
 
-/* Render modern cards with 3-dot menu */
-function renderCats(cats) {
-  if (!cats || cats.length === 0) {
-    catsListEl.innerHTML = `<div class="text-center py-4">No cats yet. Add your first cat!</div>`;
-    return;
-  }
-
+function renderCats(cats){
+  if(!cats || cats.length===0){ catsListEl.innerHTML='<div class="text-center py-4">No cats yet. Add your first cat!</div>'; return; }
   const html = cats.map(cat => `
     <div class="col-sm-6 col-md-4 col-lg-3">
       <div class="cat-card">
-        <img src="${escapeHtml(cat.imageUrl || '')}" alt="${escapeHtml(cat.catName)}"
-          onerror="this.style.opacity=0.65; this.style.filter='grayscale(0.4)'; this.src='https://via.placeholder.com/400x300?text=No+Image'">
-
-        
-        <!-- <div class="action-menu dropdown">
+        <img src="${escapeHtml(cat.imageUrl||'')}" alt="${escapeHtml(cat.catName)}" onerror="this.style.opacity=0.65; this.style.filter='grayscale(0.4)'; this.src='https://via.placeholder.com/400x300?text=No+Image'">
+        <div class="action-menu dropdown">
           <button class="btn" data-bs-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
           <ul class="dropdown-menu dropdown-menu-end">
             <li><a class="dropdown-item" href="#" onclick="onEdit(${cat.id})"><i class="fas fa-edit me-2"></i>Edit</a></li>
             <li><a class="dropdown-item text-danger" href="#" onclick="onDelete(${cat.id})"><i class="fas fa-trash me-2"></i>Delete</a></li>
+            <li><a class="dropdown-item text-warning" href="#" onclick="onReportMissing(${cat.id})"><i class="fas fa-map-marker-alt me-2"></i>Report Missing</a></li>
           </ul>
-        </div> -->
-        
-
+        </div>
         <div class="cat-info">
           <h5>${escapeHtml(cat.catName)}</h5>
           <small>${escapeHtml(cat.breed)} • ${cat.age} yrs</small>
           <div><span class="status-badge status-${escapeHtml(cat.status)}">${escapeHtml(cat.status)}</span></div>
         </div>
       </div>
-    </div>
-  `).join('');
-
+    </div>`).join('');
   catsListEl.innerHTML = html;
 }
 
-function escapeHtml(s) {
-  if (s == null) return '';
-  return String(s).replace(/[&<>"']/g, (m) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-}
+function escapeHtml(s){ if(s==null) return ''; return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 
-/* Add Cat */
-document.getElementById('openAddBtn').addEventListener('click', () => {
-  modalTitle.textContent = 'Add Cat';
-  catIdInput.value = '';
+/* ---------- Add/Edit Cat ---------- */
+document.getElementById('openAddBtn').addEventListener('click',()=>{
+  modalTitle.textContent='Add Cat';
+  catIdInput.value='';
   catForm.reset();
-  previewWrapper.style.display = 'none';
+  previewWrapper.style.display='none';
 });
 
-/* Edit Cat */
-async function onEdit(id) {
-  try {
-    const res = await fetch(`${apiBase}`, { headers: { 'Authorization': 'Bearer ' + token }});
-    if (!res.ok) throw new Error('Failed to fetch cats');
+async function onEdit(id){
+  try{
+    const res = await fetch(apiBase,{ headers:{ 'Authorization':'Bearer '+token } });
+    if(!res.ok) throw new Error('Failed to fetch cats');
     const cats = await res.json();
-    const cat = cats.find(c => c.id === id);
-    if (!cat) throw new Error('Cat not found');
-
-    catIdInput.value = cat.id;
-    document.getElementById('catName').value = cat.catName || '';
-    document.getElementById('breed').value = cat.breed || '';
-    document.getElementById('age').value = cat.age || '';
-    document.getElementById('status').value = cat.status || '';
-    if (cat.imageUrl) {
-      previewImg.src = cat.imageUrl;
-      previewWrapper.style.display = '';
-    } else previewWrapper.style.display = 'none';
-
-    modalTitle.textContent = 'Edit Cat';
+    const cat = cats.find(c=>c.id===id);
+    if(!cat) throw new Error('Cat not found');
+    catIdInput.value=cat.id;
+    document.getElementById('catName').value=cat.catName||'';
+    document.getElementById('breed').value=cat.breed||'';
+    document.getElementById('age').value=cat.age||'';
+    document.getElementById('status').value=cat.status||'';
+    if(cat.imageUrl){ previewImg.src=cat.imageUrl; previewWrapper.style.display=''; } else previewWrapper.style.display='none';
+    modalTitle.textContent='Edit Cat';
     bsModal.show();
-  } catch (err) {
-    showNotification('Failed to open edit: ' + err.message, 'error');
-  }
+  } catch(err){ showNotification('Failed to open edit: '+err.message,'error'); }
 }
 
-/* Delete Cat */
-async function onDelete(id) {
-  if (!confirm('Delete this cat?')) return;
-  try {
-    const res = await fetch(`${apiBase}/${id}`, {
-      method: 'DELETE',
-      headers: { 'Authorization': 'Bearer ' + token }
-    });
-    if (!res.ok) throw new Error(await parseErrorResponse(res));
+async function onDelete(id){
+  if(!confirm('Delete this cat?')) return;
+  try{
+    const res = await fetch(`${apiBase}/${id}`,{ method:'DELETE', headers:{ 'Authorization':'Bearer '+token } });
+    if(!res.ok) throw new Error(await parseErrorResponse(res));
     showNotification('Cat deleted');
     await loadCats();
-  } catch (err) {
-    showNotification('Delete failed: ' + err.message, 'error');
-  }
+  } catch(err){ showNotification('Delete failed: '+err.message,'error'); }
 }
 
-/* Save (Add or Update) */
-catForm.addEventListener('submit', async (e) => {
+catForm.addEventListener('submit', async e=>{
   e.preventDefault();
   const id = catIdInput.value;
   const catData = {
     catName: document.getElementById('catName').value.trim(),
     breed: document.getElementById('breed').value.trim(),
-    age: Number(document.getElementById('age').value || 0),
+    age: Number(document.getElementById('age').value||0),
     status: document.getElementById('status').value
   };
-
-  if (!catData.catName || !catData.breed || !catData.status) {
-    showNotification('Please fill required fields', 'error');
-    return;
-  }
-
+  if(!catData.catName||!catData.breed||!catData.status){ showNotification('Please fill required fields','error'); return; }
   const fd = new FormData();
-  fd.append('cat', new Blob([JSON.stringify(catData)], { type: 'application/json' }));
+  fd.append('cat', new Blob([JSON.stringify(catData)],{ type:'application/json' }));
   const file = document.getElementById('catImage').files[0];
-  if (file) fd.append('image', file);
-
-  try {
+  if(file) fd.append('image',file);
+  try{
     let res;
-    if (id) {
-      res = await fetch(`${apiBase}/${id}`, {
-        method: 'PUT', headers: { 'Authorization': 'Bearer ' + token }, body: fd
-      });
+    if(id){
+      res = await fetch(`${apiBase}/${id}`,{ method:'PUT', headers:{ 'Authorization':'Bearer '+token }, body:fd });
     } else {
-      res = await fetch(`${apiBase}/saveCat`, {
-        method: 'POST', headers: { 'Authorization': 'Bearer ' + token }, body: fd
-      });
+      res = await fetch(`${apiBase}/saveCat`,{ method:'POST', headers:{ 'Authorization':'Bearer '+token }, body:fd });
     }
-    if (!res.ok) throw new Error(await parseErrorResponse(res));
-
-    showNotification(id ? 'Cat updated' : 'Cat saved');
-    bsModal.hide();
-    catForm.reset();
-    previewWrapper.style.display = 'none';
+    if(!res.ok) throw new Error(await parseErrorResponse(res));
+    showNotification(id?'Cat updated':'Cat saved');
+    bsModal.hide(); catForm.reset(); previewWrapper.style.display='none';
     await loadCats();
-  } catch (err) {
-    showNotification('Save failed: ' + err.message, 'error');
-  }
+  } catch(err){ showNotification('Save failed: '+err.message,'error'); }
 });
 
-/* Initial load */
+/* ---------- Report Missing ---------- */
+function onReportMissing(catId){
+  missingCatIdInput.value=catId;
+  lastSeenInput.value='';
+  missingModal.show();
+}
+
+missingForm.addEventListener('submit', async e=>{
+  e.preventDefault();
+  try{
+    const res = await fetch(`${lostApi}/report?catId=${missingCatIdInput.value}&lastSeenLocation=${encodeURIComponent(lastSeenInput.value)}`,{
+      method:'POST',
+      headers:{ 'Authorization':'Bearer '+token }
+    });
+    if(!res.ok) throw new Error(await res.text());
+    showNotification('Missing report submitted!');
+    missingModal.hide();
+  } catch(err){ showNotification('Failed: '+err.message,'error'); }
+});
+
+/* ---------- Initial Load ---------- */
 loadCats();
 </script>
-
 </body>
 </html>

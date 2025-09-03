@@ -64,6 +64,13 @@
 //    }
 //}
 
+
+
+
+
+
+
+
 package lk.ijse.gdse.meowmate_backend.controller;
 
 import lk.ijse.gdse.meowmate_backend.entity.AdoptionApplications;
@@ -72,7 +79,6 @@ import lk.ijse.gdse.meowmate_backend.util.JWTUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Map;
 
@@ -105,15 +111,15 @@ public class AdoptionApplicationController {
 
     @GetMapping("/for-pet/{petId}")
     public ResponseEntity<List<AdoptionApplications>> forPet(@PathVariable Long petId,
-                                                            @RequestHeader("Authorization") String authHeader){
+                                                             @RequestHeader("Authorization") String authHeader){
         // In production, verify caller is the pet owner
         return ResponseEntity.ok(adoptionService.getApplicationsForPet(petId));
     }
 
     @PatchMapping("/{id}/status")
     public ResponseEntity<AdoptionApplications> updateStatus(@PathVariable Long id,
-                                                            @RequestBody Map<String,String> body,
-                                                            @RequestHeader("Authorization") String authHeader){
+                                                             @RequestBody Map<String,String> body,
+                                                             @RequestHeader("Authorization") String authHeader){
         // In production, check permission (owner) before allowing status change
         AdoptionApplications updated = adoptionService.updateStatus(id, body.get("status"));
         return ResponseEntity.ok(updated);

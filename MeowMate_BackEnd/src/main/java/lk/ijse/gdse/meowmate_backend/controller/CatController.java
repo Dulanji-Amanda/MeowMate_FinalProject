@@ -134,17 +134,13 @@ public class CatController {
             @RequestPart("cat") CatDTO catDTO,
             @RequestPart(value = "image", required = false) MultipartFile image,
             @RequestHeader("Authorization") String authHeader) throws Exception {
-        try {
-            Long ownerId = getUserIdFromToken(authHeader);
-            byte[] imageBytes = (image != null) ? image.getBytes() : null;
-            CatDTO createdCat = catService.createCat(catDTO, ownerId, imageBytes);
-            return ResponseEntity.ok(createdCat);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(403).build(); // or 401
-        }
-    }
 
+        Long ownerId = getUserIdFromToken(authHeader);
+        byte[] imageBytes = (image != null) ? image.getBytes() : null;
+
+        CatDTO createdCat = catService.createCat(catDTO, ownerId, imageBytes);
+        return ResponseEntity.ok(createdCat);
+    }
 
     @GetMapping
     public ResponseEntity<List<CatDTO>> getMyCats(@RequestHeader("Authorization") String authHeader) {

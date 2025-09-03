@@ -73,7 +73,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/auth/meowmate")
-@CrossOrigin(origins = {"http://localhost:5500"})
 @RequiredArgsConstructor
 public class AuthController {
 

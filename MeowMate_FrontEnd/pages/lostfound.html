@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MeowMate - Lost & Found</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<style>
+  body {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background: #f5f7fa;
+    margin:0; min-height:100vh;
+    color: #333;
+  }
+
+  .sidebar {
+    background-color: #1E1E50;
+    color:white; 
+    height:100vh; 
+    padding:2rem 1rem;
+    position:fixed; 
+    width:220px;
+    display:flex;
+    flex-direction:column;
+  }
+  .sidebar h4 { font-weight:700; letter-spacing:1px; margin-bottom:2rem; }
+  .sidebar .nav-link { 
+    color:white; 
+    margin:0.5rem 0; 
+    text-decoration:none; 
+    padding:0.5rem 0.75rem; 
+    border-radius:8px;
+    transition:0.2s;
+  }
+  .sidebar .nav-link:hover { background: rgba(255,255,255,0.1); }
+  .sidebar .nav-link.active { 
+    background-color: #FFD700; 
+    color:#1E1E50; 
+    font-weight:600; 
+    box-shadow:0 2px 6px rgba(0,0,0,0.2);
+  }
+
+  .main { 
+    margin-left:240px; 
+    padding:3rem 2rem; 
+    min-height:100vh;
+  }
+  .main h3 { font-weight:600; margin-bottom:0.5rem; }
+  .main p { font-size:0.95rem; color:#555; }
+
+  .cat-card {
+    background:white; 
+    border-radius:16px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.08); 
+    padding:16px;
+    text-align:center; 
+    display:flex; 
+    flex-direction:column; 
+    justify-content:space-between;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .cat-card:hover { 
+    transform: translateY(-4px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.12);
+  }
+  .cat-card img { 
+    width:100%; 
+    height:200px; 
+    object-fit:cover; 
+    border-radius:12px;
+    margin-bottom:12px;
+  }
+  .cat-card h5 { font-weight:600; margin-bottom:4px; color:#1E1E50; }
+  .cat-card p { font-size:0.9rem; color:#666; margin:2px 0; }
+  
+  .status-badge {
+    padding:6px 14px; 
+    border-radius:999px;
+    font-size:0.85rem; 
+    font-weight:600;
+    display:inline-block; 
+    margin-top:8px;
+    text-transform:uppercase;
+  }
+  .status-MISSING { background-color: rgba(231, 74, 59,0.15); color:#e74a3b; }
+  .status-FOUND { background-color: rgba(28, 200, 138,0.15); color:#1cc88a; }
+
+  .cat-card .btn-info {
+    background-color: #1E90FF;
+    border:none;
+    font-weight:500;
+    transition:0.2s;
+  }
+  .cat-card .btn-info:hover { background-color:#1c7ed6; }
+
+  .modal-content { border-radius:12px; }
+  .modal-header { border-bottom:none; padding-bottom:0; }
+  .modal-footer { border-top:none; }
+  .form-control:focus { box-shadow:none; border-color:#1E90FF; }
+
+  .notification {
+    position:fixed; top:20px; right:20px;
+    padding:14px 20px; border-radius:8px;
+    color:white; opacity:0; transform:translateY(-20px);
+    transition: opacity 0.3s, transform 0.3s; z-index:1000;
+    font-weight:500;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+  }
+  .notification.show { opacity:1; transform:translateY(0); }
+  .notification.success { background-color:#1cc88a; }
+  .notification.error { background-color:#e74a3b; }
+
+  @media (max-width:768px){
+    .sidebar{ width:60px; padding:1rem; }
+    .sidebar h4{ display:none; }
+    .sidebar .nav-link{ font-size:0.85rem; padding:0.5rem; }
+    .main{ margin-left:60px; padding:2rem 1rem; }
+    .cat-card img{ height:180px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sidebar d-flex flex-column">
+  <h4>🐱 <strong>MeowMate</strong></h4>
+  <nav class="nav flex-column mt-4">
+    <a class="nav-link" href="dashboard.html">🏠 Dashboard</a>
+    <a class="nav-link active" href="lostfound.html">📍 Lost & Found</a>
+    <a class="nav-link" href="adoptFriend.html">💛 Adopt a Friend</a>
+    <a class="nav-link" href="mycat.html">🐱 My Cats</a>
+    <a class="nav-link" href="listings.html">📄 Listings & Requests</a>
+    <a class="nav-link mt-auto" href="setting.html">⚙️ Settings</a>
+  </nav>
+</div>
+
+<div class="main">
+  <h3>📍 Lost & Found</h3>
+  <p>Here are the cats reported as missing. If you’ve seen one, please report a sighting.</p>
+  <div id="lostCatsList" class="row g-4 mt-3">
+    <div class="text-center py-4">Loading missing cats...</div>
+  </div>
+</div>
+
+<div class="modal fade" id="sightingModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="sightingForm">
+        <div class="modal-header">
+          <h5 class="modal-title">Report Sighting</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="lostCatId">
+          <div class="mb-3">
+            <label class="form-label">Location Seen</label>
+            <input type="text" class="form-control" id="sightingLocation" placeholder="Enter location" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary w-100">Submit Sighting</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="notification" class="notification"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const lostCatsList = document.getElementById('lostCatsList');
+const sightingForm = document.getElementById('sightingForm');
+const notification = document.getElementById('notification');
+const token = localStorage.getItem('accessToken');
+let sightingModal = new bootstrap.Modal(document.getElementById('sightingModal'));
+let currentLostCatId = null;
+
+// Redirect if not logged in
+if(!token){
+  alert('Please log in first');
+  window.location.href = 'login.html';
+}
+
+// Notification helper
+function showNotification(msg,type='success'){
+  notification.textContent = msg;
+  notification.className='notification show ' + type;
+  setTimeout(()=>{ notification.className='notification'; },3000);
+}
+
+// Load missing cats from API
+async function loadLostCats(){
+  try{
+    const res = await fetch('http://localhost:8080/api/lostcats/missing', {
+      headers:{ 'Authorization':'Bearer ' + token }
+    });
+    if(!res.ok) throw new Error('Failed to load missing cats');
+    const cats = await res.json();
+    renderLostCats(cats);
+  }catch(e){
+    console.error(e);
+    lostCatsList.innerHTML='<div class="text-center py-4 text-danger">Failed to load missing cats</div>';
+  }
+}
+
+// Render cats
+function renderLostCats(cats){
+  lostCatsList.innerHTML='';
+  if(!cats || cats.length===0){
+    lostCatsList.innerHTML='<div class="text-center py-4">No missing cats reported yet.</div>';
+    return;
+  }
+  cats.forEach(cat=>{
+    lostCatsList.innerHTML += `
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="cat-card">
+          <img src="${cat.imageUrl || 'https://via.placeholder.com/400x300?text=No+Image'}" alt="${cat.catName || 'Unknown Cat'}">
+          <h5>${cat.catName || 'Unknown Cat'}</h5>
+          <p><strong>Breed:</strong> ${cat.breed || 'Unknown'}</p>
+          <p><strong>Age:</strong> ${cat.age ?? 'N/A'} years</p>
+          <p><strong>Missing Place:</strong> ${cat.lastSeenLocation || 'Unknown'}</p>
+          <span class="status-badge status-${cat.status}">${cat.status}</span>
+          <div class="mt-3 d-flex justify-content-center">
+            <button class="btn btn-sm btn-info" onclick="openSighting(${cat.id})">
+              <i class="fas fa-eye"></i> Report Sighting
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+}
+
+// Open sighting modal
+window.openSighting = function(catId){
+  currentLostCatId = catId;
+  document.getElementById('sightingLocation').value='';
+  sightingModal.show();
+}
+
+// Submit sighting
+sightingForm.addEventListener('submit', async e=>{
+  e.preventDefault();
+  const location = document.getElementById('sightingLocation').value.trim();
+  if(!location) return showNotification('Please enter location','error');
+
+  try{
+    const res = await fetch(`http://localhost:8080/api/lostcats/sighting/${currentLostCatId}`, {
+      method:'POST',
+      headers:{ 'Authorization':'Bearer '+token,'Content-Type':'application/json' },
+      body: JSON.stringify({ location })
+    });
+    if(!res.ok) throw new Error('Failed to submit sighting');
+    showNotification('Sighting submitted!');
+    sightingModal.hide();
+  }catch(err){
+    console.error(err);
+    showNotification('Submit failed','error');
+  }
+});
+
+// Initial load
+loadLostCats();
+</script>
+</body>
+</html>

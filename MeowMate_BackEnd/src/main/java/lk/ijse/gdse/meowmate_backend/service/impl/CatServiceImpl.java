@@ -207,7 +207,6 @@ public class CatServiceImpl implements CatService {
                 .build();
     }
 
-
     @Override
     public CatDTO createCat(CatDTO catDTO, Long ownerId, byte[] imageBytes) {
         String uploadedUrl = (imageBytes != null) ? imgBBService.uploadImage(imageBytes) : "";
@@ -216,20 +215,15 @@ public class CatServiceImpl implements CatService {
         return toDTO(saved);
     }
 
-
     @Override
     public List<CatDTO> getAllCats() {
         return catRepository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
     }
 
-
-
     @Override
     public List<CatDTO> getCatsByOwnerId(Long ownerId) {
         return catRepository.findByOwnerId(ownerId).stream().map(this::toDTO).collect(Collectors.toList());
     }
-
-
 
     @Override
     public CatDTO updateCat(Long catId, CatDTO catDTO, Long ownerId, byte[] imageBytes) {
@@ -254,8 +248,6 @@ public class CatServiceImpl implements CatService {
         Cat updatedCat = catRepository.save(existingCat);
         return toDTO(updatedCat);
     }
-
-
 
     @Override
     public void deleteCat(Long catId, Long ownerId) {
