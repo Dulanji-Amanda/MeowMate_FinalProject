@@ -64,13 +64,6 @@
 //    }
 //}
 
-
-
-
-
-
-
-
 package lk.ijse.gdse.meowmate_backend.controller;
 
 import lk.ijse.gdse.meowmate_backend.entity.AdoptionApplications;
@@ -79,6 +72,7 @@ import lk.ijse.gdse.meowmate_backend.util.JWTUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Map;
 

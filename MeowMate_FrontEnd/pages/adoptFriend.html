@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MeowMate - Adopt a Friend</title>
+
+<!-- Bootstrap & FontAwesome -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<style>
+/* --- General Styles --- */
+body {
+  font-family: 'Poppins', sans-serif;
+   background: linear-gradient(135deg, #d7e4f3, #A0D8FF, #ffffff);
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  color: #333;
+}
+
+/* --- Sidebar --- */
+.sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, #6c5ce7, #341f97);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 35px 20px;
+  position: fixed;
+  top: 0; bottom: 0; left: 0;
+  box-shadow: 5px 0 25px rgba(0,0,0,0.15);
+  border-radius: 0 20px 20px 0;
+}
+.logo { font-size: 26px; font-weight: 800; display: flex; align-items: center; margin-bottom: 55px; color: #fff; }
+.logo img { width: 50px; margin-right: 15px; }
+.menu { flex: 1; }
+.menu a { display: flex; align-items: center; gap: 14px; padding: 15px 20px; color: #fff; text-decoration: none; border-radius: 15px; margin-bottom: 14px; font-size: 16px; transition: all 0.3s ease; }
+.menu a.active, .menu a:hover { background: #ffd36e; color: #2e2a85; font-weight: 700; transform: translateX(8px); }
+.settings { margin-top: auto; }
+.settings a { text-decoration: none; color: #ccc; display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-radius: 12px; transition: all 0.3s; }
+.settings a:hover { background: rgba(255,255,255,0.18); color: #fff; }
+
+/* --- Main Content --- */
+.main { margin-left: 260px; padding: 45px 40px; flex: 1; }
+
+/* Filter */
+#filterSelect {
+  max-width: 300px;
+  margin: 0 auto 35px auto;
+  display: block;
+  border-radius: 30px;
+  padding: 12px 18px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  font-weight: 500;
+  background: #fff;
+  border: none;
+}
+#filterSelect:focus { outline: none; box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+
+/* Cat Cards */
+#catsList { display: flex; justify-content: center; flex-wrap: wrap; gap: 32px; }
+
+.cat-card {
+  background: #fff;
+  width: 320px;
+  border-radius: 30px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.08);
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.4s, box-shadow 0.4s;
+  position: relative;
+}
+.cat-card:hover { transform: translateY(-15px); box-shadow: 0 28px 60px rgba(0,0,0,0.15); }
+.cat-card img { width: 100%; height: 290px; object-fit: cover; transition: transform 0.4s; }
+.cat-card:hover img { transform: scale(1.07); }
+.cat-card h5 { font-weight: 700; margin: 18px 0 10px; color: #341f97; font-size: 21px; }
+.cat-card small { display: block; color: #555; margin-bottom: 20px; font-size: 15px; }
+
+/* Status Badge - prominent top-right */
+.status-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 10px 25px;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.status-badge:hover { transform: scale(1.1); box-shadow: 0 6px 20px rgba(0,0,0,0.35); }
+.status-AVAILABLE { background: #1cc88a; }
+.status-PENDING { background: #f6c23e; }
+.status-ADOPTED { background: #e74a3b; }
+
+/* Notification */
+.notification { position: fixed; top: 25px; right: 25px; padding: 16px 24px; border-radius: 14px; color: #fff; opacity: 0; transform: translateY(-15px); transition: opacity 0.35s, transform 0.35s; z-index: 2000; font-weight: 600; font-size: 15px; }
+.notification.show { opacity: 1; transform: translateY(0); }
+.notification.success { background: #1cc88a; }
+.notification.error { background: #e74a3b; }
+
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+  <div class="logo">
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="cat icon">
+    MeowMate
+  </div>
+  <div class="menu">
+    <a href="DashBoard.html">🏠 Dashboard</a>
+    <a class="active" href="adoptFriend.html">💛 Adopt a Friend</a>
+    <a href="lostfound.html">📍 Lost & Found</a>
+    <a href="mycat.html">🐱 My Cats</a>
+    <a href="listings.html">📄 Listings & Requests</a>
+  </div>
+  <div class="settings">
+    <a href="setting.html">⚙️ Settings</a>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="main">
+  <!-- Filter -->
+  <select id="filterSelect" class="form-select">
+    <option value="ALL">All Cats</option>
+    <option value="AVAILABLE">Available</option>
+    <option value="PENDING">Pending</option>
+    <option value="ADOPTED">Adopted</option>
+  </select>
+
+  <!-- Cat Cards -->
+  <div id="catsList">
+    <div class="text-center py-5 text-muted">Loading cats...</div>
+  </div>
+</div>
+
+<!-- Notification -->
+<div id="notification" class="notification"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const apiBase = 'http://localhost:8080/api/cats';
+const token = localStorage.getItem('accessToken');
+const catsListEl = document.getElementById('catsList');
+const filterSelect = document.getElementById('filterSelect');
+const notificationEl = document.getElementById('notification');
+
+if(!token){ alert('Please log in'); window.location.href='SignIn.html'; }
+
+function showNotification(text,type='success',timeout=3000){
+  notificationEl.textContent = text;
+  notificationEl.className = `notification show ${type==='error'?'error':'success'}`;
+  setTimeout(()=>notificationEl.className='notification',timeout);
+}
+
+function escapeHtml(s){ 
+  if(s==null) return ''; 
+  return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); 
+}
+
+async function loadCats(){
+  catsListEl.innerHTML = '<div class="text-center py-5 text-muted">Loading cats...</div>';
+  try{
+    const res = await fetch(apiBase, { headers:{ 'Authorization':'Bearer '+token } });
+    if(!res.ok) throw new Error('Failed to load cats (status '+res.status+')');
+    const cats = await res.json();
+    renderCats(cats);
+  }catch(err){
+    catsListEl.innerHTML = `<div class="text-danger py-5">${err.message}</div>`;
+  }
+}
+
+function renderCats(cats){
+  const filter = filterSelect.value;
+  const filtered = filter==='ALL' ? cats : cats.filter(c=>c.status===filter);
+  if(!filtered.length){ 
+    catsListEl.innerHTML='<div class="text-center py-5 text-muted">No cats found.</div>'; 
+    return; 
+  }
+  catsListEl.innerHTML = filtered.map(cat=>`
+    <div class="cat-card">
+      <img src="${cat.imageUrl||'https://via.placeholder.com/400x300?text=No+Image'}" alt="${escapeHtml(cat.catName)}">
+      <span class="status-badge status-${escapeHtml(cat.status)}">${escapeHtml(cat.status)}</span>
+      <h5>${escapeHtml(cat.catName)}</h5>
+      <small>${escapeHtml(cat.breed)} • ${cat.age} yrs</small>
+    </div>
+  `).join('');
+}
+
+filterSelect.addEventListener('change',()=>loadCats());
+loadCats();
+</script>
+</body>
+</html>

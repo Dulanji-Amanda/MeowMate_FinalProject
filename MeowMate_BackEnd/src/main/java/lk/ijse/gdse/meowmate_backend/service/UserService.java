@@ -48,8 +48,7 @@ public class UserService implements UserDetailsService {
         }
 
         User user = User.builder()
-                .firstName(registerDTO.getFirstName())
-                .lastName(registerDTO.getLastName())
+                .username(registerDTO.getUsername())
                 .email(registerDTO.getEmail())
                 .password(passwordEncoder.encode(registerDTO.getPassword()))
                 .role(Role.USER) // Default role as USER

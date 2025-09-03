@@ -31,5 +31,8 @@ public class Cat {
 
     @Column(nullable = false)
     private Long ownerId;
+
+    @Column(nullable = false)
+    private String imageUrl;  // saved after uploading to ImgBB
 }
 
