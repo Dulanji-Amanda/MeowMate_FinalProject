@@ -16,7 +16,7 @@
         /* Sidebar */
         .sidebar {
             width: 250px;
-             background: linear-gradient(180deg, #6c5ce7, #341f97);
+            background-color: #1E1E50;
 
             color: #fff;
             display: flex;
@@ -56,7 +56,7 @@
 
         .menu a.active,
         .menu a:hover {
-        background: #FFD36E;
+        background: #c4bbe4;
         color: #2e2a85;
         font-weight: bold;
         transform: translateX(5px);
@@ -120,7 +120,7 @@
         }
 
         .btn-primary {
-            background: #FFD36E;
+            background: #5fa7b8;
             color: #2e2a85;
             font-weight: bold;
         }
@@ -186,17 +186,17 @@
 <body>
 <!-- Sidebar -->
 <div class="sidebar">
-    <div class="logo">
-        <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="cat icon">
-        MeowMate
-    </div>
+          <h4>🐱 <strong>MeowMate</strong></h4>
+          <br><br>
+
+    
     <div class="menu">
        <nav class="nav flex-column mt-4">
-        <a class="nav-link active" href="#" data-page="">🏠 Dashboard</a>
+        <a class="nav-link active" href="DashBoard.html">🏠 Dashboard</a>
         <a class="nav-link" href="adoptFriend.html" data-page="adoptFriend.html">💛 Adopt a Friend</a>
-        <a class="nav-link" href="#" data-page="lostfound.html">📍 Lost & Found</a>
+        <a class="nav-link" href="lostfound.html">📍 Lost & Found</a>
         <a class="nav-link" href="mycat.html" data-page="mycat.html">🐱 My Cats</a>
-        <a class="nav-link" href="#" data-page="listings.html">📄 Listings & Requests</a>
+        <a class="nav-link" href="listings.html">📄 Listings & Requests</a>
        
    </nav>
     </div>
@@ -211,8 +211,8 @@
         <h1>Welcome to <span>MeowMate 🐱</span></h1>
         <p>Find your purrfect friend, report lost cats, or adopt responsibly!</p>
         <div class="btns">
-            <button class="btn btn-primary">🐾 Adopt a Cat</button>
-            <button class="btn btn-secondary">🔍 Lost & Found</button>
+            <button class="btn btn-primary"onclick="window.location.href='../pages/adoptFriend.html'" >🐾 Adopt a Cat</button>
+            <button class="btn btn-secondary"onclick="window.location.href='../pages/lostfound.html'">🔍 Lost & Found</button>
         </div>
     </div>
 
@@ -224,7 +224,7 @@
             <p>Persian • 2 Years</p>
             <button class="adopt-btn">Adopt Me!</button>
         </div>
-        <div class="card">
+        <!-- <div class="card">
             <img src="https://cdn.pixabay.com/photo/2016/02/10/16/37/cat-1192026_1280.jpg" alt="cat">
             <h3>Luna</h3>
             <p>Siamese • 1.5 Years</p>
@@ -235,7 +235,7 @@
             <h3>Oliver</h3>
             <p>Maine Coon • 3 Years</p>
             <button class="adopt-btn">Adopt Me!</button>
-        </div>
+        </div> -->
     </div>
 </div>
 </body>
