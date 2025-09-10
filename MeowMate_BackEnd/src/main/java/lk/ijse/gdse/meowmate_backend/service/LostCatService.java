@@ -8,4 +8,14 @@ public interface LostCatService {
     LostCatDTO reportMissing(Long catId, Long userId, String lastSeenLocation);
     List<LostCatDTO> getAllMissingCats();
     void deleteByCatId(Long catId);  // ✅ new method for cascade delete
+
+    void reportSighting(Long catId, Long userId, String location);
+
+
+
+
+
+
+    String getOwnerEmailByCatId(Long catId);
+
 }

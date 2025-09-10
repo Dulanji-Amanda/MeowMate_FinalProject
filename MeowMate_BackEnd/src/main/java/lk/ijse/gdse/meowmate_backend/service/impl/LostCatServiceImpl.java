@@ -40,16 +40,20 @@
 
 package lk.ijse.gdse.meowmate_backend.service.impl;
 
+import lk.ijse.gdse.meowmate_backend.controller.EmailSenderServiceController;
 import lk.ijse.gdse.meowmate_backend.dto.LostCatDTO;
 import lk.ijse.gdse.meowmate_backend.entity.Cat;
 import lk.ijse.gdse.meowmate_backend.entity.LostCat;
 import lk.ijse.gdse.meowmate_backend.entity.LostStatus;
+import lk.ijse.gdse.meowmate_backend.entity.User;
 import lk.ijse.gdse.meowmate_backend.repo.CatRepository;
 import lk.ijse.gdse.meowmate_backend.repo.LostCatRepository;
+import lk.ijse.gdse.meowmate_backend.repo.UserRepository;
 import lk.ijse.gdse.meowmate_backend.service.LostCatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -59,6 +63,11 @@ public class LostCatServiceImpl implements LostCatService {
 
     private final LostCatRepository lostCatRepo;
     private final CatRepository catRepo;
+    private final UserRepository userRepo;
+    private final EmailSenderServiceController emailSenderServiceController;
+
+
+
 
     @Override
     public LostCatDTO reportMissing(Long catId, Long userId, String lastSeenLocation) {
@@ -109,4 +118,72 @@ public class LostCatServiceImpl implements LostCatService {
     public void deleteByCatId(Long catId) {
         lostCatRepo.findByCatId(catId).ifPresent(lostCatRepo::delete);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+    //emailll
+    @Override
+    public void reportSighting(Long catId, Long userId, String location) {
+        // Do nothing since you don't want to save in DB
+        // This method exists just to satisfy the controller call
+        System.out.println("Sighting reported: CatID=" + catId + ", UserID=" + userId + ", Location=" + location);
+    }
+
+
+
+
+
+
+
+//corect one -----------------------------------------------------------------------
+
+//    @Override
+//    public String getOwnerEmailByCatId(Long catId) {
+//        Cat cat = catRepo.findById(catId)
+//                .orElseThrow(() -> new RuntimeException("Cat not found"));
+//
+//        // Fetch owner user
+//        User owner = userRepo.findById(cat.getOwnerId())
+//                .orElseThrow(() -> new RuntimeException("Owner not found"));
+//
+//        if (owner.getEmail() == null || owner.getEmail().isEmpty()) {
+//            throw new RuntimeException("Owner email not found");
+//        }
+//
+//        return owner.getEmail();
+//    }
+
+//---------------------------------------------------------------------------------
+
+
+
+
+    @Override
+    public String getOwnerEmailByCatId(Long catId) {
+        Cat cat = catRepo.findById(catId)
+                .orElseThrow(() -> new RuntimeException("Cat not found"));
+
+        User owner = userRepo.findById(cat.getOwnerId())
+                .orElseThrow(() -> new RuntimeException("Owner not found"));
+
+        if (owner.getEmail() == null || owner.getEmail().isEmpty()) {
+            throw new RuntimeException("Owner email not found");
+        }
+
+        return owner.getEmail();
+    }
+
+
+
+
+
 }

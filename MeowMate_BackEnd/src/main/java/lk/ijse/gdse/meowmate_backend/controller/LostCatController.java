@@ -76,6 +76,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/lostcats")
@@ -85,6 +86,7 @@ public class LostCatController {
 
     private final LostCatService lostCatService;
     private final JWTUtil jwtUtil;
+    private final EmailSenderServiceController emailSenderServiceController;
 
     private Long getUserIdFromToken(String authHeader) {
         if (authHeader == null || !authHeader.startsWith("Bearer ")) throw new SecurityException("Invalid Authorization header");
@@ -110,4 +112,79 @@ public class LostCatController {
         lostCatService.deleteByCatId(catId);
         return ResponseEntity.noContent().build();
     }
+
+
+
+
+
+//    @PostMapping("/sighting/{catId}")
+//    public ResponseEntity<Void> reportSighting(
+//            @PathVariable Long catId,
+//            @RequestBody Map<String, String> payload) {
+//
+//        String location = payload.get("location");
+//
+//        // Compose HTML email
+//        String toEmail = "kavindutharin@gmail.com";
+//        String subject = "🐱 Lost Cat Sighting Reported!";
+//        String body = "<h3>Lost Cat Sighting Reported!</h3>"
+//                + "<p><strong>Cat ID:</strong> " + catId + "</p>"
+//                + "<p><strong>Location Seen:</strong> " + location + "</p>"
+//                + "<p>Thanks,<br/>MeowMate Team</p>";
+//
+//        emailSenderServiceController.sendSimpleEmail(toEmail, subject, body);
+//
+//        return ResponseEntity.ok().build();
+//    }
+
+
+
+// correct code ---------------------------------------------------------------------------------------------------------
+
+
+//    @PostMapping("/sighting/{catId}")
+//    public ResponseEntity<Void> reportSighting(
+//            @PathVariable Long catId,
+//            @RequestBody Map<String, String> payload) {
+//
+//        String location = payload.get("location");
+//
+//        // Send email using the new formatted HTML content
+//        emailSenderServiceController.sendSightingEmail("kavindutharin@gmail.com", catId, location);
+//
+//        return ResponseEntity.ok().build();
+//    }
+
+//-------------------------------------------------------------------------------------------------------------------------
+
+
+
+    //new code ----------------------------------------------------------------------------------------------------------
+
+
+    @PostMapping("/sighting/{catId}")
+    public ResponseEntity<Void> reportSighting(
+            @PathVariable Long catId,
+            @RequestBody Map<String, String> payload) {
+
+        String location = payload.get("location");
+
+        // Find owner email by catId
+        String ownerEmail = lostCatService.getOwnerEmailByCatId(catId);
+
+        // Send email to owner
+        emailSenderServiceController.sendSightingEmail(ownerEmail, catId, location);
+
+        // Optional: log sighting in DB
+        lostCatService.reportSighting(catId, null, location);
+
+        return ResponseEntity.ok().build();
+    }
+
+
+
+
+
+
+
 }

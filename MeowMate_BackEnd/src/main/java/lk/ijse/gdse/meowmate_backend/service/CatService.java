@@ -11,4 +11,6 @@ public interface CatService {
     List<CatDTO> getCatsByOwnerId(Long ownerId);
     CatDTO updateCat(Long dogId, CatDTO dogDTO, Long ownerId, byte[] imageBytes);
     void deleteCat(Long dogId, Long ownerId);
+
+
 }

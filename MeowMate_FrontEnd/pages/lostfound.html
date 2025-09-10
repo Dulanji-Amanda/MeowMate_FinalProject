@@ -248,26 +248,39 @@ window.openSighting = function(catId){
   sightingModal.show();
 }
 
-// Submit sighting
-sightingForm.addEventListener('submit', async e=>{
-  e.preventDefault();
-  const location = document.getElementById('sightingLocation').value.trim();
-  if(!location) return showNotification('Please enter location','error');
 
-  try{
-    const res = await fetch(`http://localhost:8080/api/lostcats/sighting/${currentLostCatId}`, {
-      method:'POST',
-      headers:{ 'Authorization':'Bearer '+token,'Content-Type':'application/json' },
-      body: JSON.stringify({ location })
-    });
-    if(!res.ok) throw new Error('Failed to submit sighting');
-    showNotification('Sighting submitted!');
-    sightingModal.hide();
-  }catch(err){
-    console.error(err);
-    showNotification('Submit failed','error');
-  }
+
+
+sightingForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    const location = document.getElementById('sightingLocation').value.trim();
+    if (!location) return showNotification('Please enter location', 'error');
+
+    try {
+        const res = await fetch(`http://localhost:8080/api/lostcats/sighting/${currentLostCatId}`, {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token 
+            },
+            body: JSON.stringify({ location }) // ✅ no user email sent
+        });
+
+        if (!res.ok) throw new Error('Failed to submit sighting');
+        showNotification('Sighting submitted! Owner notified via email!');
+        sightingModal.hide();
+    } catch (err) {
+        console.error(err);
+        showNotification('Submit failed', 'error');
+    }
 });
+
+
+
+
+
+
+
 
 // Initial load
 loadLostCats();

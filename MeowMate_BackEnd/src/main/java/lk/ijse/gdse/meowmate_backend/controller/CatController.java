@@ -165,4 +165,15 @@ public class CatController {
         catService.deleteCat(id, ownerId);
         return ResponseEntity.noContent().build();
     }
+
+
+
+
+    @GetMapping("/all")
+    public List<CatDTO> getAllCats() {
+        return catService.getAllCats();
+    }
+
+
+
 }
