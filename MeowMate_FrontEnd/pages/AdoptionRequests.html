@@ -1,0 +1,148 @@
+<div id="adopt-content">
+  <h2>📥 Adoption Requests</h2>
+  <div id="requestsList" class="card-row">
+    <div class="text-center py-5 text-muted" id="loadingPlaceholder">Loading requests...</div>
+  </div>
+</div>
+
+<div id="adopt-notification" class="notification"></div>
+
+<style>
+  #adopt-content { font-family:'Poppins', sans-serif; background:#fff; min-height:100%; padding:20px; }
+  #adopt-content h2 { font-weight:700; margin-bottom:20px; color:#1E1E50; }
+
+  .card-row { display:flex; flex-wrap:wrap; gap:20px; align-items:flex-start; }
+  .request-card {
+    background:#fff; border-radius:12px; padding:16px; width:calc(33.333% - 13.33px);
+    min-height:160px; box-shadow:0 4px 12px rgba(0,0,0,0.06); border:1px solid #e5e7eb;
+    opacity:0; transform:translateY(20px); transition:all 0.5s ease;
+  }
+  .request-card.show { opacity:1; transform:translateY(0); }
+  .request-card h5 { font-weight:600; margin-bottom:8px; color:#007bff; font-size:1rem; }
+  .request-card p { margin:3px 0; font-size:0.9rem; color:#444; }
+  .status { padding:5px 12px; border-radius:30px; font-weight:600; font-size:0.8rem; display:inline-block; }
+  .status.PENDING { background:#ffe066;color:#664d03; }
+  .status.ACCEPTED { background:#38c172;color:#fff; }
+  .status.REJECTED { background:#e3342f;color:#fff; }
+
+  .card-footer-actions { margin-top:10px; display:flex; gap:8px; }
+  .btn-action { border-radius:20px; padding:6px 14px; font-size:0.8rem; font-weight:600; border:none; cursor:pointer; transition:all 0.25s ease; }
+  .btn-accept { background:#38c172;color:#fff; } .btn-accept:hover { background:#2fa360; }
+  .btn-reject { background:#e3342f;color:#fff; } .btn-reject:hover { background:#c92a2a; }
+
+  #adopt-notification { position:fixed; top:20px; right:20px; padding:12px 20px; border-radius:12px; color:#fff; opacity:0; transform:translateY(-10px); transition:opacity 0.3s, transform 0.3s; z-index:2000; font-weight:600; font-size:0.95rem; box-shadow:0 4px 12px rgba(0,0,0,0.2); }
+  #adopt-notification.show { opacity:1; transform:translateY(0); }
+  #adopt-notification.success { background:#38c172; }
+  #adopt-notification.error { background:#e3342f; }
+
+  @media(max-width:992px){ .request-card{ width:calc(50% - 10px); } }
+  @media(max-width:576px){ .request-card{ width:100%; } }
+</style>
+
+<script>
+(function(){
+  const apiBase = "http://localhost:8080/api/adoptions";
+  const catsApiBase = "http://localhost:8080/api/cats/all";
+  const token = localStorage.getItem("accessToken");
+  const requestsListEl = document.getElementById("requestsList");
+  const loadingPlaceholder = document.getElementById("loadingPlaceholder");
+  const notificationEl = document.getElementById("adopt-notification");
+  const userData = JSON.parse(localStorage.getItem("userData") || "{}");
+
+  if(!token){ alert("Please log in"); window.location.href="SignIn.html"; return; }
+
+  function showNotification(msg,type="success",timeout=3000){
+    notificationEl.textContent=msg;
+    notificationEl.className=`notification show ${type}`;
+    setTimeout(()=>notificationEl.className="notification",timeout);
+  }
+
+  function escapeHtml(s){ return s? String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])):''; }
+
+  async function loadRequests(){
+    try {
+      // 1️⃣ Load all cats
+      const catsRes = await fetch(catsApiBase, { headers:{ "Authorization":"Bearer "+token } });
+      if(!catsRes.ok) throw new Error("Failed to load cats");
+      const allCats = await catsRes.json();
+
+      // Get IDs of cats added by logged-in user
+      const myCatIds = allCats.filter(c => c.ownerId === userData.id).map(c => c.id);
+
+      // 2️⃣ Load all adoption applications
+      const res = await fetch(`${apiBase}/all`,{ headers:{ "Authorization":"Bearer "+token } });
+      if(!res.ok) throw new Error("Failed to load requests");
+      const allRequests = await res.json();
+
+      // 3️⃣ Filter requests only for my cats
+      const myRequests = allRequests.filter(r => myCatIds.includes(r.petId));
+
+      loadingPlaceholder.style.display="none";
+      updateCards(myRequests);
+
+    } catch(err){
+      requestsListEl.innerHTML=`<div class="text-danger py-5">${err.message}</div>`;
+    }
+  }
+
+  function updateCards(requests){
+    const existingCards = Array.from(requestsListEl.children).filter(c=>c.classList.contains("request-card"));
+    const existingIds = existingCards.map(c=>Number(c.dataset.id));
+    const newIds = requests.map(r=>r.id);
+
+    // Remove deleted cards
+    existingCards.forEach(card=>{ if(!newIds.includes(Number(card.dataset.id))) requestsListEl.removeChild(card); });
+
+    // Add or update cards
+    requests.forEach((r,index)=>{
+      let card = requestsListEl.querySelector(`.request-card[data-id="${r.id}"]`);
+      const buttons = r.status==="PENDING"?`
+        <button class="btn-action btn-accept" onclick="updateAdoptStatus(${r.id},'ACCEPTED')">Accept</button>
+        <button class="btn-action btn-reject" onclick="updateAdoptStatus(${r.id},'REJECTED')">Reject</button>`:"";
+
+      if(card){
+        const statusEl = card.querySelector(".status");
+        if(statusEl.textContent!==r.status){ statusEl.textContent=r.status; statusEl.className="status "+r.status; }
+      } else {
+        card=document.createElement("div");
+        card.className="request-card";
+        card.dataset.id=r.id;
+        card.innerHTML=`
+          <h5>🐾 Request #${r.id}</h5>
+          <p><strong>Pet ID:</strong> ${escapeHtml(r.petId)}</p>
+          <p><strong>Adopter ID:</strong> ${escapeHtml(r.adopterId)}</p>
+          <p><strong>Date:</strong> ${escapeHtml(r.createdAt||"N/A")}</p>
+          <p><strong>Status:</strong> <span class="status ${escapeHtml(r.status)}">${escapeHtml(r.status)}</span></p>
+          <div class="card-footer-actions">${buttons}</div>`;
+        requestsListEl.appendChild(card);
+        setTimeout(()=>card.classList.add("show"),index*100);
+      }
+    });
+
+    if(requests.length===0){
+      requestsListEl.innerHTML=`<div class="text-center py-5 text-muted">No adoption requests found.</div>`;
+    }
+  }
+
+  window.updateAdoptStatus=async function(applicationId,status){
+    try{
+      const res=await fetch(`${apiBase}/${applicationId}/status`,{
+        method:"PATCH",
+        headers:{ "Content-Type":"application/json","Authorization":"Bearer "+token },
+        body:JSON.stringify({status})
+      });
+      if(!res.ok) throw new Error("Failed to update status");
+      showNotification(`Application ${status.toLowerCase()}!`,"success");
+      loadRequests();
+    }catch(err){
+      console.error(err);
+      showNotification(err.message||"Update failed","error",5000);
+    }
+  }
+
+  // Initial load and refresh every 10s
+  loadRequests();
+  setInterval(loadRequests,10000);
+
+})();
+</script>
