@@ -1,6 +1,7 @@
 package lk.ijse.gdse.meowmate_backend.config;
 
 import lk.ijse.gdse.meowmate_backend.util.JWTAuthFilter;
+import lk.ijse.gdse.meowmate_backend.config.OAuth2LoginSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,8 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
 
 import java.util.List;
 
@@ -33,16 +36,19 @@ public class SecurityConfig {
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder; // Inject from ApplicationConfig
     private final CorsConfigurationSource corsConfigurationSource;
+    private final OAuth2LoginSuccessHandler oauth2LoginSuccessHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource))
-                .authorizeHttpRequests(auth -> auth
+        .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/hello/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll() // Keep this for any future API auth endpoints
                         .requestMatchers("/auth/meowmate/**").permitAll() // Add this for the actual auth controller
+            .requestMatchers("/oauth2/**").permitAll()
+            .requestMatchers("/oauth2/success").permitAll()
                         .requestMatchers("/api/cats/**").authenticated() // Require authentication for dog endpoints
 
                         .requestMatchers("/api/cats/all").permitAll() // allow public access
@@ -63,6 +69,8 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                // Configure OAuth2 login to use our success handler which issues a JWT
+                .oauth2Login(oauth2 -> oauth2.successHandler(oauth2LoginSuccessHandler))
                 .build();
     }
 
