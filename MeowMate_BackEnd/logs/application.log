@@ -674,3 +674,133 @@
 2025-09-11T19:11:26.838+05:30  INFO 18536 --- [MeowMate_BackEnd] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-09-11T19:11:26.843+05:30  INFO 18536 --- [MeowMate_BackEnd] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2025-09-11T19:11:26.873+05:30  INFO 18536 --- [MeowMate_BackEnd] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-09-11T19:13:52.947+05:30  INFO 9760 --- [MeowMate_BackEnd] [main] l.i.g.m.MeowMateBackEndApplication       : Starting MeowMateBackEndApplication using Java 21.0.5 with PID 9760 (D:\AADFinalProject\MeowMate_BackEnd\target\classes started by LENOVO in D:\AADFinalProject\MeowMate_BackEnd)
+2025-09-11T19:13:52.950+05:30  INFO 9760 --- [MeowMate_BackEnd] [main] l.i.g.m.MeowMateBackEndApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-09-11T19:13:54.003+05:30  INFO 9760 --- [MeowMate_BackEnd] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-11T19:13:54.108+05:30  INFO 9760 --- [MeowMate_BackEnd] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 89 ms. Found 4 JPA repository interfaces.
+2025-09-11T19:13:54.974+05:30  INFO 9760 --- [MeowMate_BackEnd] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-09-11T19:13:54.988+05:30  INFO 9760 --- [MeowMate_BackEnd] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-09-11T19:13:54.989+05:30  INFO 9760 --- [MeowMate_BackEnd] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-09-11T19:13:55.059+05:30  INFO 9760 --- [MeowMate_BackEnd] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-09-11T19:13:55.059+05:30  INFO 9760 --- [MeowMate_BackEnd] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2059 ms
+2025-09-11T19:13:55.337+05:30  INFO 9760 --- [MeowMate_BackEnd] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-11T19:13:55.389+05:30  INFO 9760 --- [MeowMate_BackEnd] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-09-11T19:13:55.427+05:30  INFO 9760 --- [MeowMate_BackEnd] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-09-11T19:13:55.819+05:30  INFO 9760 --- [MeowMate_BackEnd] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-11T19:13:55.849+05:30  INFO 9760 --- [MeowMate_BackEnd] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-09-11T19:13:56.946+05:30  INFO 9760 --- [MeowMate_BackEnd] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2f75a9b1
+2025-09-11T19:13:56.951+05:30  INFO 9760 --- [MeowMate_BackEnd] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-09-11T19:13:57.058+05:30  WARN 9760 --- [MeowMate_BackEnd] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-11T19:13:57.093+05:30  INFO 9760 --- [MeowMate_BackEnd] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.3
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-09-11T19:13:58.358+05:30  INFO 9760 --- [MeowMate_BackEnd] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-11T19:13:58.631+05:30  INFO 9760 --- [MeowMate_BackEnd] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-11T19:13:59.297+05:30  INFO 9760 --- [MeowMate_BackEnd] [main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-09-11T19:13:59.298+05:30  WARN 9760 --- [MeowMate_BackEnd] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-09-11T19:13:59.338+05:30  INFO 9760 --- [MeowMate_BackEnd] [main] l.i.g.m.service.ChatBotService           : ChatBotService initialized with Ollama URL: http://localhost:11434/api/generate and model: gemma2:2b
+2025-09-11T19:13:59.524+05:30  WARN 9760 --- [MeowMate_BackEnd] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-11T19:13:59.673+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 23 mappings in 'requestMappingHandlerMapping'
+2025-09-11T19:13:59.805+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-09-11T19:14:00.190+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-09-11T19:14:00.250+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-09-11T19:14:00.466+05:30  INFO 9760 --- [MeowMate_BackEnd] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-09-11T19:14:00.478+05:30  INFO 9760 --- [MeowMate_BackEnd] [main] l.i.g.m.MeowMateBackEndApplication       : Started MeowMateBackEndApplication in 8.106 seconds (process running for 9.103)
+2025-09-11T19:15:36.969+05:30  INFO 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-11T19:15:36.970+05:30  INFO 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-09-11T19:15:36.971+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2025-09-11T19:15:36.972+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2025-09-11T19:15:36.972+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2025-09-11T19:15:36.976+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@2df40273
+2025-09-11T19:15:36.977+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@332fc35c
+2025-09-11T19:15:36.978+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-09-11T19:15:36.979+05:30  INFO 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms
+2025-09-11T19:15:37.092+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : POST "/auth/meowmate/register", parameters={}
+2025-09-11T19:15:37.096+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to lk.ijse.gdse.meowmate_backend.controller.AuthController#registerUser(UserDTO)
+2025-09-11T19:15:37.276+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [UserDTO(id=null, username=DulanjiAmanda, email=amandasathsarani03@gmail.com, password=Dulanji@1, rol (truncated)...]
+2025-09-11T19:15:38.025+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-11T19:15:38.032+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [APIResponse(status=200, message=OK, data=AuthResponseDTO(token=null, message=User registered success (truncated)...]
+2025-09-11T19:15:38.059+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-09-11T19:15:48.517+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : POST "/auth/meowmate/login", parameters={}
+2025-09-11T19:15:48.518+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to lk.ijse.gdse.meowmate_backend.controller.AuthController#login(AuthDTO)
+2025-09-11T19:15:48.527+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [AuthDTO(email=amandasathsarani03@gmail.com, password=Dulanji@1)]
+2025-09-11T19:15:49.122+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-11T19:15:49.124+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [APIResponse(status=200, message=OK, data={accessToken=eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJVU0VSIl0sI (truncated)...]
+2025-09-11T19:15:49.129+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-09-11T19:15:56.394+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : POST "/api/chat", parameters={}
+2025-09-11T19:15:56.395+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to lk.ijse.gdse.meowmate_backend.controller.ChatController#chat(Map)
+2025-09-11T19:15:56.410+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-8] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [{message=hi}]
+2025-09-11T19:15:56.411+05:30  INFO 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-8] l.i.g.m.service.ChatBotService           : Received prompt: hi
+2025-09-11T19:15:56.457+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-8] o.s.web.client.RestTemplate              : HTTP POST http://localhost:11434/api/generate
+2025-09-11T19:15:56.477+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-8] o.s.web.client.RestTemplate              : Accept=[text/plain, application/json, application/*+json, */*]
+2025-09-11T19:15:56.480+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-8] o.s.web.client.RestTemplate              : Writing [{stream=false, model=gemma2:2b, prompt=You are BarkBuddy AI, a friendly assistant for dog adoption and care. Answer concisely and helpfully. User: hi}] as "application/json"
+2025-09-11T19:16:07.676+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-8] o.s.web.client.RestTemplate              : Response 200 OK
+2025-09-11T19:16:07.686+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-8] o.s.web.client.RestTemplate              : Reading to [java.lang.String] as "application/json;charset=utf-8"
+2025-09-11T19:16:07.732+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-11T19:16:07.736+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{response=Hey there! 👋  How can I help you today? 🐶  🎉 <EOL>}]
+2025-09-11T19:16:07.740+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-09-11T19:18:16.036+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/cats/all", parameters={}
+2025-09-11T19:18:16.038+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to lk.ijse.gdse.meowmate_backend.controller.CatController#getAllCats()
+2025-09-11T19:18:16.462+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-11T19:18:16.463+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Writing [[]]
+2025-09-11T19:18:16.467+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-09-11T19:18:16.505+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/adoptions/all", parameters={}
+2025-09-11T19:18:16.506+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to lk.ijse.gdse.meowmate_backend.controller.AdoptionApplicationController#getAllApplications()
+2025-09-11T19:18:16.550+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-11T19:18:16.551+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[]]
+2025-09-11T19:18:16.556+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-09-11T19:18:17.691+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/cats/all", parameters={}
+2025-09-11T19:18:17.692+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to lk.ijse.gdse.meowmate_backend.controller.CatController#getAllCats()
+2025-09-11T19:18:17.709+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-11T19:18:17.709+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Writing [[]]
+2025-09-11T19:18:17.711+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-09-11T19:18:17.733+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/adoptions/all", parameters={}
+2025-09-11T19:18:17.733+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to lk.ijse.gdse.meowmate_backend.controller.AdoptionApplicationController#getAllApplications()
+2025-09-11T19:18:17.750+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-11T19:18:17.751+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[]]
+2025-09-11T19:18:17.753+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-09-11T19:18:19.223+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/lostcats/missing", parameters={}
+2025-09-11T19:18:19.225+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to lk.ijse.gdse.meowmate_backend.controller.LostCatController#getMissingCats()
+2025-09-11T19:18:19.307+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-11T19:18:19.308+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[]]
+2025-09-11T19:18:19.310+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-09-11T19:18:30.980+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/cats", parameters={}
+2025-09-11T19:18:30.981+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to lk.ijse.gdse.meowmate_backend.controller.CatController#getMyCats(String)
+2025-09-11T19:18:31.039+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-11T19:18:31.040+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[]]
+2025-09-11T19:18:31.043+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-09-11T19:18:37.016+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/cats/all", parameters={}
+2025-09-11T19:18:37.018+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to lk.ijse.gdse.meowmate_backend.controller.CatController#getAllCats()
+2025-09-11T19:18:37.033+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-4] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-11T19:18:37.034+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-4] m.m.a.RequestResponseBodyMethodProcessor : Writing [[]]
+2025-09-11T19:18:37.036+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-09-11T19:18:37.061+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/adoptions/all", parameters={}
+2025-09-11T19:18:37.062+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to lk.ijse.gdse.meowmate_backend.controller.AdoptionApplicationController#getAllApplications()
+2025-09-11T19:18:37.071+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-11T19:18:37.072+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[]]
+2025-09-11T19:18:37.074+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-09-11T19:18:46.083+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/cats", parameters={}
+2025-09-11T19:18:46.086+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to lk.ijse.gdse.meowmate_backend.controller.CatController#getMyCats(String)
+2025-09-11T19:18:46.099+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-11T19:18:46.099+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[]]
+2025-09-11T19:18:46.102+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-09-11T19:19:23.931+05:30  WARN 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-10] o.a.c.util.SessionIdGeneratorBase        : Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [259] milliseconds.
+2025-09-11T19:19:31.998+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-2] o.s.web.client.RestTemplate              : HTTP POST https://oauth2.googleapis.com/token
+2025-09-11T19:19:31.999+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-2] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
+2025-09-11T19:19:32.001+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-2] o.s.web.client.RestTemplate              : Writing [{grant_type=[authorization_code], code=[4/0AVMBsJjQ_d_Gnzs_jr76Mzdt5Venp-bGXmPrnWZhIIjjvc6ABa-Mt5MM9ldqhIcAfmdgyw], redirect_uri=[http://localhost:8080/login/oauth2/code/google]}] as "application/x-www-form-urlencoded;charset=UTF-8"
+2025-09-11T19:19:32.780+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-2] o.s.web.client.RestTemplate              : Response 200 OK
+2025-09-11T19:19:32.783+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-2] o.s.web.client.RestTemplate              : Reading to [org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse] as "application/json;charset=utf-8"
+2025-09-11T19:19:33.082+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-2] o.s.web.client.RestTemplate              : HTTP GET https://www.googleapis.com/oauth2/v3/certs
+2025-09-11T19:19:33.083+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-2] o.s.web.client.RestTemplate              : Accept=[text/plain, application/json, application/*+json, */*]
+2025-09-11T19:19:33.491+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-2] o.s.web.client.RestTemplate              : Response 200 OK
+2025-09-11T19:19:33.492+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-2] o.s.web.client.RestTemplate              : Reading to [java.lang.String] as "application/json;charset=UTF-8"
+2025-09-11T19:19:33.648+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/oauth2/success?token=eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJVU0VSIl0sInVzZXJJZCI6MSwic3ViIjoiYW1hbmRhc2F0aHNhcmFuaTAzQGdtYWlsLmNvbSIsImlhdCI6MTc1NzU5ODU3MywiZXhwIjoxNzU4NDYyNTczfQ.XxxkGepJkBF7h1rJ5PbKSz2zE_q8_4kLnHYy-kfd_6E", parameters={masked}
+2025-09-11T19:19:33.649+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to lk.ijse.gdse.meowmate_backend.controller.OAuth2Controller#success(String)
+2025-09-11T19:19:33.654+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Using 'text/html', given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8] and supported [text/html]
+2025-09-11T19:19:33.654+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Writing ["<!doctype html><EOL><html><head><meta charset="utf-8"><title>Login Success</title></head><EOL><body><EOL><script (truncated)..."]
+2025-09-11T19:19:33.656+05:30 DEBUG 9760 --- [MeowMate_BackEnd] [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
