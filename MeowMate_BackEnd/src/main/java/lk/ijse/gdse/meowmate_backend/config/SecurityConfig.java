@@ -48,6 +48,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/cats/all").permitAll() // allow public access
                         .requestMatchers("/api/adoptions/**").authenticated()
 
+
+                        .requestMatchers("/api/chat/**").permitAll()
                         .requestMatchers( "/api/adoptions/request/**").authenticated()
 
 
