@@ -43,16 +43,23 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource))
-        .authorizeHttpRequests(auth -> auth
+                .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/hello/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll() // Keep this for any future API auth endpoints
                         .requestMatchers("/auth/meowmate/**").permitAll() // Add this for the actual auth controller
-            .requestMatchers("/oauth2/**").permitAll()
-            .requestMatchers("/oauth2/success").permitAll()
+
+                        .requestMatchers("/oauth2/**").permitAll()
+                        .requestMatchers("/oauth2/success").permitAll()
+
+                        // new added
+                        .requestMatchers("/oauth2/failure").permitAll()
+
                         .requestMatchers("/api/cats/**").authenticated() // Require authentication for dog endpoints
 
                         .requestMatchers("/api/cats/all").permitAll() // allow public access
                         .requestMatchers("/api/adoptions/**").authenticated()
+
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
 
                         .requestMatchers("/api/chat/**").permitAll()

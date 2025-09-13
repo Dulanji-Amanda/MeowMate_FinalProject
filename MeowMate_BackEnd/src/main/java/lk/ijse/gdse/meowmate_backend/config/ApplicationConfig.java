@@ -19,7 +19,8 @@ import java.util.List;
 @Configuration
 @EnableMethodSecurity
 @RequiredArgsConstructor
-public class ApplicationConfig {
+public class
+ApplicationConfig {
     private final UserRepository userRepository;
 
     @Bean
