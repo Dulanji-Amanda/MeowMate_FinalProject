@@ -15,7 +15,8 @@ public class OAuth2Controller {
     @GetMapping(path = "/oauth2/success", produces = MediaType.TEXT_HTML_VALUE)
     public String success(@RequestParam("token") String token) {
         // Frontend URL - adjust if your frontend serves from a different path
-        String frontend = "http://localhost:5500/MeowMate_FrontEnd/pages/DashBoard.html";
+//        String frontend = "http://localhost:5500/MeowMate_FrontEnd/pages/DashBoard.html";
+        String frontend = "http://localhost:5501/MeowMate_FrontEnd/pages/DashBoard.html";
 
         // The page will store token -> accessToken in localStorage and redirect
         return "<!doctype html>\n" +

@@ -1,300 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meow-Mate - Listings & Requests</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <style>
-    body {
-        margin: 0;
-        font-family: 'Poppins', sans-serif;
-        display: flex;
-        height: 100vh;
-        background: linear-gradient(135deg, #ffffff);
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meow-Mate - Listings & Requests</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    min-height: 100vh;
+    background: #f2f2f2;
+}
 
-    /* Sidebar */
-    .sidebar {
-        width: 250px;
-        background-color: #1E1E50;
-        color: #fff;
-        display: flex;
-        flex-direction: column;
-        padding: 20px;
-    }
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #1E1E50;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+.sidebar h4 {
+    font-size: 22px;
+    font-weight: bold;
+}
+.menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-size: 15px;
+    transition: all 0.3s;
+}
+.menu a.active,
+.menu a:hover {
+    background: #f4b400;
+    color: #2e2a85;
+    font-weight: bold;
+    transform: translateX(5px);
+}
+.settings {
+    margin-top: auto;
+    font-size: 15px;
+}
+.settings a {
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    padding: 10px 0;
+}
 
-    .sidebar h4 {
-        font-size: 22px;
-        font-weight: bold;
-    }
+/* Main content */
+.main {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+    position: relative;
+}
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.topbar h3 {
+    margin: 0;
+    font-weight: bold;
+    color: #2e2a85;
+}
+.nav-tabs .nav-link {
+    border: none;
+    color: #000;
+    font-weight: 500;
+}
+.nav-tabs .nav-link.active {
+    background-color: #f4b400;
+    color: black;
+    font-weight: bold;
+    border-radius: 5px;
+}
 
-    .menu a {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 12px 16px;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 8px;
-        margin-bottom: 10px;
-        font-size: 15px;
-        transition: all 0.3s;
-    }
-
-    .menu a.active,
-    .menu a:hover {
-        background: #f4b400;
-        color: #2e2a85;
-        font-weight: bold;
-        transform: translateX(5px);
-    }
-
-    .settings {
-        margin-top: auto;
-        font-size: 15px;
-    }
-
-    .settings a {
-        text-decoration: none;
-        color: #fff;
-        display: block;
-        padding: 10px 0;
-    }
-
-    /* Main content */
-    .main {
-        flex: 1;
-        padding: 30px;
-        overflow-y: auto;
-        position: relative;
-    }
-
-    .topbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-
-    .topbar h3 {
-        margin: 0;
-        font-weight: bold;
-        color: #2e2a85;
-    }
-
-    .nav-tabs .nav-link {
-        border: none;
-        color: #000;
-        font-weight: 500;
-    }
-
-    .nav-tabs .nav-link.active {
-        background-color: #f4b400;
-        color: black;
-        font-weight: bold;
-        border-radius: 5px;
-    }
-
-    /* Request Card */
-    .request-card {
-        background: #fff;
-        border-radius: 8px;
-        padding: 15px;
-        margin-top: 20px;
-        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .request-card h5 {
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-
-    .status {
-        display: inline-block;
-        padding: 5px 12px;
-        border-radius: 12px;
-        font-size: 14px;
-        font-weight: bold;
-    }
-
-    .status.pending {
-        background-color: #ffeeba;
-        color: #856404;
-    }
-
-    .refresh-btn {
-        background-color: #5fa7b8;
-        color: white;
-        border: none;
-        padding: 6px 12px;
-        border-radius: 5px;
-        font-size: 14px;
-        cursor: pointer;
-    }
-
-    .refresh-btn:hover {
-        background-color: #2e2a85;
-    }
-
-  </style>
+/* Request Card */
+.request-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 20px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+}
+.request-card h5 {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.status {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.status.pending {
+    background-color: #ffeeba;
+    color: #856404;
+}
+.refresh-btn {
+    background-color: #5fa7b8;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+.refresh-btn:hover {
+    background-color: #2e2a85;
+}
+</style>
 </head>
 <body>
 
-  <!-- Sidebar -->
-  <div class="sidebar">
-      <h4>🐱 <strong>meow mate</strong></h4>
-      <div class="menu mt-4">
-          <a class="nav-link" href="DashBoard.html">🏠 Dashboard</a>
-          <a class="nav-link" href="adoptFriend.html">💛 Adopt a Friend</a>
-          <a class="nav-link" href="lostfound.html">📍 Lost & Found</a>
-          <a class="nav-link" href="mycat.html" >🐱My Cats </a>
-          <a class="nav-link active" href="listings.html">📄 Listings & Requests</a>
-      </div>
-      <div class="settings">
-          <a class="nav-link" href="setting.html">⚙️ Settings</a>
-          <a class="nav-link" href="logout.html">🚪 Logout</a>
-      </div>
-  </div>
+<!-- Sidebar -->
+<div class="sidebar">
+    <h4>🐱 <strong>meow mate</strong></h4>
+    <div class="menu mt-4">
+        <a class="nav-link" href="DashBoard.html">🏠 Dashboard</a>
+        <a class="nav-link" href="adoptFriend.html">💛 Adopt a Friend</a>
+        <a class="nav-link" href="lostfound.html">📍 Lost & Found</a>
+        <a class="nav-link" href="mycat.html">🐱My Cats</a>
+        <a class="nav-link active" href="listings.html">📄 Listings & Requests</a>
+    </div>
+    <div class="settings">
+        <a class="nav-link" href="setting.html">⚙️ Settings</a>
+        <a class="nav-link" href="logout.html">🚪 Logout</a>
+    </div>
+</div>
 
-  <!-- Main Content -->
-  <div class="main">
+<!-- Main Content -->
+<div class="main">
     <div class="topbar">
-      <h3>📄 Listings & Requests</h3>
-      <!-- <button class="refresh-btn">🔄 Refresh</button> -->
+        <h3>📄 Listings & Requests</h3>
     </div>
 
     <!-- Tabs -->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
-      <li class="nav-item">
-        <a class="nav-link active" id="all-tab" data-bs-toggle="tab" href="#all" role="tab">All Listings</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="adopt-tab" data-bs-toggle="tab" href="#adopt" role="tab">Adoption Requests</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="lost-tab" data-bs-toggle="tab" href="#lost" role="tab">Lost Cat Reports</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="cart-tab" data-bs-toggle="tab" href="#cart" role="tab">My Cart</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="myreq-tab" data-bs-toggle="tab" href="#myreq" role="tab">My Requests</a>
-      </li>
+        <li class="nav-item"><a class="nav-link active" id="all-tab" data-bs-toggle="tab" href="#all" role="tab">All Listings</a></li>
+        <li class="nav-item"><a class="nav-link" id="adopt-tab" data-bs-toggle="tab" href="#adopt" role="tab">Adoption Requests</a></li>
+        <li class="nav-item"><a class="nav-link" id="lost-tab" data-bs-toggle="tab" href="#lost" role="tab">Lost Cat Reports</a></li>
+        <li class="nav-item"><a class="nav-link" id="cart-tab" data-bs-toggle="tab" href="#cart" role="tab">My Cart</a></li>
+        <li class="nav-item"><a class="nav-link" id="myreq-tab" data-bs-toggle="tab" href="#myreq" role="tab">My Requests</a></li>
     </ul>
 
     <!-- Tab Content -->
     <div class="tab-content mt-3">
-      <!-- All Listings -->
-      <div class="tab-pane fade show active" id="all" role="tabpanel">
-        <div class="request-card">
-          <h5>🐕 Rocky</h5>
-          <p><strong>Owner:</strong> John</p>
-          <p><strong>Date:</strong> 8/9/2025</p>
-          <p><strong>Status:</strong> <span class="status pending">AVAILABLE</span></p>
+        <div class="tab-pane fade show active" id="all" role="tabpanel">
+            <div class="request-card">
+                <h5>🐕 Rocky</h5>
+                <p><strong>Owner:</strong> John</p>
+                <p><strong>Date:</strong> 8/9/2025</p>
+                <p><strong>Status:</strong> <span class="status pending">AVAILABLE</span></p>
+            </div>
         </div>
-      </div>
-
-      <!-- Adoption Requests -->
-      <div class="tab-pane fade" id="adopt" role="tabpanel">
-         <div id="adopt-content" class="p-2 text-center text-muted">
-          Loading adoption requests...
+        <div class="tab-pane fade" id="adopt" role="tabpanel">
+            <div id="adopt-content" class="p-2 text-center text-muted">Loading adoption requests...</div>
         </div>
-      </div>
-
-      <!-- Lost Reports -->
-      <div class="tab-pane fade" id="lost" role="tabpanel">
-        <div id="lost-content" class="p-2 text-center text-muted">
-          Loading lost dog reports...
+        <div class="tab-pane fade" id="lost" role="tabpanel">
+            <div id="lost-content" class="p-2 text-center text-muted">Loading lost cat reports...</div>
         </div>
-      </div>
-
-      <!-- My Cart (Load from external page) -->
-      <div class="tab-pane fade" id="cart" role="tabpanel">
-        <div id="cart-content" class="p-2 text-center text-muted">
-          Loading My Cart...
+        <div class="tab-pane fade" id="cart" role="tabpanel">
+            <div id="cart-content" class="p-2 text-center text-muted">Loading My Cart...</div>
         </div>
-      </div>
-
-      <!-- My Requests (Load from external page) -->
-      <div class="tab-pane fade" id="myreq" role="tabpanel">
-        <div id="myreq-content" class="p-2 text-center text-muted">
-          Loading My Requests...
+        <div class="tab-pane fade" id="myreq" role="tabpanel">
+            <div id="myreq-content" class="p-2 text-center text-muted">Loading My Requests...</div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
 
-  <script>
-    // Load Myrequests.html when the My Requests tab is clicked
-    document.getElementById("myreq-tab").addEventListener("shown.bs.tab", function () {
-      fetch("Myrequests.html")
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById("myreq-content").innerHTML = data;
-        })
-        .catch(err => {
-          document.getElementById("myreq-content").innerHTML = "<p class='text-danger'>Failed to load My Requests.</p>";
-        });
+<script>
+// Generic function to load external HTML into a tab pane
+function loadTabContent(tabId, containerId, url) {
+    document.getElementById(tabId).addEventListener("shown.bs.tab", () => {
+        fetch(url)
+            .then(r => r.text())
+            .then(data => {
+                const container = document.getElementById(containerId);
+                container.innerHTML = data;
+
+                // Re-run any scripts inside loaded HTML
+                const scripts = container.querySelectorAll("script");
+                scripts.forEach(oldScript => {
+                    const newScript = document.createElement("script");
+                    if (oldScript.src) {
+                        newScript.src = oldScript.src;
+                    } else {
+                        newScript.textContent = oldScript.textContent;
+                    }
+                    document.body.appendChild(newScript);
+                });
+            })
+            .catch(() => {
+                document.getElementById(containerId).innerHTML = "<p class='text-danger'>Failed to load content.</p>";
+            });
     });
+}
 
-    // Load Mycart.html when the My Cart tab is clicked
-    document.getElementById("cart-tab").addEventListener("shown.bs.tab", function () {
-      fetch("Mycart.html")
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById("cart-content").innerHTML = data;
-        })
-        .catch(err => {
-          document.getElementById("cart-content").innerHTML = "<p class='text-danger'>Failed to load My Cart.</p>";
-        });
-    });
-
-
-     document.getElementById("lost-tab").addEventListener("shown.bs.tab", function () {
-      fetch("LostDogReport.html")
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById("lost-content").innerHTML = data;
-        })
-        .catch(err => {
-          document.getElementById("lost-content").innerHTML = "<p class='text-danger'>Failed to load My Cart.</p>";
-        });
-    });
-
-
-
-
-
-  document.getElementById("adopt-tab").addEventListener("shown.bs.tab", function () {
-      fetch("AdoptionRequests.html")
-        .then(response => response.text())
-        .then(data => {
-          const container = document.getElementById("adopt-content");
-          container.innerHTML = data;
-
-          // re-run scripts inside loaded HTML
-          const scripts = container.querySelectorAll("script");
-          scripts.forEach(oldScript => {
-            const newScript = document.createElement("script");
-            if (oldScript.src) {
-              newScript.src = oldScript.src;
-            } else {
-              newScript.textContent = oldScript.textContent;
-            }
-            document.body.appendChild(newScript);
-          });
-        })
-        .catch(err => {
-          document.getElementById("adopt-content").innerHTML =
-            "<p class='text-danger'>Failed to load Adoption Requests.</p>";
-        });
-    });
-
-
-
-  </script>
+// Load all dynamic tabs
+loadTabContent("adopt-tab", "adopt-content", "AdoptionRequests.html");
+loadTabContent("lost-tab", "lost-content", "LostCatReport.html");
+loadTabContent("cart-tab", "cart-content", "Mycart.html");
+loadTabContent("myreq-tab", "myreq-content", "Myrequests.html");
+</script>
 
 </body>
 </html>

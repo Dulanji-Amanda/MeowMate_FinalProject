@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -175,7 +178,7 @@ body {
 }
 
 /* ======================== Floating Chat Widget ======================== */
-#barkbuddy-chatbot-widget {
+#catbuddy-chatbot-widget {
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -193,12 +196,14 @@ body {
     cursor: pointer;
     box-shadow: 0 8px 25px rgba(0,0,0,0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: fixed;  
+    bottom: 30px;      
+    right: 30px;       
 
-    /* Positioning */
-    position: fixed;   /* Keeps it fixed on screen */
-    bottom: 30px;      /* Distance from bottom */
-    right: 30px;       /* Distance from right */
 }
+
+
+
 .chatbot-toggle:hover { transform: scale(1.1); box-shadow: 0 12px 35px rgba(0,0,0,0.3); }
 
 .chatbot-icon, .chatbot-close-icon { color: white; font-size: 28px; }
@@ -499,3 +504,4 @@ if(typeof window!=='undefined'){
 </script>
 </body>
 </html>
+
