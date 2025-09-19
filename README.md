@@ -88,32 +88,26 @@ Then open http://localhost:5500 in your browser. Alternatively, simply open `ind
 
 3. If the frontend calls backend APIs, ensure the backend is running at `http://localhost:8080`. Update AJAX endpoints in the frontend pages if different.
 
-## Demo Video
-
-Please provide a YouTube link to the demo video. Follow the naming convention: MeowMate*FinalProject_Demo*<yourname>. Example placeholder:
-
-https://youtu.be/REPLACE_WITH_YOUR_VIDEO_ID
-
 
 ## Detailed feature notes
 
 Below are short descriptions and implementation notes for several frontend pages and backend flows found in the project. These notes explain where to look in the repository and how the flows work so you can customize or extend them.
 
-1. Settings page (`pages/setting.html`)
+### 1. Settings page (`pages/setting.html`)
 
 - Purpose: allow users to update their profile (name, contact info), manage notification preferences, and adjust account settings such as password change and linked OAuth accounts.
 - Frontend: the page contains form inputs for profile fields and settings toggles. It uses JavaScript to call backend endpoints for updates.
 - Backend: look for user-related controllers (e.g., `UserController` in `MeowMate_BackEnd/src/main/java/.../controller`) which expose endpoints for getting/updating the current user. Profile update endpoints likely accept multipart/form-data for avatar uploads.
 - Notes: ensure CSRF and authentication checks are enabled for these endpoints. For password changes, use secure password hashing (BCrypt) and validate the old password before updating.
 
-2. AI page (`pages/Aipage.html`)
+### 2. AI page (`pages/Aipage.html`)
 
 - Purpose: experimental AI features (project may include an integration point for generating content or assistance through the configured Ollama API from `application.properties`). This could be used for content suggestions, automated responses, or help text.
 - Backend: `application.properties` has Ollama API settings (e.g., `ollama.api.url` and `ollama.model`). Check `util/` or a dedicated service class for an API client that forwards requests to Ollama.
 - Usage: the frontend likely sends text (e.g., prompts) to an endpoint which then proxies the request to the Ollama model. Responses are displayed in the UI.
 - Notes: When testing locally, ensure the Ollama server (or chosen LLM endpoint) is reachable. Be mindful of rate limits and filter user input when exposing an LLM to users.
 
-3. Email sending (notifications & verification)
+### 3. Email sending (notifications & verification)
 
 - Purpose: the application sends emails for actions like adoption confirmations, password resets, and notifications.
 - Config: SMTP settings are stored in `src/main/resources/application.properties` (Gmail SMTP is pre-configured). The backend uses Spring Boot's mail support (`spring-boot-starter-mail`).
@@ -129,7 +123,7 @@ spring.mail.password=
 
 - Production: use SMTP provider with app-specific credentials or a transactional email service (SendGrid, Mailgun) and secure secrets via environment variables.
 
-4. Adoption requests flow
+### 4. Adoption requests flow
 
 - Purpose: users can request to adopt a listed cat. Requests appear in the admin or owner dashboard for action (accept/reject).
 - Frontend: adoption request forms and request lists exist in pages like `pages/Listing&requests.html`, `pages/AdoptionRequests.html`, or the dashboard views. The UI shows request cards with details and Accept/Reject buttons.
@@ -139,7 +133,7 @@ spring.mail.password=
   - Admin/owner uses Accept/Reject API endpoints to change status to APPROVED/REJECTED; the backend updates the entity and optionally triggers an email notification to the requester.
 - Notes: ensure state transitions are protected and validated (only authorized users can approve). Add transactional handling when approving (e.g., mark pet as adopted and close other open requests).
 
-5. Lost cat sighting reporting
+### 5. Lost cat sighting reporting
 
 - Purpose: users can report a lost cat sighting to help reunite pets with owners.
 - Frontend: `pages/LostCatReport.html` and `pages/lostfound.html` provide UI forms for submitting a sighting (location, description, photo). The Lost & Found listing page displays reported missing pets and allows users to report sightings via a modal or dedicated form.
@@ -154,6 +148,10 @@ Security and deployment notes
 - Keep secrets out of source control: move DB passwords, JWT secrets, OAuth client secrets, and SMTP credentials to environment variables or an external secret store. Use Spring Boot profiles (`application-dev.properties`, `application-prod.properties`) and `@Value` or `System.getenv()` for production secrets.
 - HTTPS and OAuth redirect URIs: when deploying, update Google OAuth redirect URIs in the Google Cloud Console to the production domain and enable HTTPS.
 
+## Demo Video
+
+
+https://youtu.be/REPLACE_WITH_YOUR_VIDEO_ID
 
 
 ## Developer Notes & Next Steps
