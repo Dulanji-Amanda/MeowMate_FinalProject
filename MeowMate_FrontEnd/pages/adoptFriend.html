@@ -8,14 +8,12 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 <style>
   body { font-family:'Poppins',sans-serif; background:#f0f4ff; margin:0; min-height:100vh; display:flex; color:#333; }
-  .sidebar { width:260px; background-color:#0d47a1; color:#fff; display:flex; flex-direction:column; padding:35px 20px; position:fixed; top:0; bottom:0; left:0; box-shadow:5px 0 25px rgba(0,0,0,0.15); border-radius:0 20px 20px 0; }
-  .logo { font-size:26px; font-weight:800; margin-bottom:55px; color:#fff; }
-  .menu { flex:1; }
-  .menu a { display:flex; align-items:center; gap:14px; padding:15px 20px; color:#fff; text-decoration:none; border-radius:15px; margin-bottom:14px; font-size:16px; transition:all .3s ease; }
-  .menu a.active, .menu a:hover { background:#ffffff; color:#0d47a1; font-weight:700; transform:translateX(8px); }
-  .settings { margin-top:auto; }
-  .settings a { text-decoration:none; color:#ccc; display:flex; align-items:center; gap:12px; padding:14px 18px; border-radius:12px; transition:all .3s; }
-  .settings a:hover { background:rgba(255,255,255,0.18); color:#fff; }
+  .sidebar { width:250px; background-color:#0d47a1; color:#fff; display:flex; flex-direction:column; padding:35px 20px; position:fixed; top:0; bottom:0; left:0; box-shadow:5px 0 25px rgba(0,0,0,0.15); }
+.sidebar h4 { font-size:22px; font-weight:bold; }
+  .menu a { display:flex; align-items:center; gap:10px; padding:12px 16px; color:#fff; text-decoration:none; border-radius:8px; margin-bottom:10px; font-size:15px; transition:all .3s; }
+.menu a.active,.menu a:hover { background:#fff; color:#0d47a1; font-weight:bold; transform:translateX(5px); }
+  .settings { margin-top:auto; font-size:15px; }
+.settings a { text-decoration:none; color:#fff; display:block; padding:10px 0; }
   .main { margin-left:260px; padding:45px 40px; flex:1; }
   #filterSelect { max-width:300px; margin:0 auto 35px auto; display:block; border-radius:30px; padding:12px 18px; box-shadow:0 6px 20px rgba(0,0,0,0.12); font-weight:500; background:#fff; border:none; }
   /* Use a responsive grid so we can show up to 5 cards per row on wide screens */
@@ -60,15 +58,18 @@
 </head>
 <body>
 <div class="sidebar">
-  <div class="logo"><h4>🐱 <strong>MeowMate</strong></h4></div>
-  <div class="menu">
+  <h4>🐱 <strong>MeowMate</strong></h4>
+  <div class="menu mt-4">
     <a href="DashBoard.html">🏠 Dashboard</a>
     <a class="active" href="adoptFriend.html">💛 Adopt a Friend</a>
     <a href="lostfound.html">📍 Lost & Found</a>
     <a href="mycat.html">🐱 My Cats</a>
     <a href="Listing&requests.html">📄 Listings & Requests</a>
   </div>
-  <div class="settings"><a href="setting.html">⚙️ Settings</a></div>
+  <div class="settings">
+      <a class="nav-link" href="setting.html">⚙️ Settings</a>
+      <a class="nav-link" href="SignIn.html">🚪 Logout</a>
+    </div>
 </div>
 
 <div class="main">

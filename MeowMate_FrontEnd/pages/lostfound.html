@@ -36,7 +36,8 @@
   }
   .sidebar .nav-link:hover { background:#ffffff; color:#0d47a1; }
   .sidebar .nav-link.active { background:#ffffff; color:#0d47a1; font-weight:600; box-shadow:0 2px 6px rgba(0,0,0,0.2); }
-
+.settings { margin-top:auto; font-size:15px; }
+.settings a { text-decoration:none; color:#fff; display:block; padding:10px 0; }
   .main { 
     margin-left:240px; 
     padding:3rem 2rem; 
@@ -120,14 +121,19 @@
 
 <div class="sidebar">
   <h4>🐱 <strong>MeowMate</strong></h4>
+  
   <nav class="nav flex-column mt-4">
     <a class="nav-link" href="dashboard.html">🏠 Dashboard</a>
     <a class="nav-link active" href="lostfound.html">📍 Lost & Found</a>
     <a class="nav-link" href="adoptFriend.html">💛 Adopt a Friend</a>
     <a class="nav-link" href="mycat.html">🐱 My Cats</a>
     <a class="nav-link" href="Listing&requests.html">📄 Listings & Requests</a>
-    <a class="nav-link mt-auto" href="setting.html">⚙️ Settings</a>
   </nav>
+
+  <div class="settings">
+      <a class="nav-link" href="setting.html">⚙️ Settings</a>
+      <a class="nav-link" href="SignIn.html">🚪 Logout</a>
+    </div>
 </div>
 
 <div class="main">

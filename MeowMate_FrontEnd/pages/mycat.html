@@ -24,31 +24,16 @@ body {
 }
 
 /* Sidebar */
-.sidebar {
-  width: 260px;
-  background-color: #0d47a1; /* unified primary */
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  padding: 35px 20px;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  box-shadow: 5px 0 25px rgba(0,0,0,0.15);
-  border-radius: 0 20px 20px 0;
-}
-.logo { font-size:22px; font-weight:bold; display:flex; align-items:center; margin-bottom:40px; }
-.logo img { width:40px; margin-right:12px; }
+.sidebar { width:250px; background:#0d47a1; color:#fff; display:flex; flex-direction:column; padding:20px; }
+.sidebar h4 { font-size:22px; font-weight:bold; }
+
 .menu { flex:1; }
 .menu a { display:flex; align-items:center; gap:10px; padding:12px 16px; color:#fff; text-decoration:none; border-radius:8px; margin-bottom:10px; font-size:15px; transition:all .3s; }
 .menu a.active, .menu a:hover { background:#ffffff; color:#0d47a1; font-weight:bold; transform:translateX(5px); }
-.settings { margin-top:auto; }
-.settings a { text-decoration:none; color:#bbb; display:flex; align-items:center; gap:8px; padding:12px 16px; border-radius:8px; transition:.3s; }
-.settings a:hover { background:rgba(255,255,255,0.1); color:#fff; }
-
+.settings { margin-top:auto; font-size:15px; }
+.settings a { text-decoration:none; color:#fff; display:block; padding:10px 0; }
 /* Main content */
-.main { margin-left:250px; padding:30px; flex:1; }
+.main { margin-left:80px; padding:30px; flex:1; }
 .header { background:#fff; border-radius:20px; padding:25px; margin-bottom:30px; text-align:center; box-shadow:0 6px 15px rgba(0,0,0,0.1); }
 .header h1 { font-size:32px; margin:0; color:#2e2a85; font-weight:bold; }
 .header h1 span { color:#FF7EB3; }
@@ -109,10 +94,8 @@ body {
 <body>
 <!-- Sidebar -->
 <div class="sidebar">
-  <div class="logo">
-     <h4>🐱 <strong>MeowMate</strong></h4>
+    <h4>🐱 <strong>MeowMate</strong></h4>
 
-  </div>
   <div class="menu">
     <div class="menu mt-4">
       <a href="DashBoard.html">🏠 Dashboard</a>
@@ -123,8 +106,9 @@ body {
     </div>
   </div>
   <div class="settings">
-  <a class="nav-link mt-auto" href="setting.html">⚙️ Settings</a>
-  </div>
+      <a class="nav-link" href="setting.html">⚙️ Settings</a>
+      <a class="nav-link" href="SignIn.html">🚪 Logout</a>
+    </div>
 </div>
 
 <!-- Main Content -->
