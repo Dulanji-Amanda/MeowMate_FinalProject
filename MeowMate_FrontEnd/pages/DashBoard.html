@@ -1,506 +1,184 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MeowMate Dashboard</title>
-
-<!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
-<!-- Font Awesome -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-
 <style>
-/* ======================== Body ======================== */
-body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    display: flex;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #d7e4f3, #A0D8FF, #ffffff);
-}
-
-/* ======================== Sidebar ======================== */
-.sidebar {
-    width: 250px;
-    background-color: #1E1E50;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-}
-
-.sidebar h4 {
-    font-size: 22px;
-    font-weight: bold;
-}
-
-.menu a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 16px;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    font-size: 15px;
-    transition: all 0.3s;
-}
-
-.menu a.active,
-.menu a:hover {
-    background: #c4bbe4;
-    color: #2e2a85;
-    font-weight: bold;
-    transform: translateX(5px);
-}
-
-.settings {
-    margin-top: auto;
-    font-size: 15px;
-}
-
-.settings a {
-    text-decoration: none;
-    color: #fff;
-    display: block;
-    padding: 10px 0;
-}
-
-/* ======================== Main Content ======================== */
-.main {
-    flex: 1;
-    padding: 30px;
-    overflow-y: auto;
-    position: relative;
-}
-
-.header {
-    background: #fff;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 30px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.header h1 {
-    font-size: 28px;
-    margin: 0;
-    color: #2e2a85;
-}
-
-.header h1 span {
-    color: #FF7EB3;
-}
-
-.header p {
-    margin: 10px 0 20px;
-    color: #555;
-}
-
-.btn {
-    padding: 10px 18px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 15px;
-}
-
-.btn-primary {
-    background: #5fa7b8;
-    color: #2e2a85;
-    font-weight: bold;
-}
-
-.btn-secondary {
-    background: #2e2a85;
-    color: #fff;
-}
-
-.section-title {
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #2e2a85;
-}
-
-#cat-section .cat-card {
-    display: flex;
-    align-items: center;
-    background-color: #d7eff1;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 20px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
-
-#cat-section .cat-card img {
-    width: 260px;
-    height: 340px;
-    object-fit: cover;
-}
-
-#cat-section .cat-card:hover {
-    transform: scale(1.02);
-}
-
-.cat-info {
-    padding: 20px;
-    width: 60%;
-}
-
-.cat-info h3 {
-    font-size: 20px;
-    font-weight: bold;
-    margin: 0;
-}
-
-.sub-text {
-    font-size: 16px;
-    color: #444;
-    margin: 5px 0;
-}
-
-.adopt-btn {
-    background: #FFD36E;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    color: #2e2a85;
-}
-
-/* ======================== Floating Chat Widget ======================== */
-#catbuddy-chatbot-widget {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 10000;
-}
-
-.chatbot-toggle {
-    width: 65px;
-    height: 65px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #2C2A7B, #FEC83C);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: fixed;  
-    bottom: 30px;      
-    right: 30px;       
-
-}
-
-
-
-.chatbot-toggle:hover { transform: scale(1.1); box-shadow: 0 12px 35px rgba(0,0,0,0.3); }
-
-.chatbot-icon, .chatbot-close-icon { color: white; font-size: 28px; }
-
-.chatbot-window {
-    position: absolute;
-    bottom: 85px;
-    right: 0;
-    width: 400px;
-    height: 520px;
-    background: #fff;
-    border-radius: 20px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-    display: none;
-    flex-direction: column;
-    overflow: hidden;
-    animation: slideUp 0.35s ease-out;
-}
-@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-.chatbot-header {
-    background: linear-gradient(135deg, #2C2A7B, #FEC83C);
-    color: white;
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.chatbot-header-info { display: flex; align-items: center; gap: 12px; }
-.chatbot-avatar {
-    width: 40px; height: 40px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px;
-}
+body { margin:0; font-family:'Poppins',sans-serif; display:flex; min-height:100vh; background:#f0f4ff; }
+.sidebar { width:250px; background:#0d47a1; color:#fff; display:flex; flex-direction:column; padding:20px; }
+.sidebar h4 { font-size:22px; font-weight:bold; }
+.menu a { display:flex; align-items:center; gap:10px; padding:12px 16px; color:#fff; text-decoration:none; border-radius:8px; margin-bottom:10px; font-size:15px; transition:all .3s; }
+.menu a.active,.menu a:hover { background:#fff; color:#0d47a1; font-weight:bold; transform:translateX(5px); }
+.settings { margin-top:auto; font-size:15px; }
+.settings a { text-decoration:none; color:#fff; display:block; padding:10px 0; }
+.main { flex:1; padding:30px; overflow-y:auto; position:relative; }
+.header { background:#fff; border-radius:12px; padding:20px; margin-bottom:30px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,.1); }
+.header h1 { font-size:28px; margin:0; color:#2e2a85; }
+.header h1 span { color:#FF7EB3; }
+.header p { margin:10px 0 20px; color:#555; }
+.btn { padding:10px 18px; border:none; border-radius:8px; cursor:pointer; font-size:15px; }
+.btn-primary { background:#5fa7b8; color:#2e2a85; font-weight:bold; }
+.btn-secondary { background:#2e2a85; color:#fff; }
+.section-title { font-size:22px; font-weight:700; margin:5px 0 18px; color:#2e2a85; display:flex; align-items:center; gap:8px; }
+.cat-grid { display:flex; flex-wrap:wrap; gap:25px; }
+.dash-cat-card { background:#fff; width:230px; border-radius:18px; box-shadow:0 12px 25px rgba(0,0,0,0.08); overflow:hidden; text-align:center; position:relative; transition:.35s; }
+.dash-cat-card:hover { transform:translateY(-6px); box-shadow:0 18px 40px rgba(0,0,0,0.12); }
+.dash-cat-card img { width:100%; height:190px; object-fit:cover; }
+.dash-cat-card h5 { font-size:17px; font-weight:700; margin:12px 0 4px; color:#2e2a85; }
+.dash-cat-card small { display:block; margin-bottom:10px; color:#555; font-size:13px; }
+.dash-cat-card .actions { display:flex; justify-content:center; gap:6px; margin-bottom:14px; flex-wrap:wrap; }
+.dash-cat-card button { padding:6px 14px; font-size:12.5px; border-radius:20px; font-weight:600; border:2px solid #FFD36E; background:#fff; color:#2e2a85; cursor:pointer; transition:.3s; }
+.dash-cat-card button:hover:not([disabled]) { background:#FFD36E; }
+.dash-cat-card button[disabled] { opacity:.7; cursor:not-allowed; }
+.status-badge { position:absolute; top:10px; left:10px; padding:6px 14px; border-radius:40px; font-size:11px; font-weight:700; letter-spacing:.5px; color:#fff; box-shadow:0 3px 10px rgba(0,0,0,0.25); }
+.status-AVAILABLE { background:#1cc88a; }
+.status-PENDING { background:#f6c23e; }
+/* Chat widget styles (unchanged) */
+#barkbuddy-chatbot-widget { position:fixed; bottom:20px; right:20px; z-index:10000; }
+.chatbot-toggle { width:65px; height:65px; border-radius:50%; background:linear-gradient(135deg,#2C2A7B,#FEC83C); display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 8px 25px rgba(0,0,0,0.2); transition:transform .3s, box-shadow .3s; position:fixed; bottom:30px; right:30px; }
+.chatbot-toggle:hover { transform:scale(1.1); box-shadow:0 12px 35px rgba(0,0,0,0.3); }
+.chatbot-icon,.chatbot-close-icon { color:#fff; font-size:28px; }
+.chatbot-window { position:absolute; bottom:85px; right:0; width:400px; height:520px; background:#fff; border-radius:20px; box-shadow:0 20px 50px rgba(0,0,0,0.2); display:none; flex-direction:column; overflow:hidden; animation:slideUp .35s ease-out; }
+@keyframes slideUp { from { opacity:0; transform:translateY(20px);} to { opacity:1; transform:translateY(0);} }
+.chatbot-header { background:linear-gradient(135deg,#2C2A7B,#FEC83C); color:#fff; padding:15px 20px; display:flex; justify-content:space-between; align-items:center; }
+.chatbot-header-info { display:flex; align-items:center; gap:12px; }
+.chatbot-avatar { width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; }
 .chatbot-title h4 { margin:0; font-size:17px; font-weight:600; }
-.chatbot-status { font-size:12px; opacity:0.85; }
-.chatbot-actions button { background:none; border:none; color:white; font-size:16px; cursor:pointer; transition:0.2s; }
+.chatbot-status { font-size:12px; opacity:.85; }
+.chatbot-actions button { background:none; border:none; color:white; font-size:16px; cursor:pointer; transition:.2s; }
 .chatbot-actions button:hover { color:#f1f1f1; transform:scale(1.1); }
-
-.chatbot-messages { flex:1; overflow-y:auto; padding:15px 20px; background: #f7f8fa; }
-.chat-message { margin-bottom: 15px; display:flex; align-items:flex-end; }
+.chatbot-messages { flex:1; overflow-y:auto; padding:15px 20px; background:#f7f8fa; }
+.chat-message { margin-bottom:15px; display:flex; align-items:flex-end; }
 .message-user { justify-content:flex-end; }
 .message-bot { justify-content:flex-start; gap:8px; }
-.message-avatar {
-    width:30px; height:30px; border-radius:50%;
-    background: linear-gradient(135deg, #2C2A7B, #FEC83C);
-    display:flex; align-items:center; justify-content:center;
-    color:white; font-size:14px; flex-shrink:0;
-}
-.message-content {
-    max-width: 260px; padding:12px 18px; border-radius:18px;
-    font-size:14px; line-height:1.4; word-wrap: break-word;
-}
-.message-user .message-content { background: linear-gradient(135deg,#667eea,#764ba2); color:white; border-bottom-right-radius:5px; }
-.message-bot .message-content { background:white; color:#333; border:1px solid #e0e0e0; border-bottom-left-radius:5px; }
-
+.message-avatar { width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg,#2C2A7B,#FEC83C); display:flex; align-items:center; justify-content:center; color:white; font-size:14px; flex-shrink:0; }
+.message-content { max-width:260px; padding:12px 18px; border-radius:18px; font-size:14px; line-height:1.4; word-wrap:break-word; }
+.message-user .message-content { background:linear-gradient(135deg,#667eea,#764ba2); color:#fff; border-bottom-right-radius:5px; }
+.message-bot .message-content { background:#fff; color:#333; border:1px solid #e0e0e0; border-bottom-left-radius:5px; }
 .chatbot-typing { padding:12px 20px; display:none; align-items:center; gap:10px; border-top:1px solid #e0e0e0; background:#f7f8fa; }
-.typing-avatar { width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-size:14px; background: linear-gradient(135deg, #2C2A7B, #FEC83C); }
+.typing-avatar { width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:14px; background:linear-gradient(135deg,#2C2A7B,#FEC83C); }
 .typing-dots { display:flex; gap:5px; }
-.typing-dots span { width:6px; height:6px; border-radius:50%; background:#999; animation: typing 1.4s infinite ease-in-out; }
-.typing-dots span:nth-child(2){ animation-delay:0.2s; }
-.typing-dots span:nth-child(3){ animation-delay:0.4s; }
-@keyframes typing { 0%,60%,100%{ transform:scale(0.8); opacity:0.5;} 30%{ transform:scale(1); opacity:1;} }
-
-.chatbot-input { background:white; border-top:1px solid #e0e0e0; padding:15px 20px; }
+.typing-dots span { width:6px; height:6px; border-radius:50%; background:#999; animation:typing 1.4s infinite ease-in-out; }
+.typing-dots span:nth-child(2){ animation-delay:.2s; } .typing-dots span:nth-child(3){ animation-delay:.4s; }
+@keyframes typing { 0%,60%,100%{ transform:scale(.8); opacity:.5;} 30%{ transform:scale(1); opacity:1;} }
+.chatbot-input { background:#fff; border-top:1px solid #e0e0e0; padding:15px 20px; }
 .input-container { display:flex; gap:10px; }
-.input-container input {
-    flex:1; border:2px solid #e0e0e0; border-radius:25px;
-    padding:10px 18px; font-size:14px; outline:none;
-    transition:border-color 0.3s ease, box-shadow 0.3s ease;
-}
-.input-container input:focus { border-color:#667eea; box-shadow:0 0 8px rgba(102,126,234,0.4); }
-.send-button { width:42px; height:42px; border:none; border-radius:50%; background: linear-gradient(135deg,#667eea,#764ba2); color:white; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:transform 0.3s ease, box-shadow 0.3s ease; }
-.send-button:hover { transform:scale(1.05); box-shadow:0 6px 18px rgba(102,126,234,0.5);}
-.send-button:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
-
+.input-container input { flex:1; border:2px solid #e0e0e0; border-radius:25px; padding:10px 18px; font-size:14px; outline:none; transition:border-color .3s, box-shadow .3s; }
+.input-container input:focus { border-color:#667eea; box-shadow:0 0 8px rgba(102,126,234,.4); }
+.send-button { width:42px; height:42px; border:none; border-radius:50%; background:linear-gradient(135deg,#667eea,#764ba2); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:transform .3s, box-shadow .3s; }
+.send-button:hover { transform:scale(1.05); box-shadow:0 6px 18px rgba(102,126,234,.5);} .send-button:disabled { opacity:.6; cursor:not-allowed; }
 .quick-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
-.quick-action { background:#f7f8fa; border:1px solid #e0e0e0; border-radius:20px; padding:6px 12px; font-size:13px; cursor:pointer; transition:0.25s; color:#555; }
-.quick-action:hover { background:#667eea; color:white; border-color:#667eea; }
-
-/* Scrollbar */
-.chatbot-messages::-webkit-scrollbar { width:5px; }
-.chatbot-messages::-webkit-scrollbar-track { background:#f1f1f1; }
-.chatbot-messages::-webkit-scrollbar-thumb { background:#c1c1c1; border-radius:3px; }
-
-/* ======================== Mobile ======================== */
-@media(max-width:480px){
-    .chatbot-window { width: calc(100vw - 40px); height: calc(100vh - 100px); bottom:80px; right:20px; left:20px; }
-    .sidebar { display:none; }
-    .main { padding: 15px; }
-}
+.quick-action { background:#f7f8fa; border:1px solid #e0e0e0; border-radius:20px; padding:6px 12px; font-size:13px; cursor:pointer; transition:.25s; color:#555; }
+.quick-action:hover { background:#667eea; color:#fff; border-color:#667eea; }
+.chatbot-messages::-webkit-scrollbar { width:5px; } .chatbot-messages::-webkit-scrollbar-track { background:#f1f1f1; } .chatbot-messages::-webkit-scrollbar-thumb { background:#c1c1c1; border-radius:3px; }
+@media(max-width:480px){ .chatbot-window { width:calc(100vw - 40px); height:calc(100vh - 100px); bottom:80px; right:20px; left:20px; } .sidebar { display:none; } .main { padding:15px; } }
 </style>
 </head>
 <body>
-
-<!-- Sidebar -->
 <div class="sidebar">
-    <h4>🐱 <strong>MeowMate</strong></h4>
-    <div class="menu mt-4">
-        <a class="nav-link active" href="DashBoard.html">🏠 Dashboard</a>
-        <a class="nav-link" href="adoptFriend.html">💛 Adopt a Friend</a>
-        <a class="nav-link" href="lostfound.html">📍 Lost & Found</a>
-        <a class="nav-link" href="mycat.html">🐱 My Cats</a>
-        <a class="nav-link" href="Listing&requests.html">📄 Listings & Requests</a>
-    </div>
-    <div class="settings">
-        <a class="nav-link" href="setting.html">⚙️ Settings</a>
-    </div>
+  <h4>🐱 <strong>MeowMate</strong></h4>
+  <div class="menu mt-4">
+    <a class="active" href="DashBoard.html">🏠 Dashboard</a>
+    <a href="adoptFriend.html">💛 Adopt a Friend</a>
+    <a href="lostfound.html">📍 Lost & Found</a>
+    <a href="mycat.html">🐱 My Cats</a>
+    <a href="Listing&requests.html">📄 Listings & Requests</a>
+  </div>
+  <div class="settings"><a href="setting.html">⚙️ Settings</a></div>
 </div>
-
-
-
-
-
-
-
-
-
-<!-- Main Content -->
 <div class="main">
-    <div class="header">
-        <h1>Welcome to <span>MeowMate 🐱</span></h1>
-        <p>Find your purrfect friend, report lost cats, or adopt responsibly!</p>
-        <div class="btns">
-            <button class="btn btn-primary" onclick="window.location.href='adoptFriend.html'">🐾 Adopt a Cat</button>
-            <button class="btn btn-secondary" onclick="window.location.href='lostfound.html'">🔍 Lost & Found</button>
-        </div>
+  <div class="header">
+    <h1>Welcome to <span>MeowMate 🐱</span></h1>
+    <p>Find your purrfect friend, report lost cats, or adopt responsibly!</p>
+    <div class="btns">
+      <button class="btn btn-primary" onclick="window.location.href='adoptFriend.html'">🐾 Adopt a Cat</button>
+      <button class="btn btn-secondary" onclick="window.location.href='lostfound.html'">🔍 Lost & Found</button>
     </div>
-
-    <div class="section-title">🐾 Featured Cats for Adoption</div>
-    <section id="cat-section">
-        <div class="cat-card">
-            <img src="/MeowMate_FrontEnd/assets/Images/adopt.jpeg" alt="Adopt a Cat">
-            <div class="cat-info">
-                <h3>Why Adopt a Cat?</h3>
-                <p class="sub-text">Cats aren’t just cute companions — they bring <strong>calm, love, and emotional balance</strong> into our lives.</p>
-                <ul class="list-unstyled mt-3">
-                    <li>✨ <strong>Mental Health Boost:</strong> Purring reduces stress & anxiety.</li>
-                    <li>❤️ <strong>Companionship:</strong> Cats fight loneliness with warmth & routine.</li>
-                    <li>🌍 <strong>Save Lives:</strong> Adoption gives shelter cats a loving home.</li>
-                    <li>💰 <strong>Affordable Care:</strong> Most adopted cats are vaccinated & health-checked.</li>
-                    <li>🤝 <strong>Lifelong Bond:</strong> Rescued cats show deep gratitude & loyalty.</li>
-                </ul>
-            </div>
-        </div>
-    </section>
+  </div>
+  <div class="section-title">Available & Pending Cats</div>
+  <div id="dashboardCats" class="cat-grid"><div class="text-muted py-4">Loading cats...</div></div>
 </div>
-
-
-
-<!-- =================== Floating Widget =================== -->
 <div id="catbuddy-chatbot-widget">
-    <div class="chatbot-toggle" id="chatbot-toggle">
-        <div class="chatbot-icon"><i class="fas fa-cat"></i></div>
-        <div class="chatbot-close-icon" style="display:none;"><i class="fas fa-times"></i></div>
-        <div class="chatbot-notification" id="chatbot-notification" style="display:none;">New!</div>
+  <div class="chatbot-toggle" id="chatbot-toggle">
+    <div class="chatbot-icon"><i class="fas fa-cat"></i></div>
+    <div class="chatbot-close-icon" style="display:none;"><i class="fas fa-times"></i></div>
+    <div class="chatbot-notification" id="chatbot-notification" style="display:none;">New!</div>
+  </div>
+  <div class="chatbot-window" id="chatbot-window">
+    <div class="chatbot-header">
+      <div class="chatbot-header-info">
+        <div class="chatbot-avatar"><i class="fas fa-cat"></i></div>
+        <div class="chatbot-title"><h4>Meow AI</h4><span class="chatbot-status">Online</span></div>
+      </div>
+      <div class="chatbot-actions"><button class="chatbot-minimize" id="chatbot-minimize"><i class="fas fa-minus"></i></button><button class="chatbot-close" id="chatbot-close"><i class="fas fa-times"></i></button></div>
     </div>
-
-    <div class="chatbot-window" id="chatbot-window">
-        <div class="chatbot-header">
-            <div class="chatbot-header-info">
-                <div class="chatbot-avatar"><i class="fas fa-cat"></i></div>
-                <div class="chatbot-title">
-                    <h4>Meow AI</h4>
-                    <span class="chatbot-status">Online</span>
-                </div>
-            </div>
-            <div class="chatbot-actions">
-                <button class="chatbot-minimize" id="chatbot-minimize"><i class="fas fa-minus"></i></button>
-                <button class="chatbot-close" id="chatbot-close"><i class="fas fa-times"></i></button>
-            </div>
-        </div>
-
-        <div class="chatbot-messages" id="chatbot-messages">
-            <div class="chatbot-welcome" id="chatbot-welcome">
-                <div class="welcome-avatar"><i class="fas fa-paw"></i></div>
-                <div class="welcome-text">
-                    <h5>Meow! I'm MeowMate AI! 🐱</h5>
-                    <p>Ask me about:</p>
-                    <ul>
-                        <li>Cat care & grooming</li>
-                        <li>Adoption guidance</li>
-                        <li>Health & nutrition</li>
-                        <li>Breed info</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="chatbot-typing" id="chatbot-typing">
-            <div class="typing-avatar"><i class="fas fa-cat"></i></div>
-            <div class="typing-dots"><span></span><span></span><span></span></div>
-        </div>
-        
-
-        <div class="chatbot-input">
-            <div class="input-container">
-                <input type="text" id="chatbot-input" placeholder="Ask me about cats..." maxlength="500">
-                <button id="chatbot-send" class="send-button"><i class="fas fa-paper-plane"></i></button>
-            </div>
-            <div class="quick-actions">
-                <button class="quick-action" data-message="How do I train my kitten?">🐱 Training</button>
-                <button class="quick-action" data-message="What's the best food for cats?">🍗 Nutrition</button>
-                <button class="quick-action" data-message="How do I adopt a cat?">💛 Adoption</button>
-            </div>
-        </div>
+    <div class="chatbot-messages" id="chatbot-messages">
+      <div class="chatbot-welcome" id="chatbot-welcome">
+        <div class="welcome-avatar"><i class="fas fa-paw"></i></div>
+        <div class="welcome-text"><h5>Meow! I'm MeowMate AI! 🐱</h5><p>Ask me about:</p><ul><li>Cat care & grooming</li><li>Adoption guidance</li><li>Health & nutrition</li><li>Breed info</li></ul></div>
+      </div>
     </div>
+    <div class="chatbot-typing" id="chatbot-typing"><div class="typing-avatar"><i class="fas fa-cat"></i></div><div class="typing-dots"><span></span><span></span><span></span></div></div>
+    <div class="chatbot-input"><div class="input-container"><input type="text" id="chatbot-input" placeholder="Ask me about cats..." maxlength="500"><button id="chatbot-send" class="send-button"><i class="fas fa-paper-plane"></i></button></div><div class="quick-actions"><button class="quick-action" data-message="How do I train my kitten?">🐱 Training</button><button class="quick-action" data-message="What's the best food for cats?">🍗 Nutrition</button><button class="quick-action" data-message="How do I adopt a cat?">💛 Adoption</button></div></div>
+  </div>
 </div>
-
 <script>
-class CatBuddyChatbotWidget {
-    constructor(options={}) {
-        this.options={ apiUrl:options.apiUrl||'http://localhost:8080/api/chat', autoOpen:options.autoOpen||false, showWelcome:options.showWelcome!==false };
-        this.isOpen=false; this.isTyping=false; this.messageHistory=[];
-        this.attachEventListeners();
-        if(this.options.autoOpen) this.openChat();
-    }
-
-    attachEventListeners() {
-        const toggle=document.getElementById('chatbot-toggle');
-        const minimize=document.getElementById('chatbot-minimize');
-        const close=document.getElementById('chatbot-close');
-        const input=document.getElementById('chatbot-input');
-        const sendBtn=document.getElementById('chatbot-send');
-        const quickActions=document.querySelectorAll('.quick-action');
-
-        toggle.addEventListener('click', ()=>this.toggleChat());
-        minimize.addEventListener('click', ()=>this.closeChat());
-        close.addEventListener('click', ()=>this.closeChat());
-        input.addEventListener('keypress', (e)=>{ if(e.key==='Enter') this.sendMessage(); });
-        sendBtn.addEventListener('click', ()=>this.sendMessage());
-
-        quickActions.forEach(a=>a.addEventListener('click', ()=>{
-            input.value=a.getAttribute('data-message'); this.sendMessage();
-        }));
-    }
-
-    toggleChat(){ this.isOpen?this.closeChat():this.openChat(); }
-    openChat(){
-        const w=document.getElementById('chatbot-window'); w.style.display='flex';
-        const t=document.getElementById('chatbot-toggle'); t.querySelector('.chatbot-icon').style.display='none';
-        t.querySelector('.chatbot-close-icon').style.display='block';
-        this.isOpen=true; document.getElementById('chatbot-input').focus(); this.hideNotification();
-    }
-    closeChat(){
-        const w=document.getElementById('chatbot-window'); w.style.display='none';
-        const t=document.getElementById('chatbot-toggle'); t.querySelector('.chatbot-icon').style.display='block';
-        t.querySelector('.chatbot-close-icon').style.display='none';
-        this.isOpen=false;
-    }
-
-    async sendMessage(){
-        const input=document.getElementById('chatbot-input'); const message=input.value.trim();
-        const sendBtn=document.getElementById('chatbot-send');
-        if(!message || this.isTyping) return;
-        this.isTyping=true; input.disabled=true; sendBtn.disabled=true;
-        this.addMessage(message,'user'); input.value=''; this.hideWelcomeMessage(); this.showTyping();
-
-        try{
-            const response=await fetch(this.options.apiUrl,{
-                method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({message})
-            });
-            if(!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            const data=await response.json();
-            setTimeout(()=>{
-                this.hideTyping();
-                this.addMessage(data.response||"Sorry, I couldn't process that request.",'bot');
-                this.isTyping=false; input.disabled=false; sendBtn.disabled=false; input.focus();
-                this.messageHistory.push({sender:'user',message},{sender:'bot',message:data.response});
-            }, 1000+Math.random()*1000);
-        }catch(err){
-            console.error(err); this.hideTyping();
-            this.addMessage("Sorry, I couldn't connect to the server.",'bot');
-            this.isTyping=false; input.disabled=false; sendBtn.disabled=false; input.focus();
-        }
-    }
-
-    addMessage(message,sender){
-        const container=document.getElementById('chatbot-messages');
-        const div=document.createElement('div'); div.className=`chat-message message-${sender}`;
-        const time=new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
-        div.innerHTML = sender==='bot' ?
-            `<div class="message-avatar"><i class="fas fa-cat"></i></div><div><div class="message-content">${message}</div><div class="message-time">${time}</div></div>` :
-            `<div><div class="message-content">${message}</div><div class="message-time">${time}</div></div>`;
-        container.appendChild(div); container.scrollTop=container.scrollHeight;
-    }
-
-    showTyping(){ document.getElementById('chatbot-typing').style.display='flex'; }
-    hideTyping(){ document.getElementById('chatbot-typing').style.display='none'; }
-    hideWelcomeMessage(){ const w=document.getElementById('chatbot-welcome'); if(w) w.style.display='none'; }
-    showNotification(){ if(!this.isOpen) document.getElementById('chatbot-notification').style.display='block'; }
-    hideNotification(){ document.getElementById('chatbot-notification').style.display='none'; }
-}
-
-if(typeof window!=='undefined'){
-    window.CatBuddyChatbotWidget=CatBuddyChatbotWidget;
-    document.addEventListener('DOMContentLoaded', ()=>{ if(!window.catBuddyChatbot) window.catBuddyChatbot=new CatBuddyChatbotWidget(); });
-}
+(function(){
+  const token = localStorage.getItem('accessToken');
+  if(!token){ window.location.href='SignIn.html'; return; }
+  const catsContainer = document.getElementById('dashboardCats');
+  const catsApi = 'http://localhost:8080/api/cats/all';
+  const adoptionApiBase = 'http://localhost:8080/api/adoptions';
+  const userData = JSON.parse(localStorage.getItem('userData')||'{}');
+  function escapeHtml(s){ return s? String(s).replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;' }[m])):''; }
+  async function loadDashboardCats(){
+    try {
+      const [catsRes, appsRes] = await Promise.all([
+        fetch(catsApi,{ headers:{ 'Authorization':'Bearer '+token }}),
+        fetch(`${adoptionApiBase}/all`,{ headers:{ 'Authorization':'Bearer '+token }})
+      ]);
+      if(!catsRes.ok) throw new Error('Failed cats');
+      if(!appsRes.ok) throw new Error('Failed adoption requests');
+      let cats = await catsRes.json();
+      const apps = await appsRes.json();
+      cats = cats.map(c=>{ const hasApp = apps.some(a=>a.petId===c.id); if(c.status==='AVAILABLE' && hasApp){ return { ...c, status:'PENDING' }; } return c; })
+                 .filter(c=> c.status==='AVAILABLE' || c.status==='PENDING');
+      if(!cats.length){ catsContainer.innerHTML='<div class="text-muted py-4">No cats available now.</div>'; return; }
+      catsContainer.innerHTML = cats.map(cat=>{
+        const name = escapeHtml(cat.catName||cat.name||'Unnamed');
+        const breed = escapeHtml(cat.breed||'');
+        const age = escapeHtml(cat.age||'');
+        const status = escapeHtml(cat.status);
+        let adoptBtn='';
+        if(userData.id && cat.ownerId===userData.id){ adoptBtn='<button disabled>Yours</button>'; }
+        else if(status==='AVAILABLE'){ adoptBtn=`<button class="dash-adopt-btn" data-id="${cat.id}">Adopt</button>`; }
+        else { adoptBtn='<button disabled>Pending</button>'; }
+        const viewBtn = `<button class="dash-view-btn" data-id="${cat.id}" style="border-color:#5fa7b8;color:#2e2a85;">View Details</button>`;
+        return `<div class="dash-cat-card" id="dash-cat-${cat.id}">\n <span class="status-badge status-${status}">${status}</span>\n <img src="${cat.imageUrl || 'https://via.placeholder.com/400x300?text=No+Image'}" alt="${name}">\n <h5>${name}</h5>\n <small>${breed}${age? ' • '+age+' yrs':''}</small>\n <div class="actions">${adoptBtn}${viewBtn}</div>\n</div>`; }).join('');
+      attachHandlers();
+    } catch(e){ console.error(e); catsContainer.innerHTML = `<div class='text-danger py-4'>${escapeHtml(e.message||'Error')}</div>`; }
+  }
+  function attachHandlers(){
+    document.querySelectorAll('.dash-adopt-btn').forEach(btn=>{
+      btn.addEventListener('click', async ()=>{
+        const id = btn.dataset.id; btn.disabled=true; btn.textContent='Sending...';
+        try { const res=await fetch(`${adoptionApiBase}/request/${id}`,{ method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+token}, body:JSON.stringify({ message:'I would like to adopt this cat.' }) }); if(!res.ok) throw new Error('Request failed'); await loadDashboardCats(); } catch(err){ console.error(err); btn.disabled=false; btn.textContent='Adopt'; alert(err.message||'Failed'); }
+      });
+    });
+    document.querySelectorAll('.dash-view-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{ const id=btn.dataset.id; window.location.href = `adoptFriend.html?catId=${encodeURIComponent(id)}`; });
+    });
+  }
+  loadDashboardCats();
+  setInterval(loadDashboardCats,15000);
+})();
+</script>
+<script>
+// Chatbot script untouched
+class CatBuddyChatbotWidget { constructor(options={}) { this.options={ apiUrl:options.apiUrl||'http://localhost:8080/api/chat', autoOpen:options.autoOpen||false, showWelcome:options.showWelcome!==false }; this.isOpen=false; this.isTyping=false; this.messageHistory=[]; this.attachEventListeners(); if(this.options.autoOpen) this.openChat(); } attachEventListeners(){ const toggle=document.getElementById('chatbot-toggle'); const minimize=document.getElementById('chatbot-minimize'); const close=document.getElementById('chatbot-close'); const input=document.getElementById('chatbot-input'); const sendBtn=document.getElementById('chatbot-send'); const quickActions=document.querySelectorAll('.quick-action'); toggle.addEventListener('click', ()=>this.toggleChat()); minimize.addEventListener('click', ()=>this.closeChat()); close.addEventListener('click', ()=>this.closeChat()); input.addEventListener('keypress', e=>{ if(e.key==='Enter') this.sendMessage(); }); sendBtn.addEventListener('click', ()=>this.sendMessage()); quickActions.forEach(a=>a.addEventListener('click', ()=>{ input.value=a.getAttribute('data-message'); this.sendMessage(); })); } toggleChat(){ this.isOpen?this.closeChat():this.openChat(); } openChat(){ const w=document.getElementById('chatbot-window'); w.style.display='flex'; const t=document.getElementById('chatbot-toggle'); t.querySelector('.chatbot-icon').style.display='none'; t.querySelector('.chatbot-close-icon').style.display='block'; this.isOpen=true; document.getElementById('chatbot-input').focus(); this.hideNotification(); } closeChat(){ const w=document.getElementById('chatbot-window'); w.style.display='none'; const t=document.getElementById('chatbot-toggle'); t.querySelector('.chatbot-icon').style.display='block'; t.querySelector('.chatbot-close-icon').style.display='none'; this.isOpen=false; } async sendMessage(){ const input=document.getElementById('chatbot-input'); const message=input.value.trim(); const sendBtn=document.getElementById('chatbot-send'); if(!message || this.isTyping) return; this.isTyping=true; input.disabled=true; sendBtn.disabled=true; this.addMessage(message,'user'); input.value=''; this.hideWelcomeMessage(); this.showTyping(); try { const response=await fetch(this.options.apiUrl,{ method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({message}) }); if(!response.ok) throw new Error('HTTP '+response.status); const data=await response.json(); setTimeout(()=>{ this.hideTyping(); this.addMessage(data.response||"Sorry, I couldn't process that request.",'bot'); this.isTyping=false; input.disabled=false; sendBtn.disabled=false; input.focus(); this.messageHistory.push({sender:'user',message},{sender:'bot',message:data.response}); }, 800+Math.random()*800); } catch(err){ console.error(err); this.hideTyping(); this.addMessage("Sorry, I couldn't connect to the server.",'bot'); this.isTyping=false; input.disabled=false; sendBtn.disabled=false; input.focus(); } } addMessage(message,sender){ const container=document.getElementById('chatbot-messages'); const div=document.createElement('div'); div.className=`chat-message message-${sender}`; const time=new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit'}); div.innerHTML = sender==='bot' ? `<div class="message-avatar"><i class='fas fa-cat'></i></div><div><div class='message-content'>${message}</div><div class='message-time'>${time}</div></div>` : `<div><div class='message-content'>${message}</div><div class='message-time'>${time}</div></div>`; container.appendChild(div); container.scrollTop=container.scrollHeight; } showTyping(){ document.getElementById('chatbot-typing').style.display='flex'; } hideTyping(){ document.getElementById('chatbot-typing').style.display='none'; } hideWelcomeMessage(){ const w=document.getElementById('chatbot-welcome'); if(w) w.style.display='none'; } showNotification(){ if(!this.isOpen) document.getElementById('chatbot-notification').style.display='block'; } hideNotification(){ document.getElementById('chatbot-notification').style.display='none'; } } if(typeof window!=='undefined'){ window.CatBuddyChatbotWidget=CatBuddyChatbotWidget; document.addEventListener('DOMContentLoaded', ()=>{ if(!window.catBuddyChatbot) window.catBuddyChatbot=new CatBuddyChatbotWidget(); }); }
 </script>
 </body>
 </html>

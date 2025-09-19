@@ -18,6 +18,7 @@ public class OAuth2Controller {
 //        String frontend = "http://localhost:5500/MeowMate_FrontEnd/pages/DashBoard.html";
         String frontend = "http://localhost:5501/MeowMate_FrontEnd/pages/DashBoard.html";
 
+
         // The page will store token -> accessToken in localStorage and redirect
         return "<!doctype html>\n" +
                 "<html><head><meta charset=\"utf-8\"><title>Login Success</title></head>\n" +

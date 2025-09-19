@@ -44,6 +44,8 @@
 package lk.ijse.gdse.meowmate_backend.controller;
 
 import lk.ijse.gdse.meowmate_backend.dto.AddItemDto;
+import lk.ijse.gdse.meowmate_backend.entity.AddItem;
+import lk.ijse.gdse.meowmate_backend.repo.AddItemRepository;
 import lk.ijse.gdse.meowmate_backend.service.AddItemService;
 import lk.ijse.gdse.meowmate_backend.util.ImgBBService;
 import lombok.RequiredArgsConstructor;
@@ -53,6 +55,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/items")
@@ -62,6 +65,7 @@ public class AddItemController {
 
     private final AddItemService addItemService;
     private final ImgBBService imgBBService;
+    private final AddItemRepository addItemRepository;
 
     // Save item with image
     @PostMapping("/save")
@@ -125,4 +129,29 @@ public class AddItemController {
         addItemService.deleteItem(id);
         return ResponseEntity.noContent().build();
     }
+
+
+
+
+
+    @PutMapping("/{id}/decrease")
+    public ResponseEntity<?> decreaseItemQty(@PathVariable Long id) {
+        Optional<AddItem> optionalItem = addItemRepository.findById(id);
+        if (optionalItem.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        AddItem item = optionalItem.get();
+        if (item.getQuantity() > 0) {
+            item.setQuantity(item.getQuantity() - 1);
+            addItemRepository.save(item);
+            return ResponseEntity.ok("Quantity decreased");
+        } else {
+            return ResponseEntity.badRequest().body("Item out of stock");
+        }
+    }
+
+
+
+
 }

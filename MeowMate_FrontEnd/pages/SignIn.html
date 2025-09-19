@@ -145,8 +145,6 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const API_BASE = 'http://localhost:8080/api/admin';
-
     function extractRole(decoded) {
         if (!decoded) return "USER";
         if (decoded.roles && Array.isArray(decoded.roles)) return decoded.roles[0];
@@ -161,6 +159,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function getToken() {
         return localStorage.getItem('accessToken');
+    }
+
+    // 🔹 Check if user is already logged in (token exists)
+    const existingToken = getToken();
+    if (existingToken) {
+        try {
+            const decoded = jwt_decode(existingToken);
+            const role = extractRole(decoded);
+            const userData = {
+                id: decoded.userId,
+                email: decoded.sub || decoded.email,
+                role: role,
+                exp: decoded.exp
+            };
+            console.log("Already Logged-in User:", userData);
+        } catch (err) {
+            console.warn("Invalid or expired token in localStorage.");
+        }
     }
 
     const loginForm = document.getElementById('loginForm');
@@ -191,13 +207,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 const decoded = jwt_decode(token);
                 const role = extractRole(decoded);
 
-                localStorage.setItem('userRole', role);
-                localStorage.setItem('userData', JSON.stringify({
+                const userData = {
                     id: decoded.userId,
                     email: decoded.sub || decoded.email,
                     role: role,
                     exp: decoded.exp
-                }));
+                };
+
+                localStorage.setItem('userRole', role);
+                localStorage.setItem('userData', JSON.stringify(userData));
+
+                // 🔹 Show logged-in user in console
+                console.log("Logged-in User:", userData);
 
                 redirectByRole(role);
             } else {

@@ -7,80 +7,25 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 <style>
-  body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #d7e4f3, #A0D8FF, #ffffff);
-    margin:0;
-    min-height:100vh;
-    display:flex;
-    color:#333;
-  }
-  .sidebar {
-    width:260px;
-    background-color:#1E1E50;
-    color:#fff;
-    display:flex;
-    flex-direction:column;
-    padding:35px 20px;
-    position:fixed;
-    top:0;
-    bottom:0;
-    left:0;
-    box-shadow:5px 0 25px rgba(0,0,0,0.15);
-    border-radius:0 20px 20px 0;
-  }
+  body { font-family:'Poppins',sans-serif; background:#f0f4ff; margin:0; min-height:100vh; display:flex; color:#333; }
+  .sidebar { width:260px; background-color:#0d47a1; color:#fff; display:flex; flex-direction:column; padding:35px 20px; position:fixed; top:0; bottom:0; left:0; box-shadow:5px 0 25px rgba(0,0,0,0.15); border-radius:0 20px 20px 0; }
   .logo { font-size:26px; font-weight:800; margin-bottom:55px; color:#fff; }
   .menu { flex:1; }
-  .menu a {
-    display:flex;
-    align-items:center;
-    gap:14px;
-    padding:15px 20px;
-    color:#fff;
-    text-decoration:none;
-    border-radius:15px;
-    margin-bottom:14px;
-    font-size:16px;
-    transition: all 0.3s ease;
-  }
-  .menu a.active, .menu a:hover { background:#c4bbe4; color:#2e2a85; font-weight:700; transform:translateX(8px);}
+  .menu a { display:flex; align-items:center; gap:14px; padding:15px 20px; color:#fff; text-decoration:none; border-radius:15px; margin-bottom:14px; font-size:16px; transition:all .3s ease; }
+  .menu a.active, .menu a:hover { background:#ffffff; color:#0d47a1; font-weight:700; transform:translateX(8px); }
   .settings { margin-top:auto; }
-  .settings a { text-decoration:none; color:#ccc; display:flex; align-items:center; gap:12px; padding:14px 18px; border-radius:12px; transition: all 0.3s; }
+  .settings a { text-decoration:none; color:#ccc; display:flex; align-items:center; gap:12px; padding:14px 18px; border-radius:12px; transition:all .3s; }
   .settings a:hover { background:rgba(255,255,255,0.18); color:#fff; }
   .main { margin-left:260px; padding:45px 40px; flex:1; }
-  #filterSelect {
-    max-width:300px;
-    margin:0 auto 35px auto;
-    display:block;
-    border-radius:30px;
-    padding:12px 18px;
-    box-shadow:0 6px 20px rgba(0,0,0,0.12);
-    font-weight:500;
-    background:#fff;
-    border:none;
-  }
-  #catsList {
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:32px;
-  }
-  .cat-card {
-    background:#fff;
-    width:280px;
-    border-radius:30px;
-    box-shadow:0 18px 40px rgba(0,0,0,0.08);
-    overflow:hidden;
-    text-align:center;
-    transition:transform 0.4s, box-shadow 0.4s;
-    position:relative;
-  }
+  #filterSelect { max-width:300px; margin:0 auto 35px auto; display:block; border-radius:30px; padding:12px 18px; box-shadow:0 6px 20px rgba(0,0,0,0.12); font-weight:500; background:#fff; border:none; }
+  #catsList { display:flex; justify-content:center; flex-wrap:wrap; gap:32px; }
+  .cat-card { background:#fff; width:280px; border-radius:30px; box-shadow:0 18px 40px rgba(0,0,0,0.08); overflow:hidden; text-align:center; transition:transform .4s, box-shadow .4s; position:relative; outline:3px solid transparent; }
   .cat-card:hover { transform:translateY(-15px); box-shadow:0 28px 60px rgba(0,0,0,0.15); }
-  .cat-card img { width:100%; height:290px; object-fit:cover; transition:transform 0.4s; }
+  .cat-card img { width:100%; height:290px; object-fit:cover; transition:transform .4s; }
   .cat-card:hover img { transform:scale(1.07); }
   .cat-card h5 { font-weight:700; margin:18px 0 10px; color:#341f97; font-size:21px; }
   .cat-card small { display:block; color:#555; margin-bottom:15px; font-size:15px; }
-  .adopt-btn { margin-bottom:20px; padding:10px 25px; border-radius:30px; font-weight:700; color:#1cc88a; background:#fff; border:2px solid #1cc88a; cursor:pointer; transition:all 0.3s; }
+  .adopt-btn { margin-bottom:20px; padding:10px 25px; border-radius:30px; font-weight:700; color:#1cc88a; background:#fff; border:2px solid #1cc88a; cursor:pointer; transition:all .3s; }
   .adopt-btn:hover { background:#1cc88a; color:#fff; transform:scale(1.08); }
   .adopted-btn { margin-bottom:20px; padding:10px 25px; border-radius:30px; font-weight:700; color:#fff; background:#e74a3b; border:none; cursor:not-allowed; opacity:0.85; }
   .added-by-you { margin-bottom:20px; padding:10px 25px; border-radius:30px; font-weight:700; color:#fff; background:#6c757d; border:none; cursor:default; opacity:0.9; }
@@ -88,10 +33,13 @@
   .status-AVAILABLE { background:#1cc88a; }
   .status-PENDING { background:#f6c23e; }
   .status-ADOPTED { background:#e74a3b; }
-  .notification { position:fixed; top:25px; right:25px; padding:16px 24px; border-radius:14px; color:#fff; opacity:0; transform:translateY(-15px); transition: opacity 0.35s, transform 0.35s; z-index:2000; font-weight:600; font-size:15px; }
+  .notification { position:fixed; top:25px; right:25px; padding:16px 24px; border-radius:14px; color:#fff; opacity:0; transform:translateY(-15px); transition: opacity .35s, transform .35s; z-index:2000; font-weight:600; font-size:15px; }
   .notification.show { opacity:1; transform:translateY(0); }
   .notification.success { background:#1cc88a; }
   .notification.error { background:#e74a3b; }
+  /* highlight for cat passed from dashboard */
+  .cat-card.highlight { outline:3px solid #ffbf47; box-shadow:0 0 0 6px rgba(255,191,71,0.25); animation: pulse 1.6s ease-in-out 2; }
+  @keyframes pulse { 0%,100%{ outline-color:#ffbf47; } 50%{ outline-color:#ffa600; } }
 </style>
 </head>
 <body>
@@ -130,121 +78,46 @@ const catsListEl = document.getElementById('catsList');
 const filterSelect = document.getElementById('filterSelect');
 const notificationEl = document.getElementById('notification');
 const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+const urlParams = new URLSearchParams(window.location.search);
+const highlightCatId = urlParams.get('catId');
 
-if(!token){
-    alert('Please log in');
-    window.location.href='SignIn.html';
-}
+if(!token){ alert('Please log in'); window.location.href='SignIn.html'; }
 
 function showNotification(msg, type='success', timeout=3000){
-    notificationEl.textContent = msg;
-    notificationEl.className = `notification show ${type}`;
-    setTimeout(()=> notificationEl.className='notification', timeout);
+  notificationEl.textContent = msg; notificationEl.className = `notification show ${type}`; setTimeout(()=> notificationEl.className='notification', timeout);
 }
+function escapeHtml(s){ return s ? String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[m])) : ''; }
+let allCats = []; let allApplications = [];
 
-function escapeHtml(s){
-    return s ? String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])) : '';
-}
-
-let allCats = [];
-let allApplications = [];
-
-// Load cats and adoption applications
 async function loadCats() {
-    try {
-        const catsRes = await fetch(apiBase, { headers: { 'Authorization': 'Bearer ' + token } });
-        if(!catsRes.ok) throw new Error('Failed to load cats');
-        allCats = await catsRes.json();
-
-        const appsRes = await fetch(`${adoptionApiBase}/all`, { headers: { 'Authorization': 'Bearer ' + token } });
-        if(!appsRes.ok) throw new Error('Failed to load adoption applications');
-        allApplications = await appsRes.json();
-
-        // Update cat statuses based on applications
-        allCats.forEach(cat => {
-            const isApplied = allApplications.some(app => app.petId === cat.id);
-            if(cat.status === 'AVAILABLE' && isApplied) {
-                cat.status = 'ADOPTED';
-            }
-        });
-
-        renderCats();
-    } catch (err) {
-        catsListEl.innerHTML = `<div class="text-danger py-5">${err.message}</div>`;
-    }
+  try {
+    const [catsRes, appsRes] = await Promise.all([
+      fetch(apiBase, { headers: { 'Authorization': 'Bearer ' + token } }),
+      fetch(`${adoptionApiBase}/all`, { headers: { 'Authorization': 'Bearer ' + token } })
+    ]);
+    if(!catsRes.ok) throw new Error('Failed to load cats');
+    if(!appsRes.ok) throw new Error('Failed to load adoption applications');
+    allCats = await catsRes.json();
+    allApplications = await appsRes.json();
+    allCats.forEach(cat => { const isApplied = allApplications.some(app => app.petId === cat.id); if(cat.status === 'AVAILABLE' && isApplied) { cat.status = 'PENDING'; } });
+    renderCats();
+    if(highlightCatId) highlightCard(highlightCatId);
+  } catch (err) { catsListEl.innerHTML = `<div class="text-danger py-5">${escapeHtml(err.message)}</div>`; }
 }
 
-// Render cats dynamically
 function renderCats() {
-    const filter = filterSelect.value;
-    const filtered = filter==='ALL' ? allCats : allCats.filter(c=>c.status===filter);
-    if(!filtered.length){
-        catsListEl.innerHTML = '<div class="text-center py-5 text-muted">No cats found.</div>';
-        return;
-    }
-
-    catsListEl.innerHTML = filtered.map(cat => {
-        let btnHtml = '';
-
-        if(userData.id && cat.ownerId === userData.id){
-            btnHtml = `<button class="added-by-you">This cat added by you</button>`;
-        } else if(cat.status === 'AVAILABLE'){
-            btnHtml = `<button class="adopt-btn" data-cat-id="${cat.id}">Adopt Me</button>`;
-        } else {
-            btnHtml = `<button class="adopted-btn" disabled>${cat.status==='PENDING'?'Pending':'Already Adopted'}</button>`;
-        }
-
-        return `<div class="cat-card" id="cat-${cat.id}">
-            <img src="${cat.imageUrl || 'https://via.placeholder.com/400x300?text=No+Image'}" alt="${escapeHtml(cat.name)}">
-            <span class="status-badge status-${escapeHtml(cat.status)}">${escapeHtml(cat.status)}</span>
-            <h5>${escapeHtml(cat.name)}</h5>
-            <small>${escapeHtml(cat.breed)} • ${escapeHtml(cat.age)} yrs</small>
-            ${btnHtml}
-        </div>`;
-    }).join('');
-
-    attachAdoptEvents();
+  const filter = filterSelect.value; const filtered = filter==='ALL' ? allCats : allCats.filter(c=>c.status===filter);
+  if(!filtered.length){ catsListEl.innerHTML = '<div class="text-center py-5 text-muted">No cats found.</div>'; return; }
+  catsListEl.innerHTML = filtered.map(cat => { let btnHtml=''; if(userData.id && cat.ownerId === userData.id){ btnHtml = `<button class="added-by-you">This cat added by you</button>`; } else if(cat.status === 'AVAILABLE'){ btnHtml = `<button class="adopt-btn" data-cat-id="${cat.id}">Adopt Me</button>`; } else { btnHtml = `<button class="adopted-btn" disabled>${cat.status==='PENDING'?'Pending':'Already Adopted'}</button>`; } const displayName = cat.catName || cat.name || 'Unnamed'; return `<div class="cat-card" id="cat-${cat.id}"><img src="${cat.imageUrl || 'https://via.placeholder.com/400x300?text=No+Image'}" alt="${escapeHtml(displayName)}"><span class="status-badge status-${escapeHtml(cat.status)}">${escapeHtml(cat.status)}</span><h5>${escapeHtml(displayName)}</h5><small>${escapeHtml(cat.breed)} • ${escapeHtml(cat.age)} yrs</small>${btnHtml}</div>`; }).join('');
+  attachAdoptEvents();
 }
 
-// Attach Adopt button events
-function attachAdoptEvents() {
-    document.querySelectorAll('.adopt-btn').forEach(btn=>{
-        btn.onclick = async e=>{
-            e.preventDefault();
-            const catId = btn.dataset.catId;
-            btn.disabled = true;
-            btn.textContent = 'Pending...';
+function attachAdoptEvents() { document.querySelectorAll('.adopt-btn').forEach(btn=>{ btn.onclick = async e=>{ e.preventDefault(); const catId = btn.dataset.catId; btn.disabled = true; btn.textContent = 'Pending...'; try { const res = await fetch(`${adoptionApiBase}/request/${catId}`, { method:'POST', headers:{ 'Content-Type':'application/json', 'Authorization':'Bearer '+token }, body: JSON.stringify({ message: 'I would like to adopt this cat.' }) }); if(!res.ok) throw new Error('Failed to send adoption request'); showNotification('Adoption request sent!'); await loadCats(); } catch(err){ console.error(err); showNotification(err.message||'Submit failed','error',5000); btn.disabled = false; btn.textContent = 'Adopt Me'; } }; }); }
 
-            try {
-                const res = await fetch(`${adoptionApiBase}/request/${catId}`, {
-                    method:'POST',
-                    headers:{
-                        'Content-Type':'application/json',
-                        'Authorization':'Bearer '+token
-                    },
-                    body: JSON.stringify({ message: "I would like to adopt this cat." })
-                });
+function highlightCard(id){ const el = document.getElementById(`cat-${id}`); if(!el) return; el.classList.add('highlight'); el.scrollIntoView({ behavior:'smooth', block:'center' }); }
 
-                if(!res.ok) throw new Error('Failed to send adoption request');
-                showNotification('Adoption request sent!');
-                await loadCats();
-            } catch(err){
-                console.error(err);
-                showNotification(err.message||'Submit failed','error',5000);
-                btn.disabled = false;
-                btn.textContent = 'Adopt Me';
-            }
-        }
-    });
-}
-
-// Filter change
 filterSelect.addEventListener('change', renderCats);
-
-// Initial load
 loadCats();
-
-// Periodic refresh
 setInterval(loadCats, 10000);
 </script>
 </body>

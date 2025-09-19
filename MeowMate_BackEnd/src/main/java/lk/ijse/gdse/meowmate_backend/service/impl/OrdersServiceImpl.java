@@ -8,7 +8,6 @@ import lk.ijse.gdse.meowmate_backend.repo.OrdersRepository;
 import lk.ijse.gdse.meowmate_backend.repo.UserRepository;
 import lk.ijse.gdse.meowmate_backend.service.OrdersService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

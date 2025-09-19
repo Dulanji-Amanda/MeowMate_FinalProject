@@ -112,7 +112,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/cats")
-@CrossOrigin(origins = "http://localhost:5500")
+
+
+
+//@CrossOrigin(origins = "http://localhost:5500")
+
+@CrossOrigin(origins = {"http://127.0.0.1:5501", "http://localhost:5500"})
+
 @RequiredArgsConstructor
 public class CatController {
 
@@ -133,7 +139,7 @@ public class CatController {
     public ResponseEntity<CatDTO> saveCat(
             @RequestPart("cat") CatDTO catDTO,
             @RequestPart(value = "image", required = false) MultipartFile image,
-            @RequestHeader("Authorization") String authHeader) throws Exception {
+            @RequestHeader("Authorization") String authHeader) throws   Exception {
 
         Long ownerId = getUserIdFromToken(authHeader);
         byte[] imageBytes = (image != null) ? image.getBytes() : null;
@@ -173,6 +179,8 @@ public class CatController {
     public List<CatDTO> getAllCats() {
         return catService.getAllCats();
     }
+
+
 
 
 

@@ -1,7 +1,6 @@
 package lk.ijse.gdse.meowmate_backend.service;
 
 import lk.ijse.gdse.meowmate_backend.entity.Orders;
-import org.springframework.data.domain.jaxb.SpringDataJaxb;
 
 import java.util.List;
 

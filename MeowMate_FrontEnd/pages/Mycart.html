@@ -1,204 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cat Shop - MeowMate</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <style>
-    body { background-color: #f2f2f2; font-family: 'Arial', sans-serif; }
-    .product-card { background: #fff; border-radius: 12px; box-shadow: 0px 4px 12px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; height: 100%; }
-    .product-card:hover { transform: translateY(-5px); box-shadow: 0px 8px 20px rgba(0,0,0,0.2); }
-    .product-image { width: 100%; height: 200px; object-fit: cover; }
-    .product-details { padding: 15px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-    .product-name { font-size: 1.1rem; font-weight: bold; margin-bottom: 5px; }
-    .product-owner { font-size: 0.9rem; color: #555; margin-bottom: 5px; }
-    .product-price { font-size: 1rem; font-weight: bold; color: #28a745; margin-bottom: 5px; }
-    .status { padding: 4px 8px; border-radius: 8px; font-weight: bold; font-size: 0.8rem; display: inline-block; margin-bottom: 10px; }
-    .status.available { background-color: #28a745; color: #fff; }
-    .status.unavailable { background-color: #dc3545; color: #fff; }
-    .card-actions { display: flex; gap: 10px; }
-    .btn-cart, .btn-buy { flex: 1; border-radius: 8px; }
-    .cart-count { font-weight: bold; color: #fff; background: #dc3545; border-radius: 50%; padding: 2px 8px; font-size: 0.8rem; position: absolute; top: -5px; right: -10px; }
-
-    /* Modal Custom Styles */
-    .modal-header { border-bottom: none; }
-    .modal-footer { border-top: none; }
-    .modal-title { font-weight: bold; }
-    .payment-option { cursor: pointer; padding: 10px; border-radius: 8px; border: 1px solid #ddd; display: flex; align-items: center; gap: 10px; transition: 0.3s; }
-    .payment-option:hover, .payment-option.active { border-color: #28a745; background-color: #e9f8ef; }
-  </style>
-</head>
-<body>
-
-<div class="container mt-5">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Cat Shop</h2>
-    <div class="position-relative">
-      <button class="btn btn-primary position-relative">
-        <i class="fas fa-shopping-cart"></i> Cart
-        <span id="cart-count" class="cart-count">0</span>
-      </button>
-    </div>
-  </div>
-  <div class="row" id="product-section">
-    <!-- Product Cards will be loaded here dynamically -->
-  </div>
-</div>
-
-<!-- Buy Now Modal -->
-<div class="modal fade" id="buyModal" tabindex="-1" aria-labelledby="buyModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content p-3">
-      <div class="modal-header">
-        <h5 class="modal-title" id="buyModalLabel">Checkout</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <form id="checkoutForm">
-          <div class="mb-3">
-            <label for="productName" class="form-label">Product</label>
-            <input type="text" class="form-control" id="productName" readonly>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Payment Method</label>
-            <div class="d-flex gap-3">
-              <div class="payment-option active" onclick="selectPayment(this)">
-                <i class="fas fa-credit-card"></i> Credit Card
-              </div>
-              <div class="payment-option" onclick="selectPayment(this)">
-                <i class="fas fa-paypal"></i> PayPal
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4 mb-3">
-              <label for="cardNumber" class="form-label">Card Number</label>
-              <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456" required>
-            </div>
-            <div class="col-md-4 mb-3">
-              <label for="cardExpiry" class="form-label">Expiry Date</label>
-              <input type="text" class="form-control" id="cardExpiry" placeholder="MM/YY" required>
-            </div>
-            <div class="col-md-4 mb-3">
-              <label for="cardCVC" class="form-label">CVC</label>
-              <input type="text" class="form-control" id="cardCVC" placeholder="123" required>
-            </div>
-          </div>
-          <div class="text-end">
-            <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Confirm Payment</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-let cart = [];
-
-function addToCart(itemName) {
-  cart.push(itemName);
-  updateCartCount();
-  alert(itemName + " has been added to your cart!");
-}
-
-function updateCartCount() {
-  document.getElementById('cart-count').innerText = cart.length;
-}
-
-// Modal logic
-const buyModalEl = document.getElementById('buyModal');
-const buyModal = new bootstrap.Modal(buyModalEl);
-
-function openBuyModal(productName, price) {
-  document.getElementById('productName').value = productName + " - $" + price.toFixed(2);
-  buyModal.show();
-}
-
-function selectPayment(element) {
-  document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('active'));
-  element.classList.add('active');
-}
-
-// Checkout form submission
-document.getElementById('checkoutForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-
-  const listingText = document.getElementById('productName').value;
-  const [nameOnly, pricePart] = listingText.split(" - $");
-  const price = pricePart ? pricePart.trim() : "0";
-
-  const paymentData = {
-    listingName: nameOnly,
-    quantity: 1,
-    price: price
-  };
-
-  try {
-    const response = await fetch('http://localhost:8080/api/payments/create', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(paymentData)
-    });
-
-    if (!response.ok) throw new Error('Payment failed');
-
-    alert('Payment Successful! Your order has been saved.');
-    buyModal.hide();
-    this.reset();
-  } catch (err) {
-    console.error(err);
-    alert('Payment failed. Please try again.');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meow-Mate - My Cart</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  body { background-color: #f8f9fa; }
+  h3, h4 { color: #4b3e8f; }
+  .card-custom {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
   }
-});
+  .card-custom:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+  .btn-remove { font-size: 0.8rem; }
+  .badge-status { font-size: 0.85rem; }
+  .card-body-small { font-size: 0.9rem; color: #555; }
+</style>
+</head>
+<body class="p-4">
 
-// Fetch items from backend
-async function loadItems() {
-  try {
-    const response = await fetch('http://localhost:8080/api/items');
-    const items = await response.json();
+<h3 class="mb-4">🛒 My Cart</h3>
+<div id="cart-content" class="mb-4"></div>
+<div class="d-flex justify-content-between align-items-center mb-5">
+  <div class="fw-bold" id="cartSummary">Total Items: 0 | Subtotal: $0.00</div>
+  <button class="btn btn-success btn-lg" id="checkoutBtn"><i class="fas fa-credit-card me-2"></i> Checkout</button>
+</div>
 
-    const productSection = document.getElementById('product-section');
-    productSection.innerHTML = '';
+<hr class="my-4"/>
 
-    items.forEach(item => {
-      const statusClass = item.status === 'AVAILABLE' ? 'available' : 'unavailable';
-      const card = document.createElement('div');
-      card.className = 'col-lg-3 col-md-6 col-sm-12 mb-4';
-      card.innerHTML = `
-        <div class="product-card">
-          <img src="${item.imageUrl || 'https://placekitten.com/400/200'}" alt="${item.listingName}" class="product-image">
-          <div class="product-details">
-            <div>
-              <div class="product-name">${item.listingName}</div>
-              <div class="product-owner"><strong>Owner:</strong> ${item.owner || 'Unknown'}</div>
-              <div class="product-price">$${item.price}</div>
-              <div class="status ${statusClass}">${item.status}</div>
-            </div>
-            <div class="card-actions">
-              <button class="btn btn-warning btn-cart" onclick="addToCart('${item.listingName}')">
-                <i class="fas fa-cart-plus"></i> Add to Cart
-              </button>
-              <button class="btn btn-success btn-buy" onclick="openBuyModal('${item.listingName}', ${item.price})">
-                <i class="fas fa-bolt"></i> Buy Now
-              </button>
-            </div>
+<h4 class="mb-4">📦 My Orders</h4>
+<div id="orders-content"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+<script>
+if (!window.__MEOWMATE_MYCART_LOADED__) {
+window.__MEOWMATE_MYCART_LOADED__ = true;
+
+let cart = JSON.parse(localStorage.getItem('myCart') || '[]');
+
+function calcCartTotals(){
+  let items = 0; let subtotal = 0;
+  cart.forEach(c => { items += c.quantity || 1; subtotal += (c.price * (c.quantity||1)); });
+  return {items, subtotal};
+}
+
+function updateCart() { 
+  localStorage.setItem('myCart', JSON.stringify(cart)); 
+  const container = document.getElementById('cart-content');
+  if(!container) return;
+
+  container.innerHTML = '';
+  if(cart.length === 0) {
+    container.innerHTML = '<p class="text-muted">Cart is empty</p>';
+  } else {
+    cart.forEach((c, i) => {
+      const qty = c.quantity || 1;
+      const lineTotal = (c.price * qty).toFixed(2);
+      const div = document.createElement('div');
+      div.className = 'card card-custom p-3 mb-3';
+      div.innerHTML = `
+        <div class="row g-2 align-items-center">
+          <div class="col-md-4">
+            <h5 class="mb-1">${c.name}</h5>
+            <p class="mb-0 text-muted">Unit: $${c.price}</p>
           </div>
+          <div class="col-md-3 d-flex align-items-center gap-2">
+            <button class="btn btn-outline-secondary btn-sm" onclick="changeQty(${i}, -1)"><i class="fas fa-minus"></i></button>
+            <input type="number" min="1" class="form-control form-control-sm text-center" style="max-width:70px" value="${qty}" onchange="setQty(${i}, this.value)">
+            <button class="btn btn-outline-secondary btn-sm" onclick="changeQty(${i}, 1)"><i class="fas fa-plus"></i></button>
+          </div>
+          <div class="col-md-3 fw-semibold">Line Total: $${lineTotal}</div>
+          <div class="col-md-2 text-end">
+            <button class="btn btn-danger btn-remove" onclick="removeFromCart(${i})"><i class="fas fa-trash-alt"></i></button>
+          </div>
+        </div>`;
+      container.appendChild(div);
+    });
+  }
+  const summary = calcCartTotals();
+  document.getElementById('cartSummary').textContent = `Total Items: ${summary.items} | Subtotal: $${summary.subtotal.toFixed(2)}`;
+}
+
+function removeFromCart(index) { cart.splice(index, 1); updateCart(); }
+
+function changeQty(index, delta){
+  const item = cart[index]; if(!item) return; if(!item.quantity) item.quantity = 1;
+  item.quantity += delta; if(item.quantity < 1) item.quantity = 1; updateCart();
+}
+function setQty(index, value){
+  let v = parseInt(value)||1; if(v<1) v=1; cart[index].quantity = v; updateCart();
+}
+
+function decodeUserId() {
+  const token = localStorage.getItem('accessToken');
+  if(!token) return null;
+  try { return jwt_decode(token).userId; } catch(e) { return null; }
+}
+
+async function loadMyOrders() {
+  const userId = decodeUserId();
+  const ordersDiv = document.getElementById('orders-content');
+  if(!ordersDiv) return;
+
+  if(!userId) { 
+    ordersDiv.innerHTML = '<p class="text-muted">Login to see your orders.</p>'; 
+    return; 
+  }
+
+  ordersDiv.innerHTML = '<p class="text-muted">Loading orders…</p>';
+
+  try {
+    const resp = await fetch(`http://localhost:8080/api/orders/user/${userId}`);
+    if(!resp.ok) throw new Error('Failed to fetch orders');
+    const orders = await resp.json();
+    const uidNum = Number(userId);
+    const filtered = Array.isArray(orders) ? orders.filter(o => (Number(o?.user?.id ?? o?.user?.userId) === uidNum)) : [];
+
+    if(filtered.length === 0){ 
+      ordersDiv.innerHTML = '<p class="text-muted">No orders yet.</p>'; 
+      return; 
+    }
+
+    ordersDiv.innerHTML = '';
+    filtered.reverse().forEach(o => {
+      const li = document.createElement('div');
+      li.className = 'card card-custom p-3 mb-3';
+      const itemName = o.items?.listingName ?? 'Item';
+      const qty = o.quantity ?? 1;
+      const total = o.total ?? o.unitPrice ?? '0';
+      const status = o.status ?? 'PAID';
+      const when = o.createdAt ? new Date(o.createdAt).toLocaleString() : '';
+      li.innerHTML = `
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <h5 class="mb-1">${itemName}</h5>
+            <p class="card-body-small mb-1">Qty: ${qty} | Total: $${total}</p>
+            <p class="card-body-small mb-0 text-muted">${when}</p>
+          </div>
+          <span class="badge bg-primary badge-status">${status}</span>
         </div>
       `;
-      productSection.appendChild(card);
+      ordersDiv.appendChild(li);
     });
-  } catch (err) {
-    console.error('Failed to load items:', err);
-    alert('Failed to load items from server.');
+
+  } catch(err) {
+    console.warn('Could not load orders', err);
+    ordersDiv.innerHTML = '<p class="text-danger">Failed to load orders.</p>';
   }
 }
 
-// Initial load
-loadItems();
+function checkoutCart() {
+  if(cart.length === 0){ alert('Cart is empty'); return; }
+  const token = localStorage.getItem('accessToken'); 
+  if(!token){ alert('Login required'); return; }
+  const decoded = jwt_decode(token); const userId = decoded.userId;
+
+  (async ()=>{
+    for(const c of cart){
+      const qty = c.quantity || 1;
+      await fetch(`http://localhost:8080/api/orders/create?userId=${userId}&listingId=${c.id}&quantity=${qty}`, {method:'POST'});
+      const paymentPayload = { listingName: c.name, quantity: qty, price: String((c.price * qty).toFixed(2)) };
+      await fetch('http://localhost:8080/api/payments/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(paymentPayload)
+      });
+      // decrease stock per quantity (assuming backend decreases by 1 each call)
+      for(let i=0;i<qty;i++) {
+        await fetch(`http://localhost:8080/api/items/${c.id}/decrease`, { method:'PUT' });
+      }
+    }
+    alert('All items purchased successfully');
+    cart = []; updateCart();
+    loadMyOrders();
+  })();
+}
+
+updateCart();
+document.getElementById('checkoutBtn')?.addEventListener('click', checkoutCart);
+loadMyOrders();
+
+} // END guard
 </script>
 </body>
 </html>

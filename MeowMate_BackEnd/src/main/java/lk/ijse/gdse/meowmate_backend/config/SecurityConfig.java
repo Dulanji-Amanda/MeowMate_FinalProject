@@ -198,6 +198,16 @@ public class SecurityConfig {
                                 .requestMatchers("/api/chat/**").permitAll()
                                 .requestMatchers( "/api/adoptions/request/**").authenticated()
 
+                                // Ensure both base path and subpaths are allowed (avoid OAuth redirect)
+                                .requestMatchers("/api/items", "/api/items/**").permitAll()
+
+                                // Allow orders and payments for checkout flow
+                                .requestMatchers("/api/orders", "/api/orders/**").permitAll()
+                                .requestMatchers("/api/payments", "/api/payments/**").permitAll()
+
+
+                                .requestMatchers("/api/orders/create").permitAll()
+                                .requestMatchers("/api/orders/user/**").permitAll()
 
 
 

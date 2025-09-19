@@ -1,152 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meow-Mate - Listings & Requests</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<style>
-body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    display: flex;
-    min-height: 100vh;
-    background: #f2f2f2;
-}
-
-/* Sidebar */
-.sidebar {
-    width: 250px;
-    background-color: #1E1E50;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-}
-.sidebar h4 {
-    font-size: 22px;
-    font-weight: bold;
-}
-.menu a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 16px;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    font-size: 15px;
-    transition: all 0.3s;
-}
-.menu a.active,
-.menu a:hover {
-    background: #f4b400;
-    color: #2e2a85;
-    font-weight: bold;
-    transform: translateX(5px);
-}
-.settings {
-    margin-top: auto;
-    font-size: 15px;
-}
-.settings a {
-    text-decoration: none;
-    color: #fff;
-    display: block;
-    padding: 10px 0;
-}
-
-/* Main content */
-.main {
-    flex: 1;
-    padding: 30px;
-    overflow-y: auto;
-    position: relative;
-}
-.topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-.topbar h3 {
-    margin: 0;
-    font-weight: bold;
-    color: #2e2a85;
-}
-.nav-tabs .nav-link {
-    border: none;
-    color: #000;
-    font-weight: 500;
-}
-.nav-tabs .nav-link.active {
-    background-color: #f4b400;
-    color: black;
-    font-weight: bold;
-    border-radius: 5px;
-}
-
-/* Request Card */
-.request-card {
-    background: #fff;
-    border-radius: 8px;
-    padding: 15px;
-    margin-top: 20px;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
-}
-.request-card h5 {
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-.status {
-    display: inline-block;
-    padding: 5px 12px;
-    border-radius: 12px;
-    font-size: 14px;
-    font-weight: bold;
-}
-.status.pending {
-    background-color: #ffeeba;
-    color: #856404;
-}
-.refresh-btn {
-    background-color: #5fa7b8;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
-}
-.refresh-btn:hover {
-    background-color: #2e2a85;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meow-Mate - Listings & Requests</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      min-height: 100vh;
+      background: #f0f4ff;
+    }
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      background-color: #0d47a1;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
+    .sidebar h4 {
+      font-size: 22px;
+      font-weight: bold;
+    }
+    .menu a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      font-size: 15px;
+      transition: all 0.3s;
+    }
+    .menu a.active, .menu a:hover {
+      background: #ffffff;
+      color: #0d47a1;
+      font-weight: bold;
+      transform: translateX(5px);
+    }
+    .settings {
+      margin-top: auto;
+      font-size: 15px;
+    }
+    .settings a {
+      text-decoration: none;
+      color: #fff;
+      display: block;
+      padding: 10px 0;
+    }
+    /* Main content */
+    .main {
+      flex: 1;
+      padding: 30px;
+      overflow-y: auto;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .topbar h3 {
+      margin: 0;
+      font-weight: bold;
+      color: #0d47a1;
+    }
+    .nav-tabs .nav-link {
+      border: none;
+      color: #0d47a1;
+      font-weight: 500;
+    }
+    .nav-tabs .nav-link.active {
+      background-color: #1976d2;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+    /* Product Cards */
+    .product-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease-in-out;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+    }
+    .product-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .product-details {
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .product-name {
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 5px;
+      color: #0d47a1;
+      min-height: 40px;
+    }
+    .product-price {
+      font-size: 18px;
+      font-weight: bold;
+      color: #1565c0;
+      margin-bottom: 10px;
+    }
+    .stock-info {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 12px;
+    }
+    .stock-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+    .stock-available {
+      background: #d1e7dd;
+      color: #0f5132;
+    }
+    .stock-out {
+      background: #f8d7da;
+      color: #842029;
+    }
+    .card-actions {
+      margin-top: auto;
+      display: flex;
+      gap: 8px;
+    }
+    .btn-cart {
+      flex: 1;
+      font-size: 14px;
+      border: 1px solid #1976d2;
+      color: #1976d2;
+      background: #fff;
+      transition: all 0.2s;
+    }
+    .btn-cart:hover:enabled {
+      background: #1976d2;
+      color: #fff;
+    }
+    .btn-buy {
+      flex: 1;
+      font-size: 14px;
+      background: #1565c0;
+      color: #fff;
+      transition: all 0.2s;
+    }
+    .btn-buy:hover:enabled {
+      background: #0d47a1;
+    }
+    .disabled-btn {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .payment-option {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .payment-option.active {
+      border: 2px solid #1565c0;
+      background: #e3f2fd;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-
-<!-- Sidebar -->
-<div class="sidebar">
+  <!-- Sidebar -->
+  <div class="sidebar">
     <h4>🐱 <strong>meow mate</strong></h4>
     <div class="menu mt-4">
-        <a class="nav-link" href="DashBoard.html">🏠 Dashboard</a>
-        <a class="nav-link" href="adoptFriend.html">💛 Adopt a Friend</a>
-        <a class="nav-link" href="lostfound.html">📍 Lost & Found</a>
-        <a class="nav-link" href="mycat.html">🐱My Cats</a>
-        <a class="nav-link active" href="listings.html">📄 Listings & Requests</a>
+      <a class="nav-link" href="DashBoard.html">🏠 Dashboard</a>
+      <a class="nav-link" href="adoptFriend.html">💛 Adopt a Friend</a>
+      <a class="nav-link" href="lostfound.html">📍 Lost & Found</a>
+      <a class="nav-link" href="mycat.html">🐱My Cats</a>
+      <a class="nav-link active" href="listings.html">📄 Listings & Requests</a>
     </div>
     <div class="settings">
-        <a class="nav-link" href="setting.html">⚙️ Settings</a>
-        <a class="nav-link" href="logout.html">🚪 Logout</a>
+      <a class="nav-link" href="setting.html">⚙️ Settings</a>
+      <a class="nav-link" href="logout.html">🚪 Logout</a>
     </div>
-</div>
+  </div>
 
-<!-- Main Content -->
-<div class="main">
+  <!-- Main Content -->
+  <div class="main">
     <div class="topbar">
-        <h3>📄 Listings & Requests</h3>
+      <h3>📄 Listings & Requests</h3>
     </div>
 
     <!-- Tabs -->
@@ -160,63 +223,364 @@ body {
 
     <!-- Tab Content -->
     <div class="tab-content mt-3">
-        <div class="tab-pane fade show active" id="all" role="tabpanel">
-            <div class="request-card">
-                <h5>🐕 Rocky</h5>
-                <p><strong>Owner:</strong> John</p>
-                <p><strong>Date:</strong> 8/9/2025</p>
-                <p><strong>Status:</strong> <span class="status pending">AVAILABLE</span></p>
-            </div>
-        </div>
-        <div class="tab-pane fade" id="adopt" role="tabpanel">
-            <div id="adopt-content" class="p-2 text-center text-muted">Loading adoption requests...</div>
-        </div>
-        <div class="tab-pane fade" id="lost" role="tabpanel">
-            <div id="lost-content" class="p-2 text-center text-muted">Loading lost cat reports...</div>
-        </div>
-        <div class="tab-pane fade" id="cart" role="tabpanel">
-            <div id="cart-content" class="p-2 text-center text-muted">Loading My Cart...</div>
-        </div>
-        <div class="tab-pane fade" id="myreq" role="tabpanel">
-            <div id="myreq-content" class="p-2 text-center text-muted">Loading My Requests...</div>
-        </div>
+      <div class="tab-pane fade show active" id="all" role="tabpanel">
+        <div id="product-section" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4"></div>
+      </div>
+      <div class="tab-pane fade" id="adopt" role="tabpanel">
+        <div id="adopt-content" class="p-2 text-center text-muted">Loading adoption requests...</div>
+      </div>
+      <div class="tab-pane fade" id="lost" role="tabpanel">
+        <div id="lost-content" class="p-2 text-center text-muted">Loading lost cat reports...</div>
+      </div>
+      <div class="tab-pane fade" id="cart" role="tabpanel">
+        <div id="cart-pane-content" class="p-2 text-center text-muted">Loading My Cart...</div>
+      </div>
+      <div class="tab-pane fade" id="myreq" role="tabpanel">
+        <div id="myreq-content" class="p-2 text-center text-muted">Loading My Requests...</div>
+      </div>
     </div>
-</div>
+  </div>
+
+  <!-- Buy Now Modal -->
+  <div class="modal fade" id="buyModal" tabindex="-1" aria-labelledby="buyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content p-3">
+        <div class="modal-header">
+          <h5 class="modal-title" id="buyModalLabel">Checkout</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="checkoutForm">
+            <div class="mb-3">
+              <label for="productName" class="form-label">Product</label>
+              <input type="text" class="form-control" id="productName" readonly>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-4">
+                <label for="buyUnitPrice" class="form-label">Unit Price</label>
+                <input type="text" class="form-control" id="buyUnitPrice" readonly>
+              </div>
+              <div class="col-md-4">
+                <label for="buyQuantity" class="form-label">Quantity</label>
+                <input type="number" min="1" value="1" class="form-control" id="buyQuantity" required>
+              </div>
+              <div class="col-md-4">
+                <label for="buyTotal" class="form-label">Total</label>
+                <input type="text" class="form-control" id="buyTotal" readonly>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Payment Method</label>
+              <div class="d-flex gap-3">
+                <div class="payment-option active" onclick="selectPayment(this)">
+                  <i class="fas fa-credit-card"></i> Credit Card
+                </div>
+                <div class="payment-option" onclick="selectPayment(this)">
+                  <i class="fas fa-paypal"></i> PayPal
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label for="cardNumber" class="form-label">Card Number</label>
+                <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456" required>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="cardExpiry" class="form-label">Expiry Date</label>
+                <input type="text" class="form-control" id="cardExpiry" placeholder="MM/YY" required>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="cardCVC" class="form-label">CVC</label>
+                <input type="text" class="form-control" id="cardCVC" placeholder="123" required>
+              </div>
+            </div>
+            <div class="text-end">
+              <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Confirm Payment</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <script>
-// Generic function to load external HTML into a tab pane
-function loadTabContent(tabId, containerId, url) {
+  // Configure API base (override by setting localStorage.API_BASE)
+  const API_BASE = localStorage.getItem('API_BASE') || 'http://localhost:8080';
+
+  // Dynamic Tab Content Loader
+  function loadTabContent(tabId, containerId, url) {
     document.getElementById(tabId).addEventListener("shown.bs.tab", () => {
-        fetch(url)
-            .then(r => r.text())
-            .then(data => {
-                const container = document.getElementById(containerId);
-                container.innerHTML = data;
+      const container = document.getElementById(containerId);
+      if (!container) return;
 
-                // Re-run any scripts inside loaded HTML
-                const scripts = container.querySelectorAll("script");
-                scripts.forEach(oldScript => {
-                    const newScript = document.createElement("script");
-                    if (oldScript.src) {
-                        newScript.src = oldScript.src;
-                    } else {
-                        newScript.textContent = oldScript.textContent;
-                    }
-                    document.body.appendChild(newScript);
-                });
-            })
-            .catch(() => {
-                document.getElementById(containerId).innerHTML = "<p class='text-danger'>Failed to load content.</p>";
-            });
+      fetch(url)
+        .then(r => r.text())
+        .then(data => {
+          // container already obtained above
+
+          // Parse the fetched HTML and extract only <body> content to avoid nesting full documents
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(data, 'text/html');
+          const bodyHtml = doc && doc.body ? doc.body.innerHTML : data;
+
+          // Inject HTML
+          container.innerHTML = bodyHtml;
+
+          // Re-execute scripts found in the injected content
+          const scripts = Array.from(container.querySelectorAll('script'));
+          scripts.forEach(oldScript => {
+            const newScript = document.createElement('script');
+            // Copy attributes
+            if (oldScript.src) newScript.src = oldScript.src;
+            if (oldScript.type) newScript.type = oldScript.type;
+            if (!oldScript.src) newScript.textContent = oldScript.textContent;
+            // Prevent duplicate execution if a guard is present in the script
+            document.body.appendChild(newScript);
+            // Remove the placeholder to avoid accumulating nodes
+            oldScript.remove();
+          });
+        })
+        .catch(() => {
+          document.getElementById(containerId).innerHTML = "<p class='text-danger'>Failed to load content.</p>";
+        });
     });
-}
+  }
 
-// Load all dynamic tabs
-loadTabContent("adopt-tab", "adopt-content", "AdoptionRequests.html");
-loadTabContent("lost-tab", "lost-content", "LostCatReport.html");
-loadTabContent("cart-tab", "cart-content", "Mycart.html");
-loadTabContent("myreq-tab", "myreq-content", "Myrequests.html");
+  loadTabContent("adopt-tab", "adopt-content", "AdoptionRequests.html");
+  loadTabContent("lost-tab", "lost-content", "LostCatReport.html");
+  loadTabContent("cart-tab", "cart-pane-content", "Mycart.html");
+  loadTabContent("myreq-tab", "myreq-content", "Myrequests.html");
+
+  let cart = JSON.parse(localStorage.getItem('myCart')||'[]');
+  let selectedItem = null;
+  let allItems = [];
+
+  function persistCart(){ localStorage.setItem('myCart', JSON.stringify(cart)); }
+
+  // Add (or merge) item into cart with quantity
+  function addToCart(item) {
+    // item: {id, name, price, quantity}
+    if(!item.quantity || item.quantity < 1) item.quantity = 1;
+    const existing = cart.find(c => c.id === item.id);
+    if(existing) {
+      existing.quantity += item.quantity;
+    } else {
+      cart.push(item);
+    }
+    persistCart();
+    alert(`${item.name} (x${item.quantity}) added to your cart!`);
+  }
+
+  const buyModalEl = document.getElementById('buyModal');
+  const buyModal = new bootstrap.Modal(buyModalEl);
+
+  function openBuyModal(productName, price, id, maxQty) {
+    document.getElementById('productName').value = productName;
+    document.getElementById('buyUnitPrice').value = `$${price.toFixed(2)}`;
+    const qtyInput = document.getElementById('buyQuantity');
+    qtyInput.max = maxQty || 99;
+    qtyInput.value = 1;
+    document.getElementById('buyTotal').value = `$${price.toFixed(2)}`;
+    selectedItem = { id, productName, price, maxQty };
+    buyModal.show();
+  }
+
+  // Update total when quantity changes in buy modal
+  document.addEventListener('input', function(e){
+    if(e.target && e.target.id === 'buyQuantity' && selectedItem){
+      let q = parseInt(e.target.value)||1;
+      if(selectedItem.maxQty && q > selectedItem.maxQty) { q = selectedItem.maxQty; e.target.value = q; }
+      if(q < 1){ q = 1; e.target.value = 1; }
+      const total = selectedItem.price * q;
+      document.getElementById('buyTotal').value = `$${total.toFixed(2)}`;
+    }
+  });
+
+  // Add To Cart Modal (for specifying qty before adding)
+  const addToCartModalHtml = `
+    <div class="modal fade" id="addToCartModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content p-3">
+          <div class="modal-header">
+            <h5 class="modal-title">Add To Cart</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="addCartForm">
+              <div class="mb-2">
+                <label class="form-label">Product</label>
+                <input type="text" id="cartProductName" class="form-control" readonly>
+              </div>
+              <div class="row g-2 mb-2">
+                <div class="col-4">
+                  <label class="form-label">Unit Price</label>
+                  <input type="text" id="cartUnitPrice" class="form-control" readonly>
+                </div>
+                <div class="col-4">
+                  <label class="form-label">Qty</label>
+                  <input type="number" id="cartQty" class="form-control" min="1" value="1" required>
+                </div>
+                <div class="col-4">
+                  <label class="form-label">Total</label>
+                  <input type="text" id="cartLineTotal" class="form-control" readonly>
+                </div>
+              </div>
+              <div class="text-end">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-cart-plus me-1"></i>Add To Cart</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  document.body.insertAdjacentHTML('beforeend', addToCartModalHtml);
+  const addToCartModal = new bootstrap.Modal(document.getElementById('addToCartModal'));
+  let addCartSelected = null;
+
+  function openAddToCartModal(itemId){
+    const item = allItems.find(i => i.id === itemId);
+    if(!item) return;
+    addCartSelected = item;
+    document.getElementById('cartProductName').value = item.listingName;
+    document.getElementById('cartUnitPrice').value = `$${Number(item.price).toFixed(2)}`;
+    const qtyInput = document.getElementById('cartQty');
+    qtyInput.value = 1; qtyInput.max = item.quantity || 99;
+    document.getElementById('cartLineTotal').value = `$${Number(item.price).toFixed(2)}`;
+    addToCartModal.show();
+  }
+  window.openAddToCartModal = openAddToCartModal; // expose globally
+
+  document.addEventListener('input', function(e){
+    if(e.target && e.target.id === 'cartQty' && addCartSelected){
+      let q = parseInt(e.target.value)||1;
+      if(q < 1) q = 1;
+      if(addCartSelected.quantity && q > addCartSelected.quantity) { q = addCartSelected.quantity; e.target.value = q; }
+      const total = Number(addCartSelected.price) * q;
+      document.getElementById('cartLineTotal').value = `$${total.toFixed(2)}`;
+    }
+  });
+
+  document.getElementById('addCartForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    if(!addCartSelected) return;
+    const q = parseInt(document.getElementById('cartQty').value)||1;
+    addToCart({ id: addCartSelected.id, name: addCartSelected.listingName, price: Number(addCartSelected.price), quantity: q });
+    addToCartModal.hide();
+  });
+
+  function selectPayment(element) {
+    document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('active'));
+    element.classList.add('active');
+  }
+
+  document.getElementById('checkoutForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    if (!selectedItem) { alert("No product selected."); return; }
+    const buyQtyEl = document.getElementById('buyQuantity');
+    let quantity = parseInt(buyQtyEl.value)||1;
+    if(selectedItem.maxQty && quantity > selectedItem.maxQty) quantity = selectedItem.maxQty;
+
+    // Ensure the user is logged in to associate the order
+    const token = localStorage.getItem('accessToken');
+    if(!token){ alert('Login required to complete purchase'); return; }
+    let userId; try { userId = jwt_decode(token).userId; } catch(_) { alert('Invalid session. Please log in again.'); return; }
+
+  const totalPrice = selectedItem.price * quantity;
+  const paymentData = { listingName: selectedItem.productName, quantity: quantity, price: String(totalPrice.toFixed(2)) };
+
+    try {
+      // 1) Create order in DB
+  const orderRes = await fetch(`${API_BASE}/api/orders/create?userId=${userId}&listingId=${selectedItem.id}&quantity=${quantity}`, { method: 'POST' });
+      if(!orderRes.ok) throw new Error('Order creation failed');
+
+      // 2) Record payment
+      const response = await fetch(`${API_BASE}/api/payments/create`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(paymentData)
+      });
+      if (!response.ok) throw new Error('Payment failed');
+
+      // 3) Decrease stock
+      // Decrease stock by quantity (assuming backend endpoint decreases by 1; adjust if endpoint supports custom quantity)
+      for(let i=0;i<quantity;i++) {
+        await fetch(`${API_BASE}/api/items/${selectedItem.id}/decrease`, { method: 'PUT' });
+      }
+      alert('Payment Successful! Your order has been saved.');
+      buyModal.hide();
+      this.reset();
+      loadItems();
+    } catch (err) {
+      console.error(err);
+      alert('Payment failed. Please try again.');
+    }
+  });
+
+  // Load Items
+  async function loadItems() {
+    try {
+      const response = await fetch(`${API_BASE}/api/items`);
+  const items = await response.json();
+  allItems = items;
+      const productSection = document.getElementById('product-section');
+      productSection.innerHTML = '';
+
+      items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'col';
+
+        let stockStatus = item.quantity > 0
+          ? `<span class="stock-badge stock-available">Available</span>`
+          : `<span class="stock-badge stock-out">Out of Stock</span>`;
+
+        let disabledAttr = item.quantity > 0 ? "" : "disabled";
+        let disabledClass = item.quantity > 0 ? "" : "disabled-btn";
+
+        let actionButtons = `
+          <div class="card-actions">
+            <button class="btn btn-cart ${disabledClass}" ${disabledAttr} 
+              onclick='openAddToCartModal(${item.id})'>
+              <i class="fas fa-cart-plus"></i> Add to Cart
+            </button>
+            <button class="btn btn-buy ${disabledClass}" ${disabledAttr} 
+              onclick="openBuyModal('${item.listingName.replace(/'/g, "&#39;")}', ${item.price}, ${item.id}, ${item.quantity})">
+              <i class="fas fa-bolt"></i> Buy Now
+            </button>
+          </div>`;
+
+        const imgSrc = (item.imageUrl && (String(item.imageUrl).startsWith('http://') || String(item.imageUrl).startsWith('https://')))
+          ? item.imageUrl
+          : (item.imageUrl ? `data:image/png;base64,${item.imageUrl}` : 'https://placekitten.com/400/200');
+
+        card.innerHTML = `
+          <div class="product-card">
+            <img src="${imgSrc}" alt="${item.listingName}" class="product-image">
+            <div class="product-details">
+              <div class="product-name">${item.listingName}</div>
+              <div class="product-price">$${item.price}</div>
+              <div class="stock-info"><strong></strong> ${stockStatus}</div>
+              ${actionButtons}
+            </div>
+          </div>
+        `;
+        productSection.appendChild(card);
+      });
+    } catch (err) {
+      console.error('Failed to load items:', err);
+      const productSection = document.getElementById('product-section');
+      if (productSection) {
+        productSection.innerHTML = `
+          <div class="col-12">
+            <div class="alert alert-danger" role="alert">
+              Could not reach the backend at <strong>${API_BASE}</strong>.<br/>
+              Please make sure the server is running and accessible.
+            </div>
+          </div>`;
+      } else {
+        alert('Failed to load items from server. Make sure the backend is running.');
+      }
+    }
+  }
+
+  loadItems();
 </script>
-
 </body>
 </html>

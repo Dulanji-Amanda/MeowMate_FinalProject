@@ -11,25 +11,17 @@
 <style>
   body {
     font-family: 'Inter', 'Segoe UI', sans-serif;
-    background: #f5f7fa;
+    background: #f0f4ff; /* unified background */
     margin:0; min-height:100vh;
     color: #333;
   }
-.sidebar {
-            width: 250px;
-            background-color: #1E1E50;
-
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-        }
   .sidebar {
+    width: 220px;
+    background-color: #0d47a1; /* unified primary */
     color:white; 
     height:100vh; 
     padding:2rem 1rem;
     position:fixed; 
-    width:220px;
     display:flex;
     flex-direction:column;
   }
@@ -42,13 +34,8 @@
     border-radius:8px;
     transition:0.2s;
   }
-  .sidebar .nav-link:hover { background: rgba(255,255,255,0.1); }
-  .sidebar .nav-link.active { 
-        background: #c4bbe4;
-    color:#1E1E50; 
-    font-weight:600; 
-    box-shadow:0 2px 6px rgba(0,0,0,0.2);
-  }
+  .sidebar .nav-link:hover { background:#ffffff; color:#0d47a1; }
+  .sidebar .nav-link.active { background:#ffffff; color:#0d47a1; font-weight:600; box-shadow:0 2px 6px rgba(0,0,0,0.2); }
 
   .main { 
     margin-left:240px; 
@@ -146,8 +133,8 @@
 <div class="main">
   <h3>📍 Lost & Found</h3>
   <p>Here are the cats reported as missing. If you’ve seen one, please report a sighting.</p>
-  <div id="lostCatsList" class="row g-4 mt-3">
-    <div class="text-center py-4">Loading missing cats...</div>
+  <div id="lostCatsList" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 mt-3">
+    <div class="col text-center py-4">Loading missing cats...</div>
   </div>
 </div>
 
@@ -222,7 +209,7 @@ function renderLostCats(cats){
   }
   cats.forEach(cat=>{
     lostCatsList.innerHTML += `
-      <div class="col-sm-6 col-md-4 col-lg-3">
+      <div class="col">
         <div class="cat-card">
           <img src="${cat.imageUrl || 'https://via.placeholder.com/400x300?text=No+Image'}" alt="${cat.catName || 'Unknown Cat'}">
           <h5>${cat.catName || 'Unknown Cat'}</h5>
@@ -236,8 +223,7 @@ function renderLostCats(cats){
             </button>
           </div>
         </div>
-      </div>
-    `;
+      </div>`;
   });
 }
 

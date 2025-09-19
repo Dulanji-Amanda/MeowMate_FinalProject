@@ -5,41 +5,240 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Requests - MeowMate</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    body {
+      background: #f8f9fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+    }
+
+    .page-header {
+      margin-top: 20px;
+      margin-bottom: 15px;
+    }
+
+    .page-header h4 {
+      font-weight: 600;
+      color: #222;
+    }
+
+    /* Status Badges */
     .status {
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-weight: bold;
+      padding: 6px 14px;
+      border-radius: 25px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: capitalize;
     }
-    .status.available {
-      background-color: #FFD700;
-      color: #000;
-    }
+    .status.pending { background: #fff3cd; color: #856404; }
+    .status.approved { background: #d4edda; color: #155724; }
+    .status.rejected { background: #f8d7da; color: #721c24; }
+    .status.other { background: #e2e3e5; color: #41464b; }
+
+    /* Request Card */
     .request-card {
       background: #fff;
-      border-radius: 10px;
-      padding: 15px;
-      margin: 10px 0;
-      box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+      border-radius: 16px;
+      padding: 18px 22px;
+      margin: 15px 0;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.07);
+      transition: all 0.25s ease;
+      border: 1px solid #eee;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .request-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+      border-color: #ddd;
+    }
+
+    /* Thumbnail */
+    .request-thumb {
+      flex-shrink: 0;
+      width: 70px;
+      height: 70px;
+      border-radius: 12px;
+      object-fit: cover;
+      background: #f1f1f1;
+    }
+
+    /* Card Content */
+    .request-content {
+      flex: 1;
+    }
+
+    .request-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .request-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #222;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .request-title i {
+      color: #6c63ff;
+      font-size: 1.2rem;
+    }
+
+    .meta-info {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 4px;
+    }
+
+    .meta-info strong {
+      color: #222;
+      font-weight: 600;
+    }
+
+    /* Alerts */
+    .alert {
+      border-radius: 12px;
+      font-size: 0.95rem;
+    }
+
+    .text-muted-small {
+      font-size: 0.88rem;
+      color: #6c757d;
     }
   </style>
 </head>
 <body>
-
-
   <!-- My Requests Page Content -->
   <div class="container mt-4">
-  
-
-    <!-- Example Request -->
-    <div class="request-card">
-      <h5>🐕 Rocky</h5>
-      <p><strong>Owner:</strong> John</p>
-      <p><strong>Date:</strong> 8/9/2025</p>
-      <p><strong>Status:</strong> <span class="status available">AVAILABLE</span></p>
+    <div class="d-flex justify-content-between align-items-center page-header">
+      <h4>📨 My Adoption Requests</h4>
+      <button id="refreshBtn" class="btn btn-sm btn-outline-primary">↻ Refresh</button>
     </div>
+    <p class="text-muted-small">Below are the adoption requests you have submitted.</p>
+    <div id="myRequestsContainer" class="mt-3"></div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    (function(){
+      const API_BASE = localStorage.getItem('API_BASE') || 'http://localhost:8080';
+      const container = document.getElementById('myRequestsContainer');
+      const refreshBtn = document.getElementById('refreshBtn');
+
+      function ensureLoggedIn(){
+        const token = localStorage.getItem('accessToken');
+        if(!token){
+          container.innerHTML = `<div class="alert alert-warning">⚠️ You need to <a href="../pages/SignIn.html" class="fw-bold">log in</a> to view your adoption requests.</div>`;
+          return null;
+        }
+        return token;
+      }
+
+      function humanDate(ts){
+        if(!ts) return '-';
+        try {
+          let d;
+          if(Array.isArray(ts) && ts.length>=3){
+            d = new Date(ts[0], (ts[1]-1)||0, ts[2]||1, ts[3]||0, ts[4]||0, ts[5]||0);
+          } else {
+            d = new Date(ts);
+          }
+          if(isNaN(d.getTime())) return '-';
+          return d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+        } catch(_){ return '-'; }
+      }
+
+      function statusClass(status){
+        if(!status) return 'other';
+        const s = status.toLowerCase();
+        if(['pending','approved','rejected'].includes(s)) return s;
+        return 'other';
+      }
+
+      function renderEmpty(message){
+        container.innerHTML = `<div class="alert alert-info text-center mb-0">${message}</div>`;
+      }
+
+      function renderRequests(requests, catMap){
+        if(!requests || requests.length===0){
+          renderEmpty('🐾 You have not submitted any adoption requests yet.');
+          return;
+        }
+        container.innerHTML = '';
+        requests.sort((a,b)=> new Date(b.createdAt) - new Date(a.createdAt));
+        requests.forEach(r => {
+          const pet = catMap[r.petId] || {};
+          const petName = pet.name || `Pet #${r.petId}`;
+          const petImg = pet.imageUrl || "https://via.placeholder.com/70x70?text=🐾";
+
+          const card = document.createElement('div');
+          card.className = 'request-card';
+          card.innerHTML = `
+            <img src="${petImg}" alt="Pet" class="request-thumb">
+            <div class="request-content">
+              <div class="request-header">
+                <span class="request-title"><i class="fas fa-paw"></i> ${petName}</span>
+                <span class="status ${statusClass(r.status)}">${r.status || ''}</span>
+              </div>
+              <div class="meta-info"><strong>Request ID:</strong> ${r.id}</div>
+              <div class="meta-info"><strong>Submitted:</strong> ${humanDate(r.createdAt)}</div>
+              <div class="meta-info"><strong>Pet ID:</strong> ${r.petId}</div>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      async function fetchCatMap(){
+        try {
+          const res = await fetch(`${API_BASE}/api/cats/all`);
+          if(!res.ok) return {};
+          const cats = await res.json();
+          const map = {};
+          cats.forEach(c => map[c.id] = c);
+          return map;
+        } catch(_){ return {}; }
+      }
+
+      async function loadRequests(){
+        const token = ensureLoggedIn();
+        if(!token) return;
+        container.innerHTML = '<div class="text-center p-4 text-muted">⏳ Loading your adoption requests...</div>';
+        try {
+          const [reqRes, catMap] = await Promise.all([
+            fetch(`${API_BASE}/api/adoptions/my-requests`, { headers: { 'Authorization': 'Bearer '+token } }),
+            fetchCatMap()
+          ]);
+          if(!reqRes.ok){
+            if(reqRes.status === 401){
+              container.innerHTML = '<div class="alert alert-danger">❌ Session expired. Please <a href="../pages/SignIn.html" class="fw-bold">log in</a> again.</div>';
+            } else {
+              container.innerHTML = '<div class="alert alert-danger">⚠️ Failed to load your requests. Please try refreshing.</div>';
+            }
+            return;
+          }
+          const data = await reqRes.json();
+          renderRequests(data, catMap);
+        } catch(err){
+          console.error(err);
+          container.innerHTML = '<div class="alert alert-danger">🚨 Network error while loading requests.</div>';
+        }
+      }
+
+      refreshBtn.addEventListener('click', loadRequests);
+      if(document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', loadRequests);
+      } else {
+        loadRequests();
+      }
+    })();
+  </script>
 </body>
 </html>

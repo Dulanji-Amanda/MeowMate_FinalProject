@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>User Settings - MeowMate</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../assets/css/theme.css" />
+  <style>
+    body { font-family: Arial, sans-serif; background:#fafafa; margin:0; padding:0; }
+    .topbar { max-width:640px; margin:20px auto 0; padding:0 40px; display:flex; align-items:center; }
+    .back-btn { display:inline-flex; align-items:center; gap:6px; background:#e2e8f0; color:#1f2937; border:none; border-radius:30px; padding:10px 18px; font-size:14px; font-weight:600; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,.08); transition:background .25s, transform .2s; text-decoration:none; }
+    .back-btn:hover { background:#cbd5e1; }
+    .back-btn:active { transform:translateY(1px); }
+    .back-btn svg { width:16px; height:16px; }
+    .container { max-width:640px; margin:12px auto 40px; background:#fff; padding:32px 40px; border-radius:12px; box-shadow:0 4px 18px rgba(0,0,0,0.08); }
+    h1 { margin-top:0; font-size:1.9rem; }
+    form { display:flex; flex-direction:column; gap:18px; }
+    label { font-weight:600; display:block; margin-bottom:6px; }
+    input { width:100%; padding:12px 14px; border:1px solid #ccc; border-radius:8px; font-size:15px; }
+    input:focus { outline:2px solid #5c6ac4; border-color:#5c6ac4; }
+    .field { position:relative; }
+    .actions { display:flex; gap:14px; margin-top:10px; }
+    button { cursor:pointer; border:none; border-radius:8px; padding:12px 20px; font-size:15px; font-weight:600; }
+    button.primary { background:linear-gradient(135deg,#f59e0b,#f97316); color:#fff; }
+    button.secondary { background:#e5e7eb; }
+    button:disabled { opacity:.5; cursor:not-allowed; }
+    .status { margin-top:18px; font-size:14px; min-height:22px; }
+    .status.success { color:#0d9488; }
+    .status.error { color:#dc2626; }
+    .loading-spinner { width:18px; height:18px; border:3px solid #fff; border-top-color:rgba(255,255,255,0.1); border-radius:50%; animation:spin 0.8s linear infinite; display:inline-block; vertical-align:middle; }
+    @keyframes spin { to { transform: rotate(360deg);} }
+    .password-hint { font-size:12px; color:#6b7280; margin-top:4px; }
+    .danger-zone { margin-top:40px; padding:20px; border:1px solid #fecaca; background:#fff1f2; border-radius:10px; }
+    .danger-zone h2 { margin-top:0; font-size:1.2rem; color:#b91c1c; }
+    .token-warning { font-size:12px; color:#9ca3af; margin-top:6px; }
+    /* Toast system */
+    .toast-container { position:fixed; top:20px; right:20px; display:flex; flex-direction:column; gap:12px; z-index:1000; }
+    .toast { min-width:260px; max-width:340px; padding:14px 16px 14px 48px; border-radius:10px; color:#fff; font-size:14px; line-height:1.35; box-shadow:0 4px 14px rgba(0,0,0,0.18); position:relative; overflow:hidden; animation:slideIn .45s cubic-bezier(.4,.13,.2,1); }
+    .toast::before { content:""; position:absolute; left:0; top:0; bottom:0; width:6px; opacity:.9; }
+    .toast.success { background:linear-gradient(135deg,#059669,#047857); }
+    .toast.success::before { background:#34d399; }
+    .toast.error { background:linear-gradient(135deg,#dc2626,#b91c1c); }
+    .toast.error::before { background:#f87171; }
+    .toast.info { background:linear-gradient(135deg,#2563eb,#1d4ed8); }
+    .toast.info::before { background:#60a5fa; }
+    .toast.warn { background:linear-gradient(135deg,#d97706,#b45309); }
+    .toast.warn::before { background:#fbbf24; }
+    .toast .close-btn { position:absolute; top:6px; right:8px; border:none; background:transparent; color:#fff; font-size:16px; cursor:pointer; padding:4px; }
+    .toast .close-btn:hover { opacity:.75; }
+    .toast-progress { position:absolute; left:0; bottom:0; height:3px; background:rgba(255,255,255,0.55); width:100%; transform-origin:left; animation:shrink linear forwards; }
+    @keyframes slideIn { from { transform:translateX(60px); opacity:0;} to { transform:translateX(0); opacity:1;} }
+    @keyframes slideOut { to { transform:translateX(40px); opacity:0;} }
+    @keyframes shrink { to { transform:scaleX(0);} }
+  </style>
+</head>
+<body>
+  <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+  <div class="topbar">
+    <button class="back-btn" id="backBtn" type="button" title="Go Back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      Back
+    </button>
+  </div>
+  <div class="container">
+    <h1>Account Settings</h1>
+    <form id="profileForm">
+      <div class="field">
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" placeholder="Your username" required />
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@example.com" required />
+      </div>
+      <div class="field">
+        <label for="password">New Password</label>
+        <input id="password" name="password" type="password" placeholder="Leave blank to keep current" />
+        <div class="password-hint">At least 6 characters. Leave empty if you don't want to change.</div>
+      </div>
+      <div class="actions">
+        <button type="submit" class="primary" id="saveBtn">Save Changes</button>
+        <button type="button" class="secondary" id="resetBtn">Reset</button>
+      </div>
+      <div class="status" id="statusArea"></div>
+      <div class="token-warning" id="tokenWarning" style="display:none">No access token found. Please login again.</div>
+    </form>
+
+    <div class="danger-zone">
+      <h2>Danger Zone</h2>
+      <p style="margin-top:0">Changing your password will log you out on other devices after next login cycle.</p>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = 'http://localhost:8080'; // adjust if backend runs elsewhere
+    const accessToken = localStorage.getItem('accessToken');
+    const form = document.getElementById('profileForm');
+    const usernameEl = document.getElementById('username');
+    const emailEl = document.getElementById('email');
+    const passwordEl = document.getElementById('password');
+    const statusArea = document.getElementById('statusArea');
+    const saveBtn = document.getElementById('saveBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const tokenWarning = document.getElementById('tokenWarning');
+    const toastContainer = document.getElementById('toastContainer');
+    const backBtn = document.getElementById('backBtn');
+
+    backBtn.addEventListener('click', () => {
+      if(document.referrer){
+        history.back();
+      } else {
+        // fallback route - adjust if you have a dashboard path
+        window.location.href = 'DashBoard.html';
+      }
+    });
+
+    // Toast Notification System
+    function showToast(type, message, options = {}) {
+      const { duration = 4000 } = options;
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.setAttribute('role','alert');
+      toast.setAttribute('aria-live','assertive');
+      toast.innerHTML = `
+        <button class="close-btn" aria-label="Close">×</button>
+        <div class="msg">${message.replace(/</g,'&lt;')}</div>
+        <div class="toast-progress" style="animation-duration:${duration}ms"></div>
+      `;
+
+      const progress = toast.querySelector('.toast-progress');
+      progress.style.animationDuration = duration + 'ms';
+
+      const remove = () => {
+        toast.style.animation = 'slideOut .35s forwards';
+        setTimeout(()=> toast.remove(), 350);
+      };
+
+      const closeBtn = toast.querySelector('.close-btn');
+      closeBtn.addEventListener('click', remove);
+
+      toastContainer.appendChild(toast);
+      setTimeout(remove, duration);
+      return toast;
+    }
+
+    function setStatus(msg, type){
+      statusArea.textContent = msg || ''; 
+      statusArea.className = 'status' + (type ? ' ' + type : '');
+    }
+
+    function loading(on){
+      if(on){
+        saveBtn.disabled = true; 
+        saveBtn.innerHTML = '<span class="loading-spinner"></span> Saving...';
+      } else {
+        saveBtn.disabled = false; 
+        saveBtn.textContent = 'Save Changes';
+      }
+    }
+
+    async function fetchProfile(){
+      if(!accessToken){ tokenWarning.style.display='block'; setStatus('Please login first.', 'error'); showToast('error','No access token. Please login again.'); return; }
+      setStatus('Loading profile...');
+      try {
+        const res = await fetch(`${API_BASE}/api/users/me`, { headers: { 'Authorization': 'Bearer ' + accessToken } });
+        const data = await res.json();
+        if(!res.ok){ throw new Error(data.message || res.statusText); }
+        if(data && data.data){
+          usernameEl.value = data.data.username || '';
+          emailEl.value = data.data.email || '';
+          setStatus('Profile loaded.', 'success');
+        } else {
+          setStatus('Unexpected response format', 'error');
+          showToast('error','Unexpected response format.');
+        }
+      } catch(err){
+        setStatus('Failed to load profile: ' + err.message, 'error');
+        showToast('error', 'Failed to load profile: ' + err.message);
+      }
+    }
+
+    async function updateProfile(e){
+      e.preventDefault();
+      if(!accessToken){ tokenWarning.style.display='block'; setStatus('No token. Login again.', 'error'); showToast('error','No token. Please login again.'); return; }
+      setStatus('');
+      loading(true);
+      const payload = { username: usernameEl.value.trim(), email: emailEl.value.trim() };
+      if(passwordEl.value.trim().length > 0){ payload.password = passwordEl.value.trim(); }
+      try {
+        const res = await fetch(`${API_BASE}/api/users/me`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + accessToken },
+            body: JSON.stringify(payload)
+        });
+        const body = await res.json().catch(()=>({}));
+        if(!res.ok){
+          if(res.status===400 && body.message==='EMAIL_ALREADY_IN_USE'){
+            throw new Error('Email already in use');
+          }
+          if(res.status===401){ throw new Error('Unauthorized. Please login again.'); }
+          throw new Error(body.message || 'Update failed');
+        }
+        setStatus('Profile updated successfully.', 'success');
+        passwordEl.value='';
+        showToast('success','Profile updated successfully.');
+        fetchProfile();
+      } catch(err){
+        setStatus(err.message, 'error');
+        showToast('error', err.message);
+      } finally { loading(false); }
+    }
+
+    function resetForm(){
+      passwordEl.value='';
+      fetchProfile();
+      setStatus('Form reset.', '');
+      showToast('info','Form reset to last saved values.', { duration: 2500 });
+    }
+
+    form.addEventListener('submit', updateProfile);
+    resetBtn.addEventListener('click', resetForm);
+
+    document.addEventListener('DOMContentLoaded', fetchProfile);
+  </script>
+</body>
+</html>
