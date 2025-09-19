@@ -48,6 +48,8 @@
   const loadingPlaceholder = document.getElementById("loadingPlaceholder");
   const notificationEl = document.getElementById("adopt-notification");
   const userData = JSON.parse(localStorage.getItem("userData") || "{}");
+  // map of petId -> petName (populated when cats are fetched)
+  let petNameById = {};
 
   if(!token){ alert("Please log in"); window.location.href="SignIn.html"; return; }
 
@@ -74,8 +76,12 @@
       if(!res.ok) throw new Error("Failed to load requests");
       const allRequests = await res.json();
 
-      // 3️⃣ Filter requests only for my cats
-      const myRequests = allRequests.filter(r => myCatIds.includes(r.petId));
+  // 3️⃣ Filter requests only for my cats
+  const myRequests = allRequests.filter(r => myCatIds.includes(r.petId));
+
+  // Populate global petNameById map for use in updateCards
+  petNameById = {};
+  allCats.forEach(c => { petNameById[c.id] = c.catName || c.name || "(unknown)"; });
 
       loadingPlaceholder.style.display="none";
       updateCards(myRequests);
@@ -103,12 +109,26 @@
       if(card){
         const statusEl = card.querySelector(".status");
         if(statusEl.textContent!==r.status){ statusEl.textContent=r.status; statusEl.className="status "+r.status; }
+
+        // Ensure pet name is updated in existing card (in case mapping changed)
+        const petName = escapeHtml(petNameById[r.petId] || "(unknown)");
+        let petNameEl = card.querySelector('.pet-name');
+        if(petNameEl){
+          if(petNameEl.textContent !== petName) petNameEl.textContent = petName;
+        } else {
+          // insert pet name before the Pet ID paragraph if possible
+          const petIdP = Array.from(card.querySelectorAll('p')).find(p=>p.textContent.includes('Pet ID'));
+          if(petIdP){ petIdP.insertAdjacentHTML('beforebegin', `<p class="pet-name"><strong>Pet Name:</strong> ${petName}</p>`); }
+          else { card.insertAdjacentHTML('afterbegin', `<p class="pet-name"><strong>Pet Name:</strong> ${petName}</p>`); }
+        }
       } else {
         card=document.createElement("div");
         card.className="request-card";
         card.dataset.id=r.id;
+        const petName = escapeHtml(petNameById[r.petId] || "(unknown)");
         card.innerHTML=`
           <h5>🐾 Request #${r.id}</h5>
+          <p class="pet-name"><strong>Pet Name:</strong> ${petName}</p>
           <p><strong>Pet ID:</strong> ${escapeHtml(r.petId)}</p>
           <p><strong>Adopter ID:</strong> ${escapeHtml(r.adopterId)}</p>
           <p><strong>Date:</strong> ${escapeHtml(r.createdAt||"N/A")}</p>

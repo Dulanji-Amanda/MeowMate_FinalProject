@@ -18,8 +18,9 @@
   .settings a:hover { background:rgba(255,255,255,0.18); color:#fff; }
   .main { margin-left:260px; padding:45px 40px; flex:1; }
   #filterSelect { max-width:300px; margin:0 auto 35px auto; display:block; border-radius:30px; padding:12px 18px; box-shadow:0 6px 20px rgba(0,0,0,0.12); font-weight:500; background:#fff; border:none; }
-  #catsList { display:flex; justify-content:center; flex-wrap:wrap; gap:32px; }
-  .cat-card { background:#fff; width:280px; border-radius:30px; box-shadow:0 18px 40px rgba(0,0,0,0.08); overflow:hidden; text-align:center; transition:transform .4s, box-shadow .4s; position:relative; outline:3px solid transparent; }
+  /* Use a responsive grid so we can show up to 5 cards per row on wide screens */
+  #catsList { display:grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap:32px; justify-items:center; align-items:start; }
+  .cat-card { background:#fff; width:100%; max-width:360px; border-radius:30px; box-shadow:0 18px 40px rgba(0,0,0,0.08); overflow:hidden; text-align:center; transition:transform .4s, box-shadow .4s; position:relative; outline:3px solid transparent; }
   .cat-card:hover { transform:translateY(-15px); box-shadow:0 28px 60px rgba(0,0,0,0.15); }
   .cat-card img { width:100%; height:290px; object-fit:cover; transition:transform .4s; }
   .cat-card:hover img { transform:scale(1.07); }
@@ -28,7 +29,7 @@
   .adopt-btn { margin-bottom:20px; padding:10px 25px; border-radius:30px; font-weight:700; color:#1cc88a; background:#fff; border:2px solid #1cc88a; cursor:pointer; transition:all .3s; }
   .adopt-btn:hover { background:#1cc88a; color:#fff; transform:scale(1.08); }
   .adopted-btn { margin-bottom:20px; padding:10px 25px; border-radius:30px; font-weight:700; color:#fff; background:#e74a3b; border:none; cursor:not-allowed; opacity:0.85; }
-  .added-by-you { margin-bottom:20px; padding:10px 25px; border-radius:30px; font-weight:700; color:#fff; background:#6c757d; border:none; cursor:default; opacity:0.9; }
+  .added-by-you { margin-bottom:10px; padding:10px 25px; border-radius:20px; font-weight:100; color:#fff; background:#6c757d; border:none; cursor:default; opacity:0.9; }
   .status-badge { position:absolute; top:15px; right:15px; padding:10px 25px; border-radius:50px; font-size:0.95rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#fff; box-shadow:0 4px 12px rgba(0,0,0,0.25); }
   .status-AVAILABLE { background:#1cc88a; }
   .status-PENDING { background:#f6c23e; }
@@ -40,6 +41,21 @@
   /* highlight for cat passed from dashboard */
   .cat-card.highlight { outline:3px solid #ffbf47; box-shadow:0 0 0 6px rgba(255,191,71,0.25); animation: pulse 1.6s ease-in-out 2; }
   @keyframes pulse { 0%,100%{ outline-color:#ffbf47; } 50%{ outline-color:#ffa600; } }
+  /* Responsive grid: 1 -> 2 -> 3 -> 4 -> 5 columns as viewport widens */
+  @media (min-width: 600px) {
+    #catsList { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 900px) {
+    #catsList { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  @media (min-width: 1200px) {
+    #catsList { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+  @media (min-width: 1400px) {
+    /* Five columns on wide desktops. Limit card width so five fit comfortably */
+    #catsList { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .cat-card { max-width:260px; }
+  }
 </style>
 </head>
 <body>
