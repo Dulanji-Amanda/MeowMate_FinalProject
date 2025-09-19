@@ -9,11 +9,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="../assets/css/theme.css">
 <style>
-  body { font-family: 'Poppins','Segoe UI', sans-serif; min-height: 100vh; margin: 0; background: var(--color-bg); }
+    body { font-family: 'Poppins','Segoe UI', sans-serif; background: var(--color-bg); min-height: 100vh; margin: 0; }
   .sidebar { position: fixed; top:0; left:0; height:100%; width:250px; background: var(--color-primary-dark); color:#fff; padding:20px; display:flex; flex-direction:column; }
-  .sidebar h4 { color:#fff; margin-bottom:20px; font-weight:700; }
+    .sidebar h4 { color: #fff; margin-bottom: 20px; font-weight:700; }
   .sidebar a { color:#fff; text-decoration:none; padding:12px 16px; display:block; border-radius:8px; transition:all .3s; font-size:15px; }
   .sidebar a:hover, .sidebar a.active { background:#fff; color: var(--color-primary-dark); font-weight:600; transform:translateX(5px); }
+  .settings { margin-top:auto; font-size:15px; }
+.settings a { text-decoration:none; color:#fff; display:block; padding:10px 0; }
   .main { margin-left:250px; padding:20px; min-height:100vh; }
   .item-card { animation: fadeInUp .5s ease forwards; transition: transform .3s ease, box-shadow .3s ease; }
   .item-card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 20px 35px rgba(0,0,0,0.15); }
@@ -25,16 +27,20 @@
   .badge-blue { background: var(--color-primary-light); color: var(--color-primary-dark); font-weight:600; padding:2px 8px; border-radius:12px; font-size:12px; }
 </style>
 </head>
-<body class="bg-gray-100">
+<body>
 <!-- Sidebar -->
 <div class="sidebar">
-  <h4>🐾 Meow Mate</h4>
+ <p style="font-size: 22px;color: white; font-weight: 700;"> 🐱 MeowMate</p>
+
   <nav class="flex flex-col mt-4 menu">
     <a class="nav-link active" href="AdminListings.html">📄 Listings</a>
     <a class="nav-link" href="AdminDashBord.html">👑 Admin Panel</a>
-    <a class="nav-link" href="adminSetting.html">⚙ Setting</a>
-    <a class="mt-auto nav-link" href="#" onclick="logout()">🚪 Logout</a>
+    
   </nav>
+   <div class="settings">
+      <a class="nav-link" href="setting.html">⚙️ Settings</a>
+      <a class="nav-link" href="SignIn.html">🚪 Logout</a>
+    </div>
 </div>
 <!-- Main content -->
 <div class="main">

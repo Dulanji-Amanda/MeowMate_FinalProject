@@ -13,6 +13,8 @@
     .sidebar h4 { color: #fff; margin-bottom: 20px; font-weight:700; }
     .sidebar a { color: #fff; text-decoration: none; padding: 12px 16px; display: block; transition: all 0.3s; border-radius:8px; font-size:15px; }
     .sidebar a:hover, .sidebar a.active { background: #fff; color: var(--color-primary-dark); font-weight:600; transform: translateX(5px); }
+   .settings { margin-top:auto; font-size:15px; }
+.settings a { text-decoration:none; color:#fff; display:block; padding:10px 0; }
     .main { margin-left: 250px; padding: 20px; min-height: 100vh; }
     .stats-card { background: white; border-radius: 15px; padding: 20px; box-shadow: var(--shadow-md); margin-bottom: 20px; transition: transform 0.3s ease, box-shadow .3s; text-align: center; }
     .stats-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
@@ -30,13 +32,17 @@
 </head>
 <body>
   <div class="sidebar">
-    <h4>🐾 Meow Mate</h4>
+ <p style="font-size: 22px;color: white; font-weight: 700;"> 🐱 MeowMate</p>
     <nav class="nav flex-column mt-4 menu">
       <a class="nav-link" href="AdminListings.html">📄 Listings</a>
       <a class="nav-link active" href="AdminDashBord.html">👑 Admin Panel</a>
-      <a class="nav-link" href="adminSetting.html">⚙ Setting</a>
-      <a class="nav-link mt-auto" href="#" onclick="logout()">🚪 Logout</a>
+      
     </nav>
+    <div class="settings">
+      <a class="nav-link" href="setting.html">⚙️ Settings</a>
+      <a class="nav-link" href="SignIn.html">🚪 Logout</a>
+    </div>
+
   </div>
   <div class="main">
     <div id="serverStatus" class="alert d-none" role="alert" style="border-radius:12px;">
