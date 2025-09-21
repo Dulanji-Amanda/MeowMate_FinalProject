@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+
+MeowMate_BackEnd/src/main/resources/application.properties
